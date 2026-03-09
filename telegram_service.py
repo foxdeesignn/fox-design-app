@@ -3,11 +3,11 @@ import telebot
 from dotenv import load_dotenv
 
 # Carrega ambiente
-load_dotenv(r'C:\Users\User\read_emails\.env')
+load_dotenv()
 
 # Credenciais Oficiais do Jarvis @JarvisFoxx_bot
-TOKEN = '8578084930:AAHLpOcxO7J3Z-Y4dqoGtOyz5Jsp161ACRI'
-CHAT_ID = '7986584156'
+TOKEN = os.environ.get('TELEGRAM_TOKEN', '8578084930:AAHLpOcxO7J3Z-Y4dqoGtOyz5Jsp161ACRI')
+CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID', '7986584156')
 
 def notify_telegram(message):
     """Envia uma notificação nativa para o Telegram do Mestre via @JarvisFoxx_bot."""

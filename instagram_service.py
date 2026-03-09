@@ -2,11 +2,11 @@ import requests
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv() # Carrega localmente se existir
 
 # Configurações da Meta (Instagram API)
-PAGE_ID = os.getenv("INSTAGRAM_PAGE_ID")
-ACCESS_TOKEN = os.getenv("INSTAGRAM_ACCESS_TOKEN")
+PAGE_ID = os.environ.get("INSTAGRAM_PAGE_ID")
+ACCESS_TOKEN = os.environ.get("INSTAGRAM_ACCESS_TOKEN")
 API_VERSION = "v19.0"
 
 def send_ig_message(recipient_id, message_text):

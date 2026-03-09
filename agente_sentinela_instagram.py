@@ -4,16 +4,23 @@ import sys
 from dotenv import load_dotenv
 
 # Configura o ambiente Fox Design
-sys.path.append(r'C:\Users\User\read_emails')
-from instagram_service import get_comments, reply_to_comment
-from telegram_service import notify_telegram
+# No GitHub Actions, os arquivos estão na raiz do projeto
+sys.path.append(os.getcwd())
+try:
+    from instagram_service import get_comments, reply_to_comment
+    from telegram_service import notify_telegram
+except ImportError:
+    # Fallback para execução local se necessário
+    sys.path.append(r'C:\Users\User\read_emails')
+    from instagram_service import get_comments, reply_to_comment
+    from telegram_service import notify_telegram
 
-load_dotenv(r'C:\Users\User\read_emails\.env')
+load_dotenv() # Carrega localmente se existir
 
 # ID do post de IA que acabamos de publicar
 POST_ID = "17912115903342199"
 # Arquivo para não responder o mesmo comentário duas vezes
-REPLIED_FILE = r'C:\Users\User\read_emails\replied_comments.txt'
+REPLIED_FILE = 'replied_comments.txt'
 
 def get_already_replied():
     if not os.path.exists(REPLIED_FILE):
@@ -44,6 +51,10 @@ def monitor_comments():
     replied_ids = get_already_replied()
     comments = get_comments(POST_ID)
     
+    if not comments:
+        print("Nenhum comentário encontrado ou erro na API.")
+        return
+
     for comment in comments:
         c_id = comment.get('id')
         c_text = comment.get('text', '')
@@ -65,6 +76,5 @@ def monitor_comments():
                 print(f"--- [Sentinela] @{username} respondido e Mestre notificado via Telegram. ---")
 
 if __name__ == "__main__":
-    # Executa uma varredura agora
     monitor_comments()
     print("--- [Sentinela Fox] Varredura concluída. ---")
