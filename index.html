@@ -3,25 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fox Design | Inteligência Criativa</title>
+    <title>FOX DESIGN | Elite Creative System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0d1117; color: #c9d1d9; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center; }
-        .container { border: 1px solid #30363d; padding: 40px; border-radius: 12px; background-color: #161b22; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h1 { color: #58a6ff; margin-bottom: 10px; }
-        p { font-size: 1.1em; color: #8b949e; }
-        .footer { margin-top: 30px; font-size: 0.8em; color: #484f58; }
-        .badge { display: inline-block; padding: 5px 15px; background-color: #238636; color: white; border-radius: 20px; font-size: 0.9em; margin-bottom: 20px; }
+        :root {
+            --bg: #050505;
+            --accent: #FF8C00; /* Fox Orange */
+            --accent-glow: rgba(255, 140, 0, 0.4);
+            --text-main: #FFFFFF;
+            --text-dim: #A0A0A0;
+            --card-bg: rgba(20, 20, 20, 0.7);
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 140, 0, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(255, 140, 0, 0.05) 0%, transparent 40%);
+        }
+
+        /* Hero Section */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .status-badge {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 8px 16px;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px var(--accent-glow);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 5px var(--accent-glow); }
+            50% { box-shadow: 0 0 20px var(--accent-glow); }
+            100% { box-shadow: 0 0 5px var(--accent-glow); }
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+            background: linear-gradient(to bottom, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            color: var(--text-dim);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        /* Button */
+        .cta-btn {
+            font-family: 'Orbitron', sans-serif;
+            padding: 18px 40px;
+            background: var(--accent);
+            color: #000;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(255, 140, 0, 0.3);
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 140, 0, 0.5);
+            letter-spacing: 4px;
+        }
+
+        /* Services Grid */
+        .services {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px);
+        }
+
+        .card h3 {
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .card p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        /* Agents Section */
+        .agents-info {
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(255, 140, 0, 0.02);
+        }
+
+        .agents-info h2 { font-family: 'Orbitron', sans-serif; margin-bottom: 20px; font-size: 2rem; }
+
+        footer {
+            padding: 50px 20px;
+            text-align: center;
+            border-top: 1px solid var(--glass);
+            color: #444;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            color: var(--accent);
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="badge">Oficial: Fox Design App</div>
-        <h1>Fox Design & Jarvis AI</h1>
-        <p>Potencializando a criatividade através da inteligência artificial.</p>
-        <p><i>Este site é a base oficial de integração para o ecossistema Jarvis 2.0.</i></p>
-        <div class="footer">
-            &copy; 2026 Fox Design | <a href="privacy.html" style="color: #58a6ff; text-decoration: none;">Política de Privacidade</a>
+
+    <header>
+        <div class="status-badge">JARVIS 2.0 // ONLINE & OPERATIONAL</div>
+        <h1>FOX DESIGN</h1>
+        <p class="hero-sub">Design que não escala não é engenharia. Somos o sistema operacional da sua autoridade visual.</p>
+        <a href="https://wa.me/5516997149568" class="cta-btn">INICIAR UPGRADE</a>
+        <div class="scroll-down">↓</div>
+    </header>
+
+    <section class="services">
+        <div class="card">
+            <h3>BRANDING DE ELITE</h3>
+            <p>Identidades visuais cinematográficas focadas em alta performance para criadores de conteúdo e empresas.</p>
         </div>
-    </div>
+        <div class="card">
+            <h3>AI GENERATION</h3>
+            <p>Geração de ativos visuais em alta definição via Lúmen Fox. Onde o prompt encontra a arte final.</p>
+        </div>
+        <div class="card">
+            <h3>AUTOMAÇÃO TOTAL</h3>
+            <p>Monitoramento Sentinela e publicação estratégica no Instagram via Jarvis Core System.</p>
+        </div>
+    </section>
+
+    <section class="agents-info">
+        <h2>FOX AGENTS CORE</h2>
+        <p style="color: var(--text-dim);">MAESTRO // LÚMEN // SCRIBE // SENTINELA // GUARDIÃO</p>
+    </section>
+
+    <footer>
+        <p>FOX DESIGN &copy; 2026 | PROTOCOLO JARVIS v2.4 | <a href="privacy.html" style="color: inherit;">PRIVACY</a></p>
+    </footer>
+
 </body>
 </html>
