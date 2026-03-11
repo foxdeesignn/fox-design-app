@@ -3,33 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FOX DESIGN | Elite Creative System</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>FOX DESIGN | Creative Elite Agency</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #050505;
-            --accent: #FF8C00; /* Fox Orange */
-            --accent-glow: rgba(255, 140, 0, 0.4);
-            --text-main: #FFFFFF;
-            --text-dim: #A0A0A0;
-            --card-bg: rgba(20, 20, 20, 0.7);
+            --bg-deep: #0A0A0B;
+            --bg-card: #121214;
+            --fox-orange: #FF5E00;
+            --fox-glow: rgba(255, 94, 0, 0.5);
+            --fox-silver: #E0E0E0;
+            --text-muted: #888888;
             --glass: rgba(255, 255, 255, 0.03);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         body {
-            background-color: var(--bg);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
+            background-color: var(--bg-deep);
+            color: var(--fox-silver);
+            font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 20% 20%, rgba(255, 140, 0, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 80% 80%, rgba(255, 140, 0, 0.05) 0%, transparent 40%);
+            line-height: 1.6;
         }
 
-        /* Hero Section */
+        /* --- BACKGROUND EFFECTS --- */
+        .bg-glow {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 10% 10%, rgba(255, 94, 0, 0.07) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(255, 94, 0, 0.07) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 25px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 11, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.4rem;
+            color: var(--fox-orange);
+            letter-spacing: 3px;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: var(--fox-silver);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover { color: var(--fox-orange); }
+
+        /* --- HERO SECTION --- */
         header {
             height: 100vh;
             display: flex;
@@ -37,174 +82,275 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 0 20px;
+            padding: 0 10%;
             position: relative;
         }
 
-        .status-badge {
+        .jarvis-status {
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            color: var(--accent);
-            border: 1px solid var(--accent);
-            padding: 8px 16px;
-            border-radius: 50px;
-            margin-bottom: 2rem;
-            text-transform: uppercase;
-            box-shadow: 0 0 15px var(--accent-glow);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 5px var(--accent-glow); }
-            50% { box-shadow: 0 0 20px var(--accent-glow); }
-            100% { box-shadow: 0 0 5px var(--accent-glow); }
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            color: var(--fox-orange);
+            background: rgba(255, 94, 0, 0.1);
+            padding: 10px 20px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            border-left: 3px solid var(--fox-orange);
+            animation: flicker 4s infinite;
         }
 
         h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-size: clamp(2.5rem, 10vw, 6rem);
             font-weight: 900;
-            line-height: 1;
-            margin-bottom: 1.5rem;
-            letter-spacing: -2px;
-            background: linear-gradient(to bottom, #fff, #888);
+            line-height: 0.9;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            background: linear-gradient(180deg, #FFFFFF 0%, #666666 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .hero-sub {
-            font-size: clamp(1rem, 3vw, 1.2rem);
-            color: var(--text-dim);
-            max-width: 600px;
-            margin-bottom: 3rem;
+        h1 span { color: var(--fox-orange); -webkit-text-fill-color: initial; }
+
+        .hero-desc {
+            max-width: 700px;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
             font-weight: 300;
         }
 
-        /* Button */
-        .cta-btn {
-            font-family: 'Orbitron', sans-serif;
-            padding: 18px 40px;
-            background: var(--accent);
+        .cta-main {
+            display: inline-block;
+            padding: 22px 50px;
+            background: var(--fox-orange);
             color: #000;
             text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
             font-weight: 900;
-            font-size: 0.9rem;
             letter-spacing: 2px;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-radius: 4px;
-            box-shadow: 0 10px 30px rgba(255, 140, 0, 0.3);
+            border-radius: 2px;
+            transition: var(--transition);
+            box-shadow: 0 10px 40px var(--fox-glow);
         }
 
-        .cta-btn:hover {
-            transform: scale(1.05) translateY(-5px);
-            box-shadow: 0 15px 40px rgba(255, 140, 0, 0.5);
+        .cta-main:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 60px var(--fox-glow);
             letter-spacing: 4px;
         }
 
-        /* Services Grid */
-        .services {
-            padding: 100px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+        /* --- SECTIONS GENERAL --- */
+        section { padding: 120px 10%; }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            position: relative;
         }
 
-        .card {
-            background: var(--card-bg);
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: -15px;
+            width: 60px; height: 4px;
+            background: var(--fox-orange);
+        }
+
+        /* --- SERVICES GRID --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .s-card {
+            background: var(--bg-card);
+            padding: 50px;
             border: 1px solid var(--glass);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .s-card:hover {
+            border-color: var(--fox-orange);
+            transform: translateY(-10px);
+            background: #161618;
+        }
+
+        .s-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--fox-orange);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .s-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* --- PORTFOLIO --- */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .p-item {
+            height: 400px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-end;
             padding: 40px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            transition: 0.3s;
+            background-size: cover;
+            background-position: center;
             position: relative;
+            cursor: pointer;
             overflow: hidden;
         }
 
-        .card:hover {
-            border-color: var(--accent);
-            transform: translateY(-10px);
+        .p-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent, #000);
         }
 
-        .card h3 {
-            font-family: 'Orbitron', sans-serif;
-            margin-bottom: 15px;
-            color: var(--accent);
+        .p-content { position: relative; z-index: 1; }
+        .p-content h4 { font-family: 'Orbitron', sans-serif; color: var(--fox-orange); }
+
+        /* --- AGENTS --- */
+        .agents-row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            background: var(--glass);
+            padding: 60px;
+            border-radius: 12px;
         }
 
-        .card p {
-            color: var(--text-dim);
-            font-size: 0.95rem;
-        }
+        .agent-stat { text-align: center; flex: 1; min-width: 150px; }
+        .agent-stat h5 { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: #FFF; }
+        .agent-stat span { font-size: 0.7rem; letter-spacing: 2px; color: var(--fox-orange); text-transform: uppercase; }
 
-        /* Agents Section */
-        .agents-info {
-            text-align: center;
-            padding: 50px 20px;
-            background: rgba(255, 140, 0, 0.02);
-        }
-
-        .agents-info h2 { font-family: 'Orbitron', sans-serif; margin-bottom: 20px; font-size: 2rem; }
-
+        /* --- FOOTER --- */
         footer {
-            padding: 50px 20px;
+            padding: 80px 10%;
+            background: #000;
             text-align: center;
             border-top: 1px solid var(--glass);
-            color: #444;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
         }
 
-        .scroll-down {
-            position: absolute;
-            bottom: 30px;
-            color: var(--accent);
-            font-size: 2rem;
-            animation: bounce 2s infinite;
+        .f-logo { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: var(--fox-orange); margin-bottom: 20px; display: block; }
+        .f-links { margin-bottom: 40px; }
+        .f-links a { color: var(--text-muted); text-decoration: none; margin: 0 15px; font-size: 0.8rem; }
+        .copy { font-size: 0.7rem; color: #444; letter-spacing: 1px; }
+
+        @keyframes flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+            20%, 24%, 55% { opacity: 0.5; }
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
+        @media (max-width: 768px) {
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            section { padding: 80px 5%; }
         }
-
     </style>
 </head>
 <body>
 
+    <div class="bg-glow"></div>
+
+    <nav>
+        <a href="#" class="logo">FOX DESIGN</a>
+        <div class="nav-links">
+            <a href="#servicos">Serviços</a>
+            <a href="#portfolio">Portfólio</a>
+            <a href="#agentes">Agentes</a>
+            <a href="https://wa.me/5516997149568">Upgrade</a>
+        </div>
+    </nav>
+
     <header>
-        <div class="status-badge">JARVIS 2.0 // ONLINE & OPERATIONAL</div>
-        <h1>FOX DESIGN</h1>
-        <p class="hero-sub">Design que não escala não é engenharia. Somos o sistema operacional da sua autoridade visual.</p>
-        <a href="https://wa.me/5516997149568" class="cta-btn">INICIAR UPGRADE</a>
-        <div class="scroll-down">↓</div>
+        <div class="jarvis-status">JARVIS CORE // PROTOCOLO FOX ATIVO</div>
+        <h1>THE <span>FOX</span> ERA.</h1>
+        <p class="hero-desc">Elevamos a sua autoridade visual através da engenharia criativa e automação de elite. O futuro do seu setup começa aqui.</p>
+        <a href="https://wa.me/5516997149568" class="cta-main">SOLICITAR UPGRADE</a>
     </header>
 
-    <section class="services">
-        <div class="card">
-            <h3>BRANDING DE ELITE</h3>
-            <p>Identidades visuais cinematográficas focadas em alta performance para criadores de conteúdo e empresas.</p>
-        </div>
-        <div class="card">
-            <h3>AI GENERATION</h3>
-            <p>Geração de ativos visuais em alta definição via Lúmen Fox. Onde o prompt encontra a arte final.</p>
-        </div>
-        <div class="card">
-            <h3>AUTOMAÇÃO TOTAL</h3>
-            <p>Monitoramento Sentinela e publicação estratégica no Instagram via Jarvis Core System.</p>
+    <section id="servicos">
+        <h2 class="section-title">SERVIÇOS DE ELITE</h2>
+        <div class="services-grid">
+            <div class="s-card">
+                <h3>BRANDING 3.0</h3>
+                <p>Construção de identidades visuais potentes que transcendem o design comum. Foco em posicionamento de mercado e autoridade digital.</p>
+            </div>
+            <div class="s-card">
+                <h3>VISUAL STREAMING</h3>
+                <p>Setups cinematográficos, alertas animados e telas de espera interativas. Criamos o ecossistema completo para a sua live.</p>
+            </div>
+            <div class="s-card">
+                <h3>JARVIS AUTOMATION</h3>
+                <p>Gestão estratégica de redes sociais via Inteligência Artificial. Publicação, monitoramento e engajamento automatizado.</p>
+            </div>
         </div>
     </section>
 
-    <section class="agents-info">
-        <h2>FOX AGENTS CORE</h2>
-        <p style="color: var(--text-dim);">MAESTRO // LÚMEN // SCRIBE // SENTINELA // GUARDIÃO</p>
+    <section id="portfolio" style="background: #080809;">
+        <h2 class="section-title">PROJETOS RECENTES</h2>
+        <div class="portfolio-grid">
+            <div class="p-item" style="background-image: url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&w=800&q=80');">
+                <div class="p-content">
+                    <h4>CYBER SETUP 2026</h4>
+                    <p style="font-size: 0.8rem; color: #FFF;">Identidade Visual & Motion</p>
+                </div>
+            </div>
+            <div class="p-item" style="background-image: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80');">
+                <div class="p-content">
+                    <h4>ELITE EA FC BRAND</h4>
+                    <p style="font-size: 0.8rem; color: #FFF;">Design de Interface & Social Media</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="agentes">
+        <h2 class="section-title" style="text-align: center;">THE TEAM</h2>
+        <div class="agents-row">
+            <div class="agent-stat">
+                <h5>MAESTRO</h5>
+                <span>Strategy</span>
+            </div>
+            <div class="agent-stat">
+                <h5>LÚMEN</h5>
+                <span>Visuals</span>
+            </div>
+            <div class="agent-stat">
+                <h5>SCRIBE</h5>
+                <span>Copywriting</span>
+            </div>
+            <div class="agent-stat">
+                <h5>SENTINELA</h5>
+                <span>Leads</span>
+            </div>
+            <div class="agent-stat">
+                <h5>JARVIS</h5>
+                <span>Core System</span>
+            </div>
+        </div>
     </section>
 
     <footer>
-        <p>FOX DESIGN &copy; 2026 | PROTOCOLO JARVIS v2.4 | <a href="privacy.html" style="color: inherit;">PRIVACY</a></p>
+        <span class="f-logo">FOX DESIGN</span>
+        <div class="f-links">
+            <a href="https://www.instagram.com/foxdesignn/">Instagram</a>
+            <a href="https://wa.me/5516997149568">WhatsApp</a>
+            <a href="privacy.html">Privacidade</a>
+        </div>
+        <p class="copy">SYSTEM FOX DESIGN // OPERADO POR JARVIS AI // 2026</p>
     </footer>
 
 </body>
