@@ -189,26 +189,26 @@
                 </div>
             </div>
             <div class="lead-form-box">
-                <form id="foxForm">
+                <form action="https://formspree.io/f/xqaejjpz" method="POST" id="foxForm">
                     <div class="input-group">
                         <label>Nome Completo</label>
-                        <input type="text" placeholder="Seu nome" required>
+                        <input type="text" name="nome" placeholder="Seu nome" required>
                     </div>
                     <div class="input-group">
                         <label>WhatsApp</label>
-                        <input type="tel" placeholder="(00) 00000-0000" required>
+                        <input type="tel" name="whatsapp" placeholder="(00) 00000-0000" required>
                     </div>
                     <div class="input-group">
                         <label>Instagram / @Usuário</label>
-                        <input type="text" placeholder="@seuuser" required>
+                        <input type="text" name="instagram" placeholder="@seuuser" required>
                     </div>
                     <div class="input-group">
                         <label>Tipo de Projeto</label>
-                        <select>
-                            <option>Identidade Visual</option>
-                            <option>Pack para Streamer</option>
-                            <option>Social Media</option>
-                            <option>Outros</option>
+                        <select name="projeto">
+                            <option value="Identidade Visual">Identidade Visual</option>
+                            <option value="Pack para Streamer">Pack para Streamer</option>
+                            <option value="Social Media">Social Media</option>
+                            <option value="Outros">Outros</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary btn-full">Receber atendimento personalizado</button>

@@ -45,27 +45,7 @@ menuToggle.addEventListener('click', () => {
     }
 });
 
-// 3. Form Submission Feedback
-const foxForm = document.getElementById('foxForm');
-
-foxForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const btn = foxForm.querySelector('button');
-    const originalText = btn.innerText;
-    
-    btn.innerText = 'Enviando...';
-    btn.disabled = true;
-
-    // Simulando envio
-    setTimeout(() => {
-        alert('Mestre, seus dados foram enviados para o Jarvis! Nossa equipe entrará em contato em breve.');
-        btn.innerText = originalText;
-        btn.disabled = false;
-        foxForm.reset();
-    }, 2000);
-});
-
-// 4. Header Scroll Effect
+// 3. Header Scroll Effect
 window.addEventListener('scroll', () => {
     const header = document.querySelector('.main-nav');
     if (window.scrollY > 50) {
