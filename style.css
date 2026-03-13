@@ -132,10 +132,28 @@ h1, h2, h3, .logo { font-family: 'Sora', sans-serif; }
     text-align: center;
     max-width: 900px;
     margin: 0 auto;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.8); /* Sombra para destacar do video */
 }
 
-.hero-btns { display: flex; gap: 20px; margin-bottom: 48px; justify-content: center; }
-.hero-trust { display: flex; align-items: center; gap: 15px; justify-content: center; }
+.hero h1 {
+    font-size: clamp(2.5rem, 6vw, 3.8rem);
+    line-height: 1.2;
+    margin-bottom: 24px;
+    font-weight: 800;
+}
+
+.hero h1 span {
+    color: var(--fox-orange);
+    text-shadow: 0 0 20px var(--fox-orange-glow);
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: var(--white); /* Mudando para branco para maior contraste */
+    max-width: 700px;
+    margin: 0 auto 40px;
+    font-weight: 500;
+}
 
 .glass-card {
     width: 70%; height: 50%;
