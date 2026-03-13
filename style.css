@@ -316,7 +316,7 @@ section { padding: 120px 0; }
     width: 100%;
     height: auto;
     display: block;
-    mix-blend-mode: screen; /* Para fundos pretos, cria efeito de holograma */
+    border-radius: 20px;
 }
 
 .lead-features { margin-top: 40px; }
