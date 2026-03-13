@@ -171,17 +171,17 @@ h1, h2, h3, .logo { font-family: 'Sora', sans-serif; }
 .trust-avatars img:first-child { margin-left: 0; }
 .hero-trust p { font-size: 0.85rem; margin-bottom: 0; }
 
-.hero-visual { flex: 1; display: flex; justify-content: center; position: relative; }
+.hero-visual { flex: 1.2; display: flex; justify-content: center; position: relative; }
 .hero-video-wrapper {
-    width: 100%; max-width: 500px; aspect-ratio: 16/9;
+    width: 100%; max-width: 650px; aspect-ratio: 16/9;
     background: linear-gradient(135deg, var(--bg-secondary) 0%, #1a1a1c 100%);
-    border-radius: 24px;
+    border-radius: 30px;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--fox-orange);
-    box-shadow: 0 0 30px var(--fox-orange-glow);
+    border: 2px solid var(--fox-orange);
+    box-shadow: 0 0 50px var(--fox-orange-glow);
     overflow: hidden;
 }
 
