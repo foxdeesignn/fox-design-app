@@ -299,6 +299,26 @@ section { padding: 120px 0; }
 
 /* --- LEAD CAPTURE --- */
 .lead-capture { background: linear-gradient(180deg, var(--bg-main) 0%, #151517 100%); }
+
+.lead-video-wrapper {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 40px;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--fox-orange);
+    box-shadow: 0 0 40px var(--fox-orange-glow);
+    background: var(--bg-secondary);
+    position: relative;
+}
+
+.lead-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    mix-blend-mode: screen; /* Para fundos pretos, cria efeito de holograma */
+}
+
 .lead-features { margin-top: 40px; }
 .f-item { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; font-weight: 600; }
 .f-item i { color: var(--fox-orange); width: 20px; }

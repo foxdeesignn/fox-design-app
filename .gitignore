@@ -1,0 +1,30 @@
+# Segredos da Fox Design (NUNCA SUBIR)
+.env
+*.env
+secrets.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Arquivos de Sistema e IDE
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Arquivos Temporários de Imagem/Vídeo
+*.jpg
+*.png
+*.mp4
+!story_jarvis_vivo.png
+!story_publicidade.mp4

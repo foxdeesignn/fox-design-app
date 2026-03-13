@@ -1,5 +1,6 @@
 import requests
 import os
+import time
 from dotenv import load_dotenv
 
 load_dotenv() # Carrega localmente se existir
@@ -77,6 +78,88 @@ def publish_ig_post(image_url, caption):
             
     except Exception as e:
         print(f"Erro fatal na publicação: {e}")
+        return False
+
+def wait_for_media_processing(creation_id):
+    """
+    Aguardar até que o vídeo seja processado pela Meta.
+    """
+    url = f"https://graph.facebook.com/{API_VERSION}/{creation_id}"
+    params = {
+        "fields": "status_code",
+        "access_token": ACCESS_TOKEN
+    }
+    
+    print(f"--- [Jarvis] Monitorando processamento da mídia (ID: {creation_id})... ---")
+    
+    for _ in range(20): # Tenta por até 10 minutos (20 * 30s)
+        try:
+            response = requests.get(url, params=params)
+            status = response.json().get("status_code")
+            
+            if status == "FINISHED":
+                print("--- [Jarvis] Processamento Concluído! ---")
+                return True
+            elif status == "ERROR":
+                print(f"--- [Jarvis] Erro no processamento da Meta: {response.json()} ---")
+                return False
+            
+            print(f"--- [Jarvis] Status: {status}. Aguardando mais 30s... ---")
+            time.sleep(30)
+        except Exception as e:
+            print(f"Erro ao verificar status: {e}")
+            return False
+    
+    return False
+
+def publish_ig_story(media_url, is_video=False):
+    """
+    Publica um Story no Instagram da Fox Design com monitoramento de status.
+    """
+    try:
+        # 1. Cria o container de mídia para Story
+        url_container = f"https://graph.facebook.com/{API_VERSION}/{os.getenv('INSTAGRAM_BUSINESS_ID')}/media"
+        params_container = {
+            "media_type": "STORIES",
+            "access_token": ACCESS_TOKEN
+        }
+        
+        if is_video:
+            params_container["video_url"] = media_url
+        else:
+            params_container["image_url"] = media_url
+            
+        resp_container = requests.post(url_container, json=params_container)
+        
+        if resp_container.status_code == 200:
+            creation_id = resp_container.json().get("id")
+            
+            # Aguarda o processamento independente de ser vídeo ou imagem pesada
+            if not wait_for_media_processing(creation_id):
+                print("--- [Jarvis] Falha: A mídia demorou demais ou deu erro na Meta. ---")
+                return False
+            
+            # 2. Publica o container (Publish Media)
+            url_publish = f"https://graph.facebook.com/{API_VERSION}/{os.getenv('INSTAGRAM_BUSINESS_ID')}/media_publish"
+            params_publish = {
+                "creation_id": creation_id,
+                "access_token": ACCESS_TOKEN
+            }
+            
+            resp_publish = requests.post(url_publish, json=params_publish)
+            
+            if resp_publish.status_code == 200:
+                print(f"--- STORY PUBLICADO COM SUCESSO! ID: {resp_publish.json().get('id')} ---")
+                return True
+            else:
+                print(f"Erro ao publicar Story: {resp_publish.json()}")
+                return False
+        else:
+            print(f"Erro ao criar container de Story: {resp_container.json()}")
+            return False
+            
+    except Exception as e:
+        print(f"Erro fatal na publicação do Story: {e}")
         return False
 
 def get_comments(media_id):
