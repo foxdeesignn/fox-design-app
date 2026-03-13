@@ -273,10 +273,26 @@ section { padding: 120px 0; }
     border-radius: 20px;
     border: 1px solid var(--glass-border);
     transition: var(--transition);
+    text-align: center; /* Centraliza todo o conteúdo do card */
+    opacity: 0; /* Começa invisível para a animação */
+    transform: translateY(30px); /* Começa um pouco abaixo */
 }
 
-.benefit-card:hover { border-color: var(--fox-orange); transform: translateY(-10px); }
-.benefit-card i { color: var(--fox-orange); width: 40px; height: 40px; margin-bottom: 24px; }
+.benefit-card.reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.benefit-card:hover { border-color: var(--fox-orange); transform: translateY(-10px) !important; }
+
+.benefit-card i { 
+    color: var(--fox-orange); 
+    width: 48px; 
+    height: 48px; 
+    margin: 0 auto 24px; /* Centraliza o ícone horizontalmente */
+    display: block;
+}
+
 .benefit-card h3 { margin-bottom: 16px; font-size: 1.25rem; }
 .benefit-card p { color: var(--text-secondary); font-size: 0.95rem; }
 

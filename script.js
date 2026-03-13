@@ -56,3 +56,29 @@ window.addEventListener('scroll', () => {
         header.style.background = 'rgba(10, 10, 11, 0.8)';
     }
 });
+
+// 4. Scroll Reveal for Benefit Cards
+const revealCards = () => {
+    const cards = document.querySelectorAll('.benefit-card');
+    const observerOptions = {
+        threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                // Adiciona um pequeno atraso para cada card criar efeito cascata
+                setTimeout(() => {
+                    entry.target.classList.add('reveal');
+                }, index * 100);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    cards.forEach(card => {
+        observer.observe(card);
+    });
+};
+
+document.addEventListener('DOMContentLoaded', revealCards);
