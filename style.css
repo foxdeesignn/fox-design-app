@@ -383,43 +383,56 @@ section { padding: 120px 0; }
 
 .influencer-showcase {
     display: flex;
-    gap: 40px;
-    align-items: center;
+    gap: 30px;
+    align-items: flex-end; /* Alinha pela base para que cresçam para cima */
     justify-content: center;
     flex-wrap: nowrap; 
-    margin-top: 40px;
+    margin-top: 60px;
     width: 100%;
+    padding-bottom: 40px; /* Espaço para o zoom */
 }
 
 .influencer-image {
     position: relative;
     border-radius: 0;
-    overflow: visible; /* Permitir sombras e brilhos sem corte */
-    flex: 0 1 400px; /* Ajustado para 90% da escala ideal */
+    overflow: visible;
+    flex: 1; /* Distribui o espaço igualmente */
+    max-width: 350px; /* Tamanho base ideal */
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1;
+    cursor: pointer;
 }
 
 .influencer-image img {
     width: 100%;
-    max-width: 400px; /* Garante a escala de 90% */
     height: auto;
     display: block;
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.4));
+    transform-origin: bottom center; /* Cresce a partir da base */
+}
+
+/* Efeito de Foco Cinematográfico (Blur nos outros, Zoom no Hover) */
+.influencer-showcase:hover .influencer-image {
+    filter: blur(8px) brightness(0.4) grayscale(0.6);
+    transform: scale(0.95);
+    z-index: 0;
+}
+
+.influencer-showcase .influencer-image:hover {
+    filter: blur(0px) brightness(1.1) grayscale(0);
+    transform: scale(1.15) translateY(-15px);
+    z-index: 10;
+}
+
+.influencer-showcase .influencer-image:hover img {
+    filter: drop-shadow(0 30px 60px var(--fox-orange-glow));
 }
 
 /* Efeito de Leque (Staggered Animation) */
 .influencer-showcase .influencer-image:nth-child(1) .reveal-up { transition-delay: 0.1s; }
 .influencer-showcase .influencer-image:nth-child(2) .reveal-up { transition-delay: 0.3s; }
 .influencer-showcase .influencer-image:nth-child(3) .reveal-up { transition-delay: 0.5s; }
-
-.influencer-image:hover img {
-    transform: translateY(-15px) scale(1.05);
-    filter: drop-shadow(0 20px 50px var(--fox-orange-glow));
-}
-
-.influencer-image:hover img {
-    transform: scale(1.05);
-}
 
 .influencer-stats {
     margin-top: 60px;
