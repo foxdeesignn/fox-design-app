@@ -57,9 +57,9 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// 4. Scroll Reveal for Benefit Cards
-const revealCards = () => {
-    const cards = document.querySelectorAll('.benefit-card');
+// 4. Scroll Reveal for Benefit Cards and Subtitles
+const revealElements = () => {
+    const elements = document.querySelectorAll('.benefit-card, .section-subtitle');
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -70,12 +70,12 @@ const revealCards = () => {
         });
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-    cards.forEach(card => observer.observe(card));
+    elements.forEach(el => observer.observe(el));
 };
 
 // Executa assim que o DOM estiver pronto e garante execução se já carregado
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', revealCards);
+    document.addEventListener('DOMContentLoaded', revealElements);
 } else {
-    revealCards();
+    revealElements();
 }

@@ -273,6 +273,23 @@ section { padding: 120px 0; }
     margin-left: 10px;
 }
 
+.section-subtitle {
+    text-align: center;
+    max-width: 800px;
+    margin: -40px auto 60px;
+    color: var(--text-secondary);
+    font-size: 1.15rem;
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.section-subtitle.reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* --- BUTTONS UPGRADE --- */
 .btn {
     padding: 18px 40px;
