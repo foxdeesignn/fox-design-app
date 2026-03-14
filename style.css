@@ -376,17 +376,24 @@ section { padding: 120px 0; }
 
 .influencer-layout {
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
+    grid-template-columns: 1fr 1fr;
     gap: 60px;
     align-items: center;
 }
 
+.influencer-showcase {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
 .influencer-image {
     position: relative;
-    border-radius: 0; /* Removido arredondamento para visual limpo */
+    border-radius: 0;
     overflow: hidden;
-    box-shadow: none; /* Removido sombra */
-    border: none; /* Removido borda */
+    flex: 1;
+    max-width: 300px;
 }
 
 .influencer-image img {
