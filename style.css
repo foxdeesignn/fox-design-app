@@ -383,27 +383,37 @@ section { padding: 120px 0; }
 
 .influencer-showcase {
     display: flex;
-    gap: 30px;
+    gap: 40px;
     align-items: center;
     justify-content: center;
-    flex-wrap: nowrap; /* Força ficarem lado a lado no desktop */
-    margin-top: 20px;
+    flex-wrap: nowrap; 
+    margin-top: 40px;
     width: 100%;
 }
 
 .influencer-image {
     position: relative;
     border-radius: 0;
-    overflow: hidden;
-    flex: 0 1 350px; /* Reduzido levemente para caber 3 imagens com conforto */
+    overflow: visible; /* Permitir sombras e brilhos sem corte */
+    flex: 0 0 auto; /* Mantém o tamanho original/natural da imagem */
 }
 
 .influencer-image img {
-    max-width: 100%; /* Garante que não estoure a tela */
+    max-width: 320px; /* Limite seguro para manter 3 lado a lado no desktop padrão */
     height: auto;
     display: block;
     transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    filter: drop-shadow(0 0 20px rgba(0,0,0,0.3));
+    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
+}
+
+/* Efeito de Leque (Staggered Animation) */
+.influencer-showcase .influencer-image:nth-child(1) .reveal-up { transition-delay: 0.1s; }
+.influencer-showcase .influencer-image:nth-child(2) .reveal-up { transition-delay: 0.3s; }
+.influencer-showcase .influencer-image:nth-child(3) .reveal-up { transition-delay: 0.5s; }
+
+.influencer-image:hover img {
+    transform: translateY(-15px) scale(1.05);
+    filter: drop-shadow(0 20px 50px var(--fox-orange-glow));
 }
 
 .influencer-image:hover img {
