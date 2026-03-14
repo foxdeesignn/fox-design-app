@@ -383,18 +383,19 @@ section { padding: 120px 0; }
 
 .influencer-showcase {
     display: flex;
-    gap: 40px;
+    gap: 30px;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap; /* Garante responsividade em telas menores */
+    flex-wrap: nowrap; /* Força ficarem lado a lado no desktop */
     margin-top: 20px;
+    width: 100%;
 }
 
 .influencer-image {
     position: relative;
     border-radius: 0;
     overflow: hidden;
-    flex: 0 1 auto; /* Não força o crescimento, mantem tamanho natural */
+    flex: 0 1 450px; /* Define um tamanho base equilibrado */
 }
 
 .influencer-image img {
