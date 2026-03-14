@@ -58,9 +58,27 @@ h1, h2, h3, .logo { font-family: 'Sora', sans-serif; }
     color: var(--white);
     text-decoration: none;
     letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
 }
 
-.logo span { color: var(--fox-orange); }
+.logo span {
+    color: var(--fox-orange);
+    display: inline-block;
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateX(-20px);
+}
+
+.logo:hover span {
+    max-width: 150px; /* Espaço suficiente para "DESIGN" */
+    opacity: 1;
+    transform: translateX(10px); /* Desliza para fora com um pequeno recuo */
+}
 
 .desktop-nav a {
     color: var(--text-primary);
