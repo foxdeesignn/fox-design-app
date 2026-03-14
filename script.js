@@ -60,25 +60,22 @@ window.addEventListener('scroll', () => {
 // 4. Scroll Reveal for Benefit Cards
 const revealCards = () => {
     const cards = document.querySelectorAll('.benefit-card');
-    const observerOptions = {
-        threshold: 0.15
-    };
-
+    
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
+        entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                // Adiciona um pequeno atraso para cada card criar efeito cascata
-                setTimeout(() => {
-                    entry.target.classList.add('reveal');
-                }, index * 100);
+                entry.target.classList.add('reveal');
                 observer.unobserve(entry.target);
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-    cards.forEach(card => {
-        observer.observe(card);
-    });
+    cards.forEach(card => observer.observe(card));
 };
 
-document.addEventListener('DOMContentLoaded', revealCards);
+// Executa assim que o DOM estiver pronto e garante execução se já carregado
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', revealCards);
+} else {
+    revealCards();
+}

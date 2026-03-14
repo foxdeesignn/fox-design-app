@@ -265,17 +265,25 @@ section { padding: 120px 0; }
     transform: translateY(-5px);
     box-shadow: 0 10px 30px var(--fox-orange-glow);
 }
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+/* --- BENEFITS --- */
+.benefits .grid { 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 30px; 
+}
 
 .benefit-card {
     background: var(--bg-secondary);
     padding: 40px;
     border-radius: 20px;
     border: 1px solid var(--glass-border);
-    transition: var(--transition);
-    text-align: center; /* Centraliza todo o conteúdo do card */
-    opacity: 0; /* Começa invisível para a animação */
-    transform: translateY(30px); /* Começa um pouco abaixo */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(40px);
+    flex: 1 1 280px;
+    max-width: 350px;
 }
 
 .benefit-card.reveal {
