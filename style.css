@@ -395,7 +395,7 @@ section { padding: 120px 0; }
     position: relative;
     border-radius: 0;
     overflow: hidden;
-    flex: 0 1 450px; /* Define um tamanho base equilibrado */
+    flex: 0 1 350px; /* Reduzido levemente para caber 3 imagens com conforto */
 }
 
 .influencer-image img {
