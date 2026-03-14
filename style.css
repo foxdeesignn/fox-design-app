@@ -395,12 +395,12 @@ section { padding: 120px 0; }
     position: relative;
     border-radius: 0;
     overflow: visible; /* Permitir sombras e brilhos sem corte */
-    flex: 0 1 300px; /* Reduzido para 70% da escala anterior */
+    flex: 0 1 400px; /* Ajustado para 90% da escala ideal */
 }
 
 .influencer-image img {
     width: 100%;
-    max-width: 300px; /* Garante a redução para 70% */
+    max-width: 400px; /* Garante a escala de 90% */
     height: auto;
     display: block;
     transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
