@@ -69,15 +69,46 @@ h1, h2, h3, .logo { font-family: 'Sora', sans-serif; }
     font-size: 0.85rem;
     font-weight: 600;
     transition: var(--transition);
+    position: relative;
+    padding: 5px 0;
 }
 
-.desktop-nav a:hover { color: var(--fox-orange); }
+.desktop-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--fox-orange);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px var(--fox-orange-glow);
+}
+
+.desktop-nav a:hover {
+    color: var(--fox-orange);
+    transform: translateY(-3px);
+}
+
+.desktop-nav a:hover::after {
+    width: 100%;
+}
 
 .nav-cta {
     background: var(--fox-orange);
     color: #000 !important;
-    padding: 10px 20px;
+    padding: 10px 20px !important;
     border-radius: 4px;
+    transition: all 0.3s ease !important;
+}
+
+.nav-cta::after { display: none; } /* Remove underline do CTA */
+
+.nav-cta:hover {
+    transform: translateY(-3px) scale(1.05) !important;
+    box-shadow: 0 5px 15px var(--fox-orange-glow);
+    filter: brightness(1.1);
 }
 
 .mobile-menu-toggle {
