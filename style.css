@@ -246,30 +246,31 @@ section { padding: 120px 0; }
 .section-title {
     font-size: clamp(2.2rem, 5vw, 3rem);
     margin-bottom: 60px;
-    text-align: center; /* Centralizado como solicitado */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     transition: var(--transition);
     cursor: default;
     letter-spacing: -1px;
 }
 
-.section-title span { color: var(--fox-orange); transition: var(--transition); }
-
-.section-subtitle {
-    text-align: center;
-    max-width: 800px;
-    margin: -40px auto 60px;
-    color: var(--text-secondary);
-    font-size: 1.15rem;
-    line-height: 1.6;
-}
-
-/* Animação de Hover no Título */
-.section-title:hover {
-    letter-spacing: 2px;
-    text-shadow: 0 0 20px var(--fox-orange-glow);
+.section-title span {
+    color: var(--fox-orange);
+    display: inline-block;
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateX(-30px);
 }
 
 .section-title:hover span {
+    max-width: 500px;
+    opacity: 1;
+    transform: translateX(15px);
+    margin-left: 10px;
     text-shadow: 0 0 30px var(--fox-orange);
 }
 
