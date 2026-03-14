@@ -57,20 +57,41 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// 4. Scroll Reveal for Benefit Cards, Subtitles and Images
+// 4. Scroll Reveal for Benefit Cards, Subtitles, Images and Stats
 const revealElements = () => {
-    const elements = document.querySelectorAll('.benefit-card, .section-subtitle, .reveal-up');
+    const elements = document.querySelectorAll('.benefit-card, .section-subtitle, .reveal-up, .influencer-stats');
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('reveal');
+                
+                // Se for a seção de estatísticas, inicia o contador
+                if (entry.target.classList.contains('influencer-stats')) {
+                    startCounter('project-counter', 400, 2000);
+                }
+                
                 observer.unobserve(entry.target);
             }
         });
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
     elements.forEach(el => observer.observe(el));
+};
+
+// 5. Counter Logic
+const startCounter = (id, target, duration) => {
+    const obj = document.getElementById(id);
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        obj.innerText = Math.floor(progress * target);
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        }
+    };
+    window.requestAnimationFrame(step);
 };
 
 // Executa assim que o DOM estiver pronto e garante execução se já carregado

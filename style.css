@@ -420,6 +420,29 @@ section { padding: 120px 0; }
     transform: scale(1.05);
 }
 
+.influencer-stats {
+    margin-top: 50px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.influencer-stats.reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#project-counter {
+    color: var(--fox-orange);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+}
+
 .reveal-up {
     opacity: 0;
     transform: translateY(50px);
