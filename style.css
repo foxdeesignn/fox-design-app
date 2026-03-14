@@ -371,9 +371,48 @@ section { padding: 120px 0; }
 .benefit-card h3 { margin-bottom: 16px; font-size: 1.25rem; }
 .benefit-card p { color: var(--text-secondary); font-size: 0.95rem; }
 
-/* --- SERVICES --- */
+/* --- SERVICES & INFLUENCERS --- */
 .services { background: #080809; }
-.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
+
+.influencer-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.influencer-image {
+    position: relative;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    border: 1px solid var(--glass-border);
+}
+
+.influencer-image img {
+    width: 100%;
+    display: block;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.influencer-image:hover img {
+    transform: scale(1.05);
+}
+
+.reveal-up {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-up.reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.left-align { text-align: left !important; justify-content: flex-start !important; margin-bottom: 40px !important; }
+
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 30px; }
 
 .service-item {
     padding: 40px;

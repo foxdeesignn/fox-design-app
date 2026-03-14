@@ -57,9 +57,9 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// 4. Scroll Reveal for Benefit Cards and Subtitles
+// 4. Scroll Reveal for Benefit Cards, Subtitles and Images
 const revealElements = () => {
-    const elements = document.querySelectorAll('.benefit-card, .section-subtitle');
+    const elements = document.querySelectorAll('.benefit-card, .section-subtitle, .reveal-up');
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
