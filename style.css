@@ -374,33 +374,35 @@ section { padding: 120px 0; }
 /* --- SERVICES & INFLUENCERS --- */
 .services { background: #080809; }
 
-.influencer-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
+.influencer-full-layout {
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
 }
 
 .influencer-showcase {
     display: flex;
-    gap: 20px;
+    gap: 40px;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap; /* Garante responsividade em telas menores */
+    margin-top: 20px;
 }
 
 .influencer-image {
     position: relative;
     border-radius: 0;
     overflow: hidden;
-    flex: 1;
-    max-width: 300px;
+    flex: 0 1 auto; /* Não força o crescimento, mantem tamanho natural */
 }
 
 .influencer-image img {
-    width: 100%;
+    max-width: 100%; /* Garante que não estoure a tela */
+    height: auto;
     display: block;
     transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    filter: drop-shadow(0 0 20px rgba(0,0,0,0.3)); /* Mantém apenas um leve drop shadow natural se houver transparência */
+    filter: drop-shadow(0 0 20px rgba(0,0,0,0.3));
 }
 
 .influencer-image:hover img {
