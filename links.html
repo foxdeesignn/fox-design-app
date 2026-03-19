@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOX DESIGN | Links Oficiais</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Sora:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg-main: #0A0A0B;
+            --bg-secondary: #121214;
+            --fox-orange: #f60e5a;
+            --fox-orange-glow: rgba(246, 14, 90, 0.4);
+            --text-primary: #E0E0E0;
+            --white: #FFFFFF;
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            font-family: 'Sora', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        /* Background Glows */
+        .glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: var(--fox-orange-glow);
+            filter: blur(100px);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.5;
+        }
+        .glow-1 { top: -100px; left: -100px; }
+        .glow-2 { bottom: -100px; right: -100px; }
+
+        .profile-container {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .logo span { color: var(--fox-orange); }
+
+        .tagline {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            opacity: 0.8;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .links-wrapper {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .link-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 18px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-card:hover {
+            background: rgba(246, 14, 90, 0.1);
+            border-color: var(--fox-orange);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(246, 14, 90, 0.2);
+        }
+
+        .link-card i {
+            width: 20px;
+            color: var(--fox-orange);
+            transition: var(--transition);
+        }
+
+        .link-card:hover i {
+            transform: scale(1.2);
+            color: var(--white);
+        }
+
+        .link-text {
+            flex: 1;
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* Destaque para o WhatsApp */
+        .link-card.featured {
+            background: var(--fox-orange);
+            border-color: var(--fox-orange);
+            box-shadow: 0 4px 15px rgba(246, 14, 90, 0.4);
+        }
+        .link-card.featured .link-text, 
+        .link-card.featured i {
+            color: var(--white);
+        }
+        .link-card.featured:hover {
+            background: #d40c4e;
+            transform: scale(1.02);
+        }
+
+        .footer {
+            margin-top: auto;
+            padding-top: 40px;
+            font-size: 0.7rem;
+            opacity: 0.5;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 480px) {
+            .logo { font-size: 1.7rem; }
+            .link-card { padding: 16px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <div class="profile-container">
+        <a href="index.html" class="logo">FOX<span>DESIGN</span></a>
+        <p class="tagline">Engenharia Criativa de Elite</p>
+    </div>
+
+    <div class="links-wrapper">
+        <!-- WhatsApp (Destaque) -->
+        <a href="https://wa.me/5516997149568" class="link-card featured" target="_blank">
+            <i data-lucide="message-circle"></i>
+            <span class="link-text">FALAR COM ESPECIALISTA</span>
+            <i data-lucide="external-link" style="opacity: 0.5; width: 14px;"></i>
+        </a>
+
+        <!-- Site Oficial -->
+        <a href="index.html" class="link-card">
+            <i data-lucide="globe"></i>
+            <span class="link-text">SITE OFICIAL</span>
+            <i data-lucide="chevron-right"></i>
+        </a>
+
+        <!-- Behance -->
+        <a href="https://www.behance.net/foxdeesignn" class="link-card" target="_blank">
+            <i data-lucide="palette"></i>
+            <span class="link-text">PORTFÓLIO BEHANCE</span>
+            <i data-lucide="chevron-right"></i>
+        </a>
+
+        <!-- Orçamento -->
+        <a href="index.html#contato" class="link-card">
+            <i data-lucide="file-text"></i>
+            <span class="link-text">SOLICITAR ORÇAMENTO</span>
+            <i data-lucide="chevron-right"></i>
+        </a>
+
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/foxdesignn/" class="link-card" target="_blank">
+            <i data-lucide="instagram"></i>
+            <span class="link-text">NOSSO INSTAGRAM</span>
+            <i data-lucide="chevron-right"></i>
+        </a>
+    </div>
+
+    <div class="footer">
+        PROTOCOL JARVIS ACTIVE &copy; 2026
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
