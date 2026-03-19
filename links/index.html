@@ -39,6 +39,24 @@
             position: relative;
         }
 
+        /* Malha Espacial (Grid) */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-size: 50px 50px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            mask-image: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 60%);
+            -webkit-mask-image: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 60%);
+            pointer-events: none;
+            transition: mask-image 0.1s ease;
+        }
+
         /* Canvas Interativo */
         #particles-canvas {
             position: fixed;
@@ -178,6 +196,9 @@
 </head>
 <body>
 
+    <!-- Space Grid Background -->
+    <div class="grid-background" id="grid-bg"></div>
+
     <!-- Particles Interactive Canvas -->
     <canvas id="particles-canvas"></canvas>
 
@@ -239,6 +260,23 @@
     <script>
         lucide.createIcons();
 
+        // --- Grid Interaction ---
+        const gridBg = document.getElementById('grid-bg');
+        window.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            gridBg.style.setProperty('--mouse-x', `${x}%`);
+            gridBg.style.setProperty('--mouse-y', `${y}%`);
+        });
+
+        // Touch support for Grid
+        window.addEventListener('touchmove', (e) => {
+            const x = (e.touches[0].clientX / window.innerWidth) * 100;
+            const y = (e.touches[0].clientY / window.innerHeight) * 100;
+            gridBg.style.setProperty('--mouse-x', `${x}%`);
+            gridBg.style.setProperty('--mouse-y', `${y}%`);
+        });
+
         // --- Interactive Particles Script ---
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
@@ -250,7 +288,6 @@
             mouse.y = e.y;
         });
 
-        // Touch support for mobile
         window.addEventListener('touchmove', (e) => {
             mouse.x = e.touches[0].clientX;
             mouse.y = e.touches[0].clientY;
@@ -287,17 +324,14 @@
                 ctx.fill();
             }
             update() {
-                // Return to base position or continue floating
                 this.x += this.dx;
                 this.y += this.dy;
 
-                // Screen Wrap
                 if (this.x > canvas.width) this.x = 0;
                 if (this.x < 0) this.x = canvas.width;
                 if (this.y > canvas.height) this.y = 0;
                 if (this.y < 0) this.y = canvas.height;
 
-                // Mouse Interaction (Repulsion)
                 let dx = mouse.x - this.x;
                 let dy = mouse.y - this.y;
                 let distance = Math.sqrt(dx*dx + dy*dy);
