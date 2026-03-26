@@ -1,0 +1,16 @@
+# Fox Design - Video Editor GitIgnore
+__pycache__/
+*.pyc
+temp/
+output/
+static/models/
+*.mp4
+*.wav
+*.mp3
+*.m4a
+.env
+.venv/
+env/
+instance/
+.pytest_cache/
+.vscode/

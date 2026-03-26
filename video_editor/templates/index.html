@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOX DESIGN | MAESTRO WEB</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo-fox">FOX <span>DESIGN</span></div>
+        <div style="font-size: 10px; font-weight: bold; color: var(--text-secondary);">PRODUÇÃO ELITE V6.0</div>
+    </header>
+
+    <div class="container">
+        <!-- PAINEL DE CONTROLES -->
+        <div class="controls">
+            
+            <div class="section">
+                <h2>01. Material Bruto</h2>
+                <div class="input-group">
+                    <input type="text" id="video-path" placeholder="Selecione o vídeo de elite..." readonly>
+                    <button class="btn-select" onclick="selectFile('video')">BUSCAR</button>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="music-path" placeholder="Trilha sonora (opcional)..." readonly>
+                    <button class="btn-select" onclick="selectFile('music')">BUSCAR</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>02. Scribe & Design</h2>
+                <div class="style-grid">
+                    <div class="control-item">
+                        <label>TAMANHO DA LEGENDA</label>
+                        <input type="range" id="caption-size" min="30" max="250" value="75" oninput="updatePreview()">
+                    </div>
+                    <div class="control-item">
+                        <label>POSIÇÃO VERTICAL (Y)</label>
+                        <input type="range" id="caption-pos" min="0" max="1" step="0.01" value="0.75" oninput="updatePreview()">
+                    </div>
+                    <div class="control-item">
+                        <label>OPACIDADE DO FUNDO</label>
+                        <input type="range" id="caption-opacity" min="0" max="1" step="0.1" value="0.6" oninput="updatePreview()">
+                    </div>
+                    <div class="control-item">
+                        <label>COR DA FONTE</label>
+                        <input type="color" id="caption-color" value="#FFFFFF" style="height: 40px; border: none; cursor: pointer;" onchange="updatePreview()">
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px; display: flex; gap: 20px;">
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                        <input type="checkbox" id="jump-cut" checked> SMART JUMP-CUT
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                        <input type="checkbox" id="captions" checked> LEGENDA SINCRONIZADA
+                    </label>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>03. Destino Final</h2>
+                <input type="text" id="output-name" value="reels_fox_pro.mp4" style="width: 100%;">
+                <button class="btn-render" onclick="startRender()">GERAR PRODUÇÃO ELITE</button>
+            </div>
+
+        </div>
+
+        <!-- PAINEL DE PREVIEW -->
+        <div class="preview-pane">
+            <h2>Simulador Maestro</h2>
+            <div class="phone-simulator">
+                <div class="preview-content">
+                    <div id="preview-caption">EXEMPLO FOX</div>
+                </div>
+            </div>
+
+            <div id="log-box">
+                <div class="log-entry">AGUARDANDO COMANDO DO MAESTRO...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
