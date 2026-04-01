@@ -94,6 +94,45 @@ const startCounter = (id, target, duration) => {
     window.requestAnimationFrame(step);
 };
 
+// 6. Mercado Pago Checkout Integration
+async function startCheckout(pacoteId) {
+    const btn = event.target;
+    const originalText = btn.innerText;
+    
+    try {
+        btn.innerText = "Processando...";
+        btn.disabled = true;
+
+        // Faz a requisição para o nosso backend local
+        // Nota: Em produção, mude 'localhost:5000' para a URL do seu servidor real
+        const response = await fetch('http://localhost:5000/create_preference', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ pacote_id: pacoteId })
+        });
+
+        const data = await response.json();
+
+        if (data.init_point) {
+            // Redireciona o cliente para o checkout seguro do Mercado Pago
+            window.location.href = data.init_point;
+        } else {
+            // Se o Mercado Pago falhar (ex: Token não homologado), redireciona para o WhatsApp
+            console.warn("Mercado Pago indisponível, redirecionando para WhatsApp...");
+            const mensagem = encodeURIComponent(`Olá Fox Design! Quero fechar o ${pacoteId.replace('_', ' ').toUpperCase()} que vi no site.`);
+            window.location.href = `https://wa.me/5516997149568?text=${mensagem}`;
+        }
+
+    } catch (error) {
+        console.error("Erro no Checkout:", error);
+        // Fallback total para WhatsApp
+        const mensagem = encodeURIComponent(`Olá! Tentei iniciar um pedido do ${pacoteId} pelo site, pode me ajudar?`);
+        window.location.href = `https://wa.me/5516997149568?text=${mensagem}`;
+    }
+}
+
 // Executa assim que o DOM estiver pronto e garante execução se já carregado
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', revealElements);
