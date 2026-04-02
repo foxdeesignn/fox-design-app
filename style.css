@@ -620,7 +620,7 @@ section { padding: 120px 0; }
 
 /* --- FOOTER --- */
 footer { padding: 80px 0 40px; border-top: 1px solid var(--glass-border); background: #050505; }
-.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+.footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-bottom: 60px; align-items: center; }
 
 .footer-logo {
     display: flex !important;
@@ -640,6 +640,8 @@ footer { padding: 80px 0 40px; border-top: 1px solid var(--glass-border); backgr
     white-space: nowrap !important;
     margin-left: 5px !important;
 }
+
+.footer-brand p { margin-top: 10px; color: var(--text-secondary); }
 
 .footer-social {
     display: flex;
