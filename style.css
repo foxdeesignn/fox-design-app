@@ -371,70 +371,76 @@ section { padding: 120px 0; }
 .benefit-card h3 { margin-bottom: 16px; font-size: 1.25rem; }
 .benefit-card p { color: var(--text-secondary); font-size: 0.95rem; }
 
-/* --- SERVICES VITRINE --- */
-.services { background: #080809; padding: 120px 0; }
-
-.services-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 5%;
-}
+/* --- SERVICES VITRINE (CENTRALIZADO) --- */
+.services { background: #080809; padding: 120px 0; text-align: center; }
 
 .services-grid-full {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-    margin-top: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    max-width: 1100px;
+    margin: 40px auto 0;
 }
 
 .service-card-mini {
-    background: var(--bg-secondary);
+    background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--glass-border);
-    padding: 20px;
-    border-radius: 12px;
-    display: flex;
+    padding: 10px 22px;
+    border-radius: 100px; /* Estilo Pílula */
+    display: inline-flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     transition: var(--transition);
     cursor: default;
+    white-space: nowrap;
 }
 
 .service-card-mini:hover {
     border-color: var(--fox-orange);
-    transform: translateY(-3px);
-    background: rgba(246, 14, 90, 0.05);
+    background: rgba(246, 14, 90, 0.1);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--fox-orange-glow);
 }
 
 .service-card-mini i {
     color: var(--fox-orange);
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
 }
 
 .service-card-mini span {
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: 0.85rem;
+    font-weight: 600;
     color: var(--text-primary);
+    letter-spacing: 0.5px;
 }
 
 .services-category-title {
-    grid-column: 1 / -1;
+    width: 100%;
     font-family: 'Orbitron', sans-serif;
     color: var(--fox-orange);
-    font-size: 1.2rem;
-    margin: 40px 0 20px;
-    letter-spacing: 2px;
+    font-size: 1.1rem;
+    margin: 60px 0 25px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    position: relative;
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
+}
+
+.services-category-title::before,
+.services-category-title::after {
+    content: '';
+    height: 1px;
+    width: 50px;
+    background: linear-gradient(90deg, transparent, var(--fox-orange));
 }
 
 .services-category-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, var(--fox-orange-glow), transparent);
+    background: linear-gradient(90deg, var(--fox-orange), transparent);
 }
 
 /* --- WHY US --- */
