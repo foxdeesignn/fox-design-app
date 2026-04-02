@@ -686,18 +686,37 @@ footer { padding: 80px 0 40px; border-top: 1px solid var(--glass-border); backgr
 }
 
 .pricing-header { margin-bottom: 30px; }
-.pricing-header h3 { font-size: 1.5rem; margin-bottom: 10px; color: var(--white); }
-.price { font-size: 3rem; font-weight: 900; color: var(--white); font-family: 'Sora', sans-serif; }
-.price span { font-size: 1rem; color: var(--text-secondary); font-weight: 400; }
+.pricing-header h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--white); }
 
-.pricing-features { list-style: none; margin-bottom: 40px; flex-grow: 1; }
+.package-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 25px;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.feature-category {
+    font-size: 0.8rem;
+    font-family: 'Orbitron', sans-serif;
+    color: var(--fox-orange);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: left;
+    border-bottom: 1px solid rgba(246, 14, 90, 0.2);
+    padding-bottom: 5px;
+}
+
+.pricing-features { list-style: none; margin-bottom: 25px; flex-grow: 0; }
 .pricing-features li {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     display: flex;
     align-items: center;
     gap: 12px;
     color: var(--text-secondary);
     font-size: 0.95rem;
+    text-align: left;
 }
 
 .pricing-features li i { color: var(--fox-orange); width: 18px; }
