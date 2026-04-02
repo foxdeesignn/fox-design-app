@@ -653,18 +653,21 @@ footer { padding: 80px 0 40px; border-top: 1px solid var(--glass-border); backgr
 }
 
 .social-icons a img {
-    width: 32px; /* Tamanho mais visível */
-    height: 32px;
+    width: 28px; /* Ajuste fino de tamanho */
+    height: 28px;
     object-fit: contain;
-    filter: none !important; /* Remove qualquer filtro que possa esconder a imagem */
+    /* Filtro para converter qualquer cor para o Laranja Fox (#f60e5a) */
+    filter: invert(18%) sepia(95%) saturate(5341%) hue-rotate(334deg) brightness(97%) contrast(106%);
     opacity: 0.9;
     transition: var(--transition);
 }
 
 .social-icons a:hover { transform: translateY(-5px); }
 .social-icons a:hover img {
+    /* Filtro para converter para Branco Puro no Hover */
+    filter: brightness(0) invert(1);
     opacity: 1;
-    filter: drop-shadow(0 0 10px var(--fox-orange-glow));
+    filter: drop-shadow(0 0 12px var(--fox-orange-glow)) brightness(0) invert(1);
 }
 .footer-bottom { text-align: center; border-top: 1px solid var(--glass-border); padding-top: 40px; color: #666; font-size: 0.85rem; font-family: 'Orbitron', sans-serif; letter-spacing: 1px; }
 
