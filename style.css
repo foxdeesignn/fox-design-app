@@ -374,6 +374,26 @@ section { padding: 120px 0; }
 /* --- SERVICES VITRINE (CENTRALIZADO) --- */
 .services { background: #080809; padding: 120px 0; text-align: center; }
 
+.services .section-title {
+    justify-content: center;
+    text-align: center;
+}
+
+.services .section-title span {
+    max-width: none;
+    opacity: 1;
+    transform: none;
+    margin-left: 10px;
+    display: inline-block;
+    overflow: visible;
+    white-space: normal;
+}
+
+.services .section-title:hover span {
+    transform: none;
+    max-width: none;
+}
+
 .services-grid-full {
     display: flex;
     flex-wrap: wrap;
@@ -393,7 +413,8 @@ section { padding: 120px 0; }
     gap: 10px;
     transition: var(--transition);
     cursor: default;
-    white-space: nowrap;
+    white-space: normal; /* Permite quebra de linha se necessário para não cortar */
+    text-align: left;
 }
 
 .service-card-mini:hover {
