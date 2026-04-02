@@ -497,14 +497,20 @@ section { padding: 120px 0; }
     justify-content: flex-start;
     text-align: left;
     margin-bottom: 40px;
+    cursor: default;
 }
 
 .why-us .section-title span {
-    transform: translateX(0); /* Remove o recuo inicial brusco */
+    max-width: none;
+    opacity: 1;
+    transform: none;
+    margin-left: 10px;
+    display: inline-block;
 }
 
 .why-us .section-title:hover span {
-    transform: translateX(10px); /* Move apenas o span para a direita */
+    transform: none;
+    max-width: none;
 }
 
 .grid-split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
