@@ -645,8 +645,8 @@ footer { padding: 80px 0 40px; border-top: 1px solid var(--glass-border); backgr
 .footer-links h4, .footer-social h4 { margin-bottom: 24px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: var(--fox-orange); }
 .footer-links a { display: block; text-decoration: none; color: var(--text-secondary); margin-bottom: 12px; }
 .social-icons { display: flex; gap: 20px; }
-.social-icons a { color: var(--white); transition: var(--transition); }
-.social-icons a:hover { color: var(--fox-orange); transform: translateY(-3px); }
+.social-icons a { color: var(--fox-orange); transition: var(--transition); font-size: 1.2rem; }
+.social-icons a:hover { color: var(--white); transform: translateY(-3px); filter: drop-shadow(0 0 10px var(--fox-orange-glow)); }
 .footer-bottom { text-align: center; border-top: 1px solid var(--glass-border); padding-top: 40px; color: #666; font-size: 0.85rem; font-family: 'Orbitron', sans-serif; letter-spacing: 1px; }
 
 /* --- PRICING SECTION --- */
