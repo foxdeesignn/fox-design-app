@@ -644,7 +644,7 @@ footer { padding: 80px 0 40px; border-top: 1px solid var(--glass-border); backgr
 .footer-brand .logo { margin-bottom: 20px; }
 .footer-links h4, .footer-social h4 { margin-bottom: 24px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: var(--fox-orange); }
 .footer-links a { display: block; text-decoration: none; color: var(--text-secondary); margin-bottom: 12px; }
-.social-icons { display: flex; gap: 20px; align-items: center; }
+.social-icons { display: flex; gap: 20px; align-items: center; margin-top: 10px; }
 .social-icons a { 
     display: flex;
     align-items: center;
@@ -653,17 +653,18 @@ footer { padding: 80px 0 40px; border-top: 1px solid var(--glass-border); backgr
 }
 
 .social-icons a img {
-    width: 24px;
-    height: 24px;
+    width: 32px; /* Tamanho mais visível */
+    height: 32px;
     object-fit: contain;
-    filter: brightness(0) saturate(100%) invert(21%) sepia(91%) auto(5341%) hue-rotate(334deg) brightness(97%) contrast(106%); /* Aplica o Laranja Fox via Filter */
+    filter: none !important; /* Remove qualquer filtro que possa esconder a imagem */
+    opacity: 0.9;
     transition: var(--transition);
 }
 
-.social-icons a:hover { transform: translateY(-3px); }
+.social-icons a:hover { transform: translateY(-5px); }
 .social-icons a:hover img {
-    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%); /* Muda para Branco no Hover */
-    filter: drop-shadow(0 0 8px var(--fox-orange-glow));
+    opacity: 1;
+    filter: drop-shadow(0 0 10px var(--fox-orange-glow));
 }
 .footer-bottom { text-align: center; border-top: 1px solid var(--glass-border); padding-top: 40px; color: #666; font-size: 0.85rem; font-family: 'Orbitron', sans-serif; letter-spacing: 1px; }
 
