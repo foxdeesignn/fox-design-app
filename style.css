@@ -622,6 +622,18 @@ section { padding: 120px 0; }
 footer { padding: 80px 0 40px; border-top: 1px solid var(--glass-border); background: #050505; }
 .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
 .footer-brand .logo { margin-bottom: 20px; display: block; }
+.footer-logo span {
+    max-width: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    margin-left: 5px !important;
+    overflow: visible !important;
+}
+.footer-logo:hover span {
+    transform: none !important;
+    max-width: none !important;
+    margin-right: 0 !important;
+}
 .footer-links h4, .footer-social h4 { margin-bottom: 24px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: var(--fox-orange); }
 .footer-links a { display: block; text-decoration: none; color: var(--text-secondary); margin-bottom: 12px; }
 .social-icons { display: flex; gap: 20px; }
