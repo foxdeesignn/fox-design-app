@@ -25,14 +25,10 @@ desktop.ini
 # Arquivos Temporários de Imagem/Vídeo
 *.jpg
 *.png
-*.mp4
 !ig.png
 !tk.png
 !yt.png
-!story_jarvis_vivo.png
-!story_publicidade.mp4
-!arma3d.mp4
-!elgato.mp4
 !elgato.png
-!matheus-ceara.png
+!story_jarvis_vivo.png
 !vanquilha_fox.png
+!matheus-ceara.png
