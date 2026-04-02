@@ -32,3 +32,8 @@ desktop.ini
 !story_jarvis_vivo.png
 !vanquilha_fox.png
 !matheus-ceara.png
+!assets/favicon.png
+!assets/*.png
+!assets/*.jpg
+!assets/*.jpeg
+!assets/*.ico
