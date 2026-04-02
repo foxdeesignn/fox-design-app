@@ -621,25 +621,33 @@ section { padding: 120px 0; }
 /* --- FOOTER --- */
 footer { padding: 80px 0 40px; border-top: 1px solid var(--glass-border); background: #050505; }
 .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
-.footer-brand .logo { margin-bottom: 20px; display: block; }
+
+.footer-logo {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    cursor: default;
+    text-decoration: none;
+}
+
 .footer-logo span {
+    color: var(--fox-orange) !important;
     max-width: none !important;
     opacity: 1 !important;
     transform: none !important;
-    margin-left: 5px !important;
+    display: inline-block !important;
     overflow: visible !important;
+    white-space: nowrap !important;
+    margin-left: 5px !important;
 }
-.footer-logo:hover span {
-    transform: none !important;
-    max-width: none !important;
-    margin-right: 0 !important;
-}
+
+.footer-brand .logo { margin-bottom: 20px; }
 .footer-links h4, .footer-social h4 { margin-bottom: 24px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: var(--fox-orange); }
 .footer-links a { display: block; text-decoration: none; color: var(--text-secondary); margin-bottom: 12px; }
 .social-icons { display: flex; gap: 20px; }
 .social-icons a { color: var(--white); transition: var(--transition); }
 .social-icons a:hover { color: var(--fox-orange); transform: translateY(-3px); }
-.footer-bottom { text-align: center; border-top: 1px solid var(--glass-border); padding-top: 40px; color: #444; font-size: 0.8rem; }
+.footer-bottom { text-align: center; border-top: 1px solid var(--glass-border); padding-top: 40px; color: #666; font-size: 0.85rem; font-family: 'Orbitron', sans-serif; letter-spacing: 1px; }
 
 /* --- PRICING SECTION --- */
 .pricing { background: var(--bg-main); padding: 120px 0; position: relative; }
