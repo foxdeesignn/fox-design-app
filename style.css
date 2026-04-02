@@ -644,9 +644,27 @@ footer { padding: 80px 0 40px; border-top: 1px solid var(--glass-border); backgr
 .footer-brand .logo { margin-bottom: 20px; }
 .footer-links h4, .footer-social h4 { margin-bottom: 24px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: var(--fox-orange); }
 .footer-links a { display: block; text-decoration: none; color: var(--text-secondary); margin-bottom: 12px; }
-.social-icons { display: flex; gap: 20px; }
-.social-icons a { color: var(--fox-orange); transition: var(--transition); font-size: 1.2rem; }
-.social-icons a:hover { color: var(--white); transform: translateY(-3px); filter: drop-shadow(0 0 10px var(--fox-orange-glow)); }
+.social-icons { display: flex; gap: 20px; align-items: center; }
+.social-icons a { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.social-icons a img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(21%) sepia(91%) auto(5341%) hue-rotate(334deg) brightness(97%) contrast(106%); /* Aplica o Laranja Fox via Filter */
+    transition: var(--transition);
+}
+
+.social-icons a:hover { transform: translateY(-3px); }
+.social-icons a:hover img {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%); /* Muda para Branco no Hover */
+    filter: drop-shadow(0 0 8px var(--fox-orange-glow));
+}
 .footer-bottom { text-align: center; border-top: 1px solid var(--glass-border); padding-top: 40px; color: #666; font-size: 0.85rem; font-family: 'Orbitron', sans-serif; letter-spacing: 1px; }
 
 /* --- PRICING SECTION --- */
