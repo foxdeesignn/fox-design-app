@@ -632,6 +632,21 @@ footer { padding: 80px 0 40px; border-top: 1px solid var(--glass-border); backgr
 /* --- PRICING SECTION --- */
 .pricing { background: var(--bg-main); padding: 120px 0; position: relative; }
 
+.pricing .section-title span {
+    max-width: none;
+    opacity: 1;
+    transform: none;
+    margin-left: 10px;
+    display: inline-block;
+    overflow: visible;
+    white-space: normal;
+}
+
+.pricing .section-title:hover span {
+    transform: none;
+    max-width: none;
+}
+
 .pricing-grid {
     display: flex;
     justify-content: center;
