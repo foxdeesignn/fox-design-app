@@ -351,6 +351,91 @@ section { padding: 120px 0; }
     transform: translateY(40px);
     flex: 1 1 280px;
     max-width: 350px;
+    position: relative;
+    /* overflow: hidden; */ /* Removido para permitir o brilho externo */
+    
+    /* Variáveis do Efeito Spotlight */
+    --base: 334; /* Fox Orange */
+    --spread: 200;
+    --radius: 20;
+    --border: 2;
+    --backdrop: rgba(255, 255, 255, 0.05);
+    --backup-border: var(--glass-border);
+    --size: 250;
+    --outer: 1;
+    --border-size: calc(var(--border, 2) * 1px);
+    --spotlight-size: calc(var(--size, 150) * 1px);
+    --hue: calc(var(--base) + (var(--xp, 0) * var(--spread, 0)));
+    
+    background-image: radial-gradient(
+        var(--spotlight-size) var(--spotlight-size) at
+        calc(var(--x, 0) * 1px)
+        calc(var(--y, 0) * 1px),
+        hsl(var(--hue, 210) 100% 70% / 0.1), transparent
+    );
+    background-color: var(--backdrop, transparent);
+    background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
+    background-position: 50% 50%;
+    background-attachment: fixed;
+    border: var(--border-size) solid var(--backup-border);
+    touch-action: none;
+    backdrop-filter: blur(5px);
+}
+
+/* Efeito Glow com Pseudo-elementos */
+[data-glow]::before,
+[data-glow]::after {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    inset: calc(var(--border-size) * -1);
+    border: var(--border-size) solid transparent;
+    border-radius: calc(var(--radius) * 1px);
+    background-attachment: fixed;
+    background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
+    mask-clip: padding-box, border-box;
+    mask-composite: intersect;
+    -webkit-mask-composite: destination-in; /* Fallback for Safari */
+}
+
+[data-glow]::before {
+    background-image: radial-gradient(
+        calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at
+        calc(var(--x, 0) * 1px)
+        calc(var(--y, 0) * 1px),
+        hsl(var(--hue, 210) 100% 50% / 1), transparent 100%
+    );
+    filter: brightness(2);
+}
+
+[data-glow]::after {
+    background-image: radial-gradient(
+        calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
+        calc(var(--x, 0) * 1px)
+        calc(var(--y, 0) * 1px),
+        hsl(0 0% 100% / 1), transparent 100%
+    );
+}
+
+[data-glow] [data-glow] {
+    position: absolute;
+    inset: 0;
+    will-change: filter;
+    opacity: var(--outer, 1);
+    border-radius: calc(var(--radius) * 1px);
+    border-width: calc(var(--border-size) * 20);
+    filter: blur(calc(var(--border-size) * 10));
+    background: none;
+    pointer-events: none;
+    border: none;
+}
+
+[data-glow] > [data-glow]::before {
+    inset: -10px;
+    border-width: 10px;
 }
 
 .benefit-card.reveal {

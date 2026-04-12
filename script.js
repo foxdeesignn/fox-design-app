@@ -133,6 +133,20 @@ async function startCheckout(pacoteId) {
     }
 }
 
+// 7. Spotlight Effect Pointer Sync
+const syncPointer = (e) => {
+    const { clientX: x, clientY: y } = e;
+    const xp = (x / window.innerWidth).toFixed(2);
+    const yp = (y / window.innerHeight).toFixed(2);
+    
+    document.documentElement.style.setProperty('--x', x.toFixed(2));
+    document.documentElement.style.setProperty('--y', y.toFixed(2));
+    document.documentElement.style.setProperty('--xp', xp);
+    document.documentElement.style.setProperty('--yp', yp);
+};
+
+document.addEventListener('pointermove', syncPointer);
+
 // Executa assim que o DOM estiver pronto e garante execução se já carregado
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', revealElements);
