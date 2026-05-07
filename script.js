@@ -152,7 +152,7 @@ function openPreview(productId) {
     const videoUrls = {
         'subgoal_gta_vi': 'assets/video_gta_vi.webm',
         'subgoal_fortnite': 'assets/video_fortnite.webm',
-        'subgoal_arc_riders': 'assets/video_arc_riders.mp4',
+        'subgoal_arc_riders': 'assets/video_arc_riders.webm',
         'subgoal_grenade': 'assets/video_grenade.mp4'
     };
 
