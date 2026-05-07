@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SNCZE8P1T8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-SNCZE8P1T8');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOX STORE | Assets de Elite para Streamers</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Sora:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --store-neon: #00ff00;
+        }
+        .store-hero {
+            padding: 150px 0 80px;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(0, 255, 0, 0.05) 0%, transparent 70%);
+        }
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 40px 0;
+        }
+        .product-card {
+            background: rgba(20, 20, 22, 0.6);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--store-neon);
+            box-shadow: 0 10px 30px rgba(0, 255, 0, 0.1);
+        }
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: #1a1a1c;
+            position: relative;
+            overflow: hidden;
+        }
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+        .product-info {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--store-neon);
+            letter-spacing: 2px;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 10px;
+        }
+        .product-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-family: 'Sora', sans-serif;
+            font-weight: 800;
+        }
+        .product-price {
+            font-size: 1.8rem;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .product-price span {
+            font-size: 0.9rem;
+            opacity: 0.5;
+            text-decoration: line-through;
+        }
+        .btn-buy {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            background: var(--store-neon);
+            color: #000;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .btn-buy:hover {
+            filter: brightness(1.2);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+        }
+        .store-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 10px 25px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+            font-family: 'Sora', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--store-neon);
+            color: #000;
+            border-color: var(--store-neon);
+        }
+    </style>
+</head>
+<body>
+    <header class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">FOX<span>DESIGN</span></a>
+            <nav class="desktop-nav">
+                <a href="index.html#servicos">Serviços</a>
+                <a href="store.html" class="active">Loja</a>
+                <a href="index.html#contato" class="nav-cta">Customizado</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="store-hero">
+        <div class="container">
+            <h1 class="section-title">Fox <span>Store</span></h1>
+            <p class="section-subtitle">Assets de alta performance para elevar o nível da sua stream instantaneamente.</p>
+            
+            <div class="store-filter">
+                <button class="filter-btn active">Todos</button>
+                <button class="filter-btn">Overlays</button>
+                <button class="filter-btn">Metas de Subs</button>
+                <button class="filter-btn">Templates</button>
+            </div>
+
+            <div class="store-grid">
+                <!-- Produto 1: Grenade Edition -->
+                <div class="product-card" data-category="Metas de Subs">
+                    <div class="product-image">
+                        <img src="https://raw.githubusercontent.com/foxdeesignn/fox-design-app/main/story_jarvis_vivo.png" alt="Sub Goal Grenade Edition">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Metas de Subs</span>
+                        <h3 class="product-title">Engagement Trigger: Grenade Edition</h3>
+                        <p style="margin-bottom: 20px; font-size: 0.9rem; opacity: 0.7;">Widget interativo com animação de explosão e crescimento exponencial.</p>
+                        <div class="product-price">
+                            R$ 47,00 <span>R$ 97,00</span>
+                        </div>
+                        <button onclick="startCheckout('subgoal_grenade')" class="btn-buy">
+                            <i data-lucide="shopping-cart"></i> Adquirir Agora
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Produto 2: Overlay Pack Neon -->
+                <div class="product-card" data-category="Overlays">
+                    <div class="product-image">
+                        <img src="elgato.png" alt="Overlay Pack Cyberpunk">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Overlays</span>
+                        <h3 class="product-title">Pack Cyberpunk: Neon Elite</h3>
+                        <p style="margin-bottom: 20px; font-size: 0.9rem; opacity: 0.7;">Conjunto completo de cenas e alertas com estética futurista.</p>
+                        <div class="product-price">
+                            R$ 87,00 <span>R$ 147,00</span>
+                        </div>
+                        <button onclick="startCheckout('pack_cyberpunk')" class="btn-buy">
+                            <i data-lucide="shopping-cart"></i> Adquirir Agora
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Produto 3: Template Social Media -->
+                <div class="product-card" data-category="Templates">
+                    <div class="product-image">
+                        <div style="width: 100%; height: 100%; background: linear-gradient(45deg, #000, #111); display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="layout" size="48" color="#00ff00"></i>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Templates</span>
+                        <h3 class="product-title">Template Post: Venda Elite</h3>
+                        <p style="margin-bottom: 20px; font-size: 0.9rem; opacity: 0.7;">Layouts de alta conversão para divulgar seus serviços.</p>
+                        <div class="product-price">
+                            R$ 27,00 <span>R$ 57,00</span>
+                        </div>
+                        <button onclick="startCheckout('template_venda_elite')" class="btn-buy">
+                            <i data-lucide="shopping-cart"></i> Adquirir Agora
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container text-center">
+            <p>&copy; 2026 FOX DESIGN - Todos os assets são para uso pessoal do comprador.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

@@ -147,6 +147,47 @@ const syncPointer = (e) => {
 
 document.addEventListener('pointermove', syncPointer);
 
+// 4. Lógica da Loja e Previews
+function openPreview(productId) {
+    const videoUrls = {
+        'subgoal_gta_vi': 'assets/video_gta_vi.webm',
+        'subgoal_fortnite': 'assets/video_fortnite.webm',
+        'subgoal_arc_riders': 'assets/video_arc_riders.mp4',
+        'subgoal_grenade': 'assets/video_grenade.mp4'
+    };
+
+    const videoUrl = videoUrls[productId];
+    
+    if (videoUrl) {
+        // Criar ou pegar o modal de preview
+        let modal = document.getElementById('preview-modal');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'preview-modal';
+            modal.style = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.9); display: flex; align-items: center;
+                justify-content: center; z-index: 10000; backdrop-filter: blur(10px);
+            `;
+            modal.onclick = () => { modal.style.display = 'none'; modal.innerHTML = ''; };
+            document.body.appendChild(modal);
+        }
+
+        modal.innerHTML = `
+            <div style="position: relative; width: 90%; max-width: 1000px; aspect-ratio: 16/9; background: #000; border: 2px solid var(--fox-orange); border-radius: 12px; overflow: hidden; box-shadow: 0 0 50px var(--fox-orange-glow);">
+                <video autoplay controls style="width: 100%; height: 100%;">
+                    <source src="${videoUrl}" type="video/mp4">
+                    Seu navegador não suporta vídeos.
+                </video>
+                <button style="position: absolute; top: 20px; right: 20px; background: var(--fox-orange); border: none; color: #000; padding: 10px; border-radius: 50%; cursor: pointer; font-weight: bold; z-index: 10001;">X</button>
+            </div>
+        `;
+        modal.style.display = 'flex';
+    } else {
+        alert("Vídeo de demonstração em breve!");
+    }
+}
+
 // Executa assim que o DOM estiver pronto e garante execução se já carregado
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', revealElements);

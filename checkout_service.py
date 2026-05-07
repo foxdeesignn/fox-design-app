@@ -43,6 +43,42 @@ PACOTES = {
         "unit_price": 1197.00,
         "currency_id": "BRL",
         "quantity": 1
+    },
+    "subgoal_grenade": {
+        "title": "Engagement Trigger: Grenade Edition",
+        "unit_price": 59.90,
+        "currency_id": "BRL",
+        "quantity": 1
+    },
+    "pack_cyberpunk": {
+        "title": "Pack Cyberpunk: Neon Elite",
+        "unit_price": 87.00,
+        "currency_id": "BRL",
+        "quantity": 1
+    },
+    "template_venda_elite": {
+        "title": "Template Post: Venda Elite",
+        "unit_price": 27.00,
+        "currency_id": "BRL",
+        "quantity": 1
+    },
+    "subgoal_gta_vi": {
+        "title": "Sub Goal: GTA VI Edition",
+        "unit_price": 59.90,
+        "currency_id": "BRL",
+        "quantity": 1
+    },
+    "subgoal_fortnite": {
+        "title": "Sub Goal: Fortnite Edition",
+        "unit_price": 59.90,
+        "currency_id": "BRL",
+        "quantity": 1
+    },
+    "subgoal_arc_riders": {
+        "title": "Sub Goal: Arc Riders Edition",
+        "unit_price": 59.90,
+        "currency_id": "BRL",
+        "quantity": 1
     }
 }
 

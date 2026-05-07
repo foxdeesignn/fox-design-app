@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRÉVIA: Fox Assets Store Section</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Sora:wght@300;400;600;800&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Estilos específicos da nova seção para a prévia */
+        .store-section {
+            background: radial-gradient(circle at 50% 50%, rgba(246, 14, 90, 0.05) 0%, transparent 70%);
+            padding: 100px 0;
+        }
+
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .asset-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .asset-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--fox-orange);
+            box-shadow: 0 20px 40px var(--fox-orange-glow);
+        }
+
+        .asset-preview {
+            width: 100%;
+            height: 200px;
+            background: #1a1a1c;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .asset-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            transition: var(--transition);
+        }
+
+        .asset-card:hover .asset-preview img {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .asset-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--fox-orange);
+            color: var(--fox-orange);
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .asset-info {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .asset-category {
+            font-size: 0.7rem;
+            color: var(--fox-orange);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .asset-title {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            color: var(--white);
+            font-weight: 700;
+        }
+
+        .asset-price-row {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .asset-price {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--white);
+        }
+
+        .asset-price span {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-decoration: line-through;
+            margin-right: 8px;
+        }
+
+        .btn-buy-asset {
+            background: var(--fox-orange);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+        }
+
+        .btn-buy-asset:hover {
+            filter: brightness(1.2);
+            box-shadow: 0 0 15px var(--fox-orange-glow);
+            transform: scale(1.05);
+        }
+
+        .store-footer-link {
+            text-align: center;
+            margin-top: 50px;
+            font-family: 'Sora', sans-serif;
+        }
+
+        .store-footer-link a {
+            color: var(--fox-orange);
+            text-decoration: none;
+            font-weight: 700;
+            border-bottom: 1px solid transparent;
+            transition: var(--transition);
+        }
+
+        .store-footer-link a:hover {
+            border-color: var(--fox-orange);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Mockup para contexto -->
+    <header class="main-nav">
+        <div class="nav-container">
+            <a href="#" class="logo">FOX<span>DESIGN</span></a>
+            <nav class="desktop-nav">
+                <a href="#">Início</a>
+                <a href="#" style="color: var(--fox-orange);">Loja</a>
+                <a href="#" class="nav-cta">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <div style="height: 100px;"></div>
+
+    <!-- PROPOSTA DA NOVA SEÇÃO -->
+    <section id="loja" class="store-section">
+        <div class="container">
+            <h2 class="section-title">Fox <span>Assets Store</span></h2>
+            <p class="section-subtitle">Acelere seu crescimento com recursos profissionais prontos para uso. O upgrade imediato que sua marca precisa.</p>
+            
+            <div class="store-grid">
+                <!-- Produto 1 -->
+                <div class="asset-card">
+                    <div class="asset-badge">WIDGET</div>
+                    <div class="asset-preview">
+                        <img src="https://raw.githubusercontent.com/foxdeesignn/fox-design-app/main/story_jarvis_vivo.png" alt="Engagement Trigger">
+                    </div>
+                    <div class="asset-info">
+                        <span class="asset-category">Metas de Subs</span>
+                        <h3 class="asset-title">Engagement Trigger: Grenade Edition</h3>
+                        <div class="asset-price-row">
+                            <div class="asset-price"><span>R$ 97</span> R$ 47</div>
+                            <button class="btn-buy-asset">Adquirir</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produto 2 -->
+                <div class="asset-card">
+                    <div class="asset-badge">PACK</div>
+                    <div class="asset-preview">
+                        <img src="elgato.png" alt="Cyberpunk Pack">
+                    </div>
+                    <div class="asset-info">
+                        <span class="asset-category">Overlays</span>
+                        <h3 class="asset-title">Pack Cyberpunk: Neon Elite</h3>
+                        <div class="asset-price-row">
+                            <div class="asset-price"><span>R$ 147</span> R$ 87</div>
+                            <button class="btn-buy-asset">Adquirir</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produto 3 -->
+                <div class="asset-card">
+                    <div class="asset-badge">TEMPLATE</div>
+                    <div class="asset-preview">
+                        <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000;">
+                            <i data-lucide="layout" size="48" color="#f60e5a"></i>
+                        </div>
+                    </div>
+                    <div class="asset-info">
+                        <span class="asset-category">Social Media</span>
+                        <h3 class="asset-title">Template Post: Venda Elite</h3>
+                        <div class="asset-price-row">
+                            <div class="asset-price"><span>R$ 57</span> R$ 27</div>
+                            <button class="btn-buy-asset">Adquirir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-footer-link">
+                <p>Procurando algo único? <a href="#">Solicite um projeto 100% personalizado →</a></p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
