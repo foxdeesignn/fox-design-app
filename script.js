@@ -180,7 +180,7 @@ function openPreview(productId) {
         modal.innerHTML = `
             <div style="position: relative; width: 90%; max-width: 1000px; aspect-ratio: 16/9; background: #000; border: 2px solid var(--fox-orange); border-radius: 12px; overflow: hidden; box-shadow: 0 0 50px var(--fox-orange-glow);">
                 <video autoplay controls style="width: 100%; height: 100%;">
-                    <source src="${videoUrl}" type="${mimeType}">
+                    <source src="${videoUrl}?v=1.1" type="${mimeType}">
                     Seu navegador não suporta vídeos.
                 </video>
                 <button style="position: absolute; top: 20px; right: 20px; background: var(--fox-orange); border: none; color: #000; padding: 10px; border-radius: 50%; cursor: pointer; font-weight: bold; z-index: 10001;">X</button>
