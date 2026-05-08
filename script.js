@@ -105,7 +105,7 @@ async function startCheckout(pacoteId) {
         const { data: { user } } = await supabaseClient.auth.getUser();
         
         if (!user) {
-            alert('Mestre, para garantir o recebimento dos seus ativos, por favor faça login ou crie uma conta antes de comprar.');
+            alert('Fala gamer! para garantir o recebimento dos seus produtos, por favor faça login ou crie uma conta antes de comprar.');
             openAuthModal();
             return;
         }
