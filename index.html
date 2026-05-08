@@ -33,6 +33,9 @@
     
     <!-- Lucide Icons (CDN) -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -46,6 +49,7 @@
                 <a href="#planos">Planos</a>
                 <a href="loja.html">Loja</a>
                 <a href="#por-que-nos">Diferenciais</a>
+                <a href="javascript:void(0)" class="nav-login" id="loginBtn">Entrar</a>
                 <a href="#contato" class="nav-cta">Iniciar Projeto</a>
             </nav>
             <button class="mobile-menu-toggle" id="menuToggle">
@@ -466,6 +470,44 @@
             <p>&copy; 2026 FOX DESIGN</p>
         </div>
     </footer>
+
+    <!-- Login Modal Overlay -->
+    <div id="authModal" class="modal-overlay">
+        <div class="modal-content glass-effect">
+            <button class="modal-close" id="closeAuthModal">&times;</button>
+            <div class="auth-box">
+                <div class="auth-header">
+                    <h2 id="authTitle">Acesse sua <span>Área de Elite</span></h2>
+                    <p id="authSubtitle">Entre para gerenciar seus ativos e pedidos.</p>
+                </div>
+                
+                <form id="authForm" class="auth-form">
+                    <div class="input-group">
+                        <label>E-mail</label>
+                        <input type="email" id="authEmail" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="input-group" id="passwordGroup">
+                        <label>Senha</label>
+                        <input type="password" id="authPassword" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" id="authSubmitBtn" class="btn btn-primary btn-full">Entrar</button>
+                </form>
+
+                <div class="auth-divider">
+                    <span>ou</span>
+                </div>
+
+                <button id="googleLoginBtn" class="btn btn-google btn-full">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                    Continuar com Google
+                </button>
+
+                <div class="auth-footer">
+                    <p id="authSwitchText">Não tem uma conta? <a href="javascript:void(0)" id="switchToSignUp">Criar conta</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Floating WhatsApp -->
     <a href="https://wa.me/5516997149568" class="whatsapp-float">

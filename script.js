@@ -257,7 +257,145 @@ const showStorePopup = () => {
     });
 };
 
-// Executa assim que o DOM estiver pronto e garante execução se já carregado
+// 9. Supabase Authentication Logic
+const SUPABASE_URL = 'https://pnewkedxkqdhplhfkrij.supabase.co'; 
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBuZXdrZWR4a3FkaHBsaGZrcmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMDM0MTEsImV4cCI6MjA5Mzc3OTQxMX0.EBhhXQ9uVZEINEv8zgI3mmvZpKeueu4jw7u2VXhW_rw'; 
+
+let supabase = null;
+if (typeof supabasejs !== 'undefined') {
+    supabase = supabasejs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+}
+
+const authModal = document.getElementById('authModal');
+const loginBtn = document.getElementById('loginBtn');
+const closeAuthModal = document.getElementById('closeAuthModal');
+const authForm = document.getElementById('authForm');
+const authTitle = document.getElementById('authTitle');
+const authSubtitle = document.getElementById('authSubtitle');
+const authSubmitBtn = document.getElementById('authSubmitBtn');
+const authSwitchText = document.getElementById('authSwitchText');
+const switchToSignUp = document.getElementById('switchToSignUp');
+const googleLoginBtn = document.getElementById('googleLoginBtn');
+
+let isSignUp = false;
+
+// Modal Controls
+const openModal = () => {
+    authModal.style.display = 'flex';
+    setTimeout(() => authModal.classList.add('active'), 10);
+};
+
+const closeModal = () => {
+    authModal.classList.remove('active');
+    setTimeout(() => authModal.style.display = 'none', 300);
+};
+
+if (loginBtn) loginBtn.onclick = openModal;
+if (closeAuthModal) closeAuthModal.onclick = closeModal;
+
+window.onclick = (event) => {
+    if (event.target === authModal) closeModal();
+};
+
+// Switch between Login and Sign Up
+if (switchToSignUp) {
+    switchToSignUp.onclick = () => {
+        isSignUp = !isSignUp;
+        if (isSignUp) {
+            authTitle.innerHTML = 'Crie sua conta <span>Elite</span>';
+            authSubtitle.innerText = 'Junte-se à Fox Design e acesse ativos exclusivos.';
+            authSubmitBtn.innerText = 'Criar Conta';
+            authSwitchText.innerHTML = 'Já tem uma conta? <a href="javascript:void(0)" id="switchToLogin">Fazer login</a>';
+            document.getElementById('switchToLogin').onclick = switchToSignUp.onclick;
+        } else {
+            authTitle.innerHTML = 'Acesse sua <span>Área de Elite</span>';
+            authSubtitle.innerText = 'Entre para gerenciar seus ativos e pedidos.';
+            authSubmitBtn.innerText = 'Entrar';
+            authSwitchText.innerHTML = 'Não tem uma conta? <a href="javascript:void(0)" id="switchToSignUp">Criar conta</a>';
+            document.getElementById('switchToSignUp').onclick = switchToSignUp.onclick;
+        }
+    };
+}
+
+// Handle Form Submission
+if (authForm) {
+    authForm.onsubmit = async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('authEmail').value;
+        const password = document.getElementById('authPassword').value;
+
+        authSubmitBtn.disabled = true;
+        authSubmitBtn.innerText = isSignUp ? 'Criando...' : 'Entrando...';
+
+        try {
+            let result;
+            if (isSignUp) {
+                result = await supabase.auth.signUp({ email, password });
+            } else {
+                result = await supabase.auth.signInWithPassword({ email, password });
+            }
+
+            if (result.error) throw result.error;
+
+            if (isSignUp) {
+                alert('Conta criada! Verifique seu e-mail para confirmar o cadastro.');
+            } else {
+                closeModal();
+            }
+        } catch (error) {
+            alert('Erro: ' + error.message);
+        } finally {
+            authSubmitBtn.disabled = false;
+            authSubmitBtn.innerText = isSignUp ? 'Criar Conta' : 'Entrar';
+        }
+    };
+}
+
+// Google Login
+if (googleLoginBtn) {
+    googleLoginBtn.onclick = async () => {
+        const { error } = await supabase.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+                redirectTo: window.location.origin
+            }
+        });
+        if (error) alert('Erro ao entrar com Google: ' + error.message);
+    };
+}
+
+// Check Auth State and Update UI
+const updateUIForAuth = (user) => {
+    if (user) {
+        if (loginBtn) {
+            loginBtn.innerHTML = `<img src="${user.user_metadata.avatar_url || 'https://www.gravatar.com/avatar/?d=mp'}" style="width:25px; border-radius:50%; margin-right:8px;"> ${user.user_metadata.full_name || user.email.split('@')[0]}`;
+            loginBtn.onclick = () => {
+                if (confirm('Deseja sair da sua conta?')) {
+                    supabase.auth.signOut();
+                }
+            };
+        }
+    } else {
+        if (loginBtn) {
+            loginBtn.innerText = 'Entrar';
+            loginBtn.onclick = openModal;
+        }
+    }
+};
+
+if (supabase) {
+    supabase.auth.onAuthStateChange((event, session) => {
+        updateUIForAuth(session?.user);
+    });
+
+    // Initial check
+    supabase.auth.getUser().then(({ data: { user } }) => {
+        updateUIForAuth(user);
+    });
+}
+
+// Executa assim que o DOM estiver pronto
+ e garante execução se já carregado
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         revealElements();
