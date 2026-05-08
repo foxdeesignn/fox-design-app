@@ -100,10 +100,12 @@ async function startCheckout(pacoteId) {
     const originalText = btn.innerText;
     
     try {
+        console.log(`Iniciando checkout para: ${pacoteId}`);
         // Verifica se o usuário está logado
         const { data: { user } } = await supabaseClient.auth.getUser();
         
         if (!user) {
+            console.warn("Usuário não logado ao tentar comprar.");
             alert('Mestre, para garantir o recebimento dos seus ativos, por favor faça login ou crie uma conta antes de comprar.');
             openAuthModal();
             return;
@@ -113,6 +115,7 @@ async function startCheckout(pacoteId) {
         btn.disabled = true;
 
         // Chama a Edge Function do Supabase
+        console.log("Chamando Edge Function: create-preference...");
         const { data, error } = await supabaseClient.functions.invoke('create-preference', {
             body: { 
                 product_id: pacoteId,
@@ -120,19 +123,25 @@ async function startCheckout(pacoteId) {
             }
         });
 
-        if (error) throw error;
+        if (error) {
+            console.error("Erro retornado pela Edge Function:", error);
+            throw error;
+        }
 
-        if (data.init_point) {
-            // Redireciona para o Mercado Pago
+        console.log("Resposta da Edge Function recebida:", data);
+
+        if (data && data.init_point) {
+            console.log("Redirecionando para Mercado Pago:", data.init_point);
             window.location.href = data.init_point;
         } else {
+            console.error("Resposta inválida da função (sem init_point):", data);
             throw new Error('Não foi possível gerar o link de pagamento.');
         }
 
     } catch (error) {
-        console.error("Erro no Checkout:", error);
+        console.error("ERRO CRÍTICO NO CHECKOUT:", error);
         // Fallback para WhatsApp caso a automação falhe
-        const mensagem = encodeURIComponent(`Olá Fox Design! Tentei comprar o ${pacoteId} pelo site, mas ocorreu um erro: ${error.message}. Pode me ajudar?`);
+        const mensagem = encodeURIComponent(`Olá Fox Design! Tentei comprar o ${pacoteId} pelo site, mas ocorreu um erro técnico. Pode me ajudar?`);
         window.location.href = `https://wa.me/5516997149568?text=${mensagem}`;
     } finally {
         btn.innerText = originalText;
