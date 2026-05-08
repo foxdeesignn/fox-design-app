@@ -366,13 +366,13 @@ if (switchToSignUp) {
     switchToSignUp.onclick = () => {
         isSignUp = !isSignUp;
         if (isSignUp) {
-            authTitle.innerHTML = 'Crie sua conta <span>Elite</span>';
+            authTitle.innerHTML = 'Crie sua conta na <span>Fox Store</span>';
             authSubtitle.innerText = 'Junte-se à Fox Design e acesse ativos exclusivos.';
             authSubmitBtn.innerText = 'Criar Conta';
             authSwitchText.innerHTML = 'Já tem uma conta? <a href="javascript:void(0)" id="switchToLogin">Fazer login</a>';
             document.getElementById('switchToLogin').onclick = switchToSignUp.onclick;
         } else {
-            authTitle.innerHTML = 'Acesse sua <span>Área de Elite</span>';
+            authTitle.innerHTML = 'Acesse sua <span>Área Fox Store</span>';
             authSubtitle.innerText = 'Entre para gerenciar seus ativos e pedidos.';
             authSubmitBtn.innerText = 'Entrar';
             authSwitchText.innerHTML = 'Não tem uma conta? <a href="javascript:void(0)" id="switchToSignUp">Criar conta</a>';
