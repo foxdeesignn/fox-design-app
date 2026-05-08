@@ -366,6 +366,49 @@
         </div>
     </div>
 
+    <!-- Client Area Off-canvas Panel -->
+    <aside id="clientPanel" class="offcanvas-panel glass-effect">
+        <div class="panel-header">
+            <h3>Meu Perfil <span>Fox</span></h3>
+            <button class="panel-close" id="closeClientPanel">&times;</button>
+        </div>
+
+        <div class="panel-content">
+            <div class="profile-upload-section">
+                <div class="avatar-wrapper" id="avatarClick">
+                    <img id="panelAvatar" src="https://www.gravatar.com/avatar/?d=mp" alt="Avatar">
+                    <div class="avatar-overlay">
+                        <i data-lucide="camera"></i>
+                    </div>
+                </div>
+                <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+                <p class="upload-hint">Clique para mudar sua foto</p>
+            </div>
+
+            <form id="profileForm" class="auth-form">
+                <div class="input-group">
+                    <label>Nome Completo</label>
+                    <input type="text" id="profileName" placeholder="Seu nome">
+                </div>
+                <div class="input-group">
+                    <label>WhatsApp / Telefone</label>
+                    <input type="tel" id="profilePhone" placeholder="(00) 00000-0000">
+                </div>
+                <div class="input-group">
+                    <label>Instagram (@usuario)</label>
+                    <input type="text" id="profileInstagram" placeholder="@seuuser">
+                </div>
+                <button type="submit" id="saveProfileBtn" class="btn btn-primary btn-full">Salvar Alterações</button>
+            </form>
+
+            <div class="panel-footer">
+                <button id="logoutBtn" class="btn btn-secondary btn-full">
+                    <i data-lucide="log-out"></i> Sair da Conta
+                </button>
+            </div>
+        </div>
+    </aside>
+
     <!-- Floating WhatsApp -->
     <a href="https://wa.me/5516997149568" class="whatsapp-float">
         <i data-lucide="message-circle"></i>
