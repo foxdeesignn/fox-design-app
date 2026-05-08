@@ -100,36 +100,43 @@ async function startCheckout(pacoteId) {
     const originalText = btn.innerText;
     
     try {
-        btn.innerText = "Processando...";
+        // Verifica se o usuário está logado
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        
+        if (!user) {
+            alert('Mestre, para garantir o recebimento dos seus ativos, por favor faça login ou crie uma conta antes de comprar.');
+            openAuthModal();
+            return;
+        }
+
+        btn.innerText = "Preparando Checkout...";
         btn.disabled = true;
 
-        // Faz a requisição para o nosso backend local
-        // Nota: Em produção, mude 'localhost:5000' para a URL do seu servidor real
-        const response = await fetch('http://localhost:5000/create_preference', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ pacote_id: pacoteId })
+        // Chama a Edge Function do Supabase
+        const { data, error } = await supabaseClient.functions.invoke('create-preference', {
+            body: { 
+                product_id: pacoteId,
+                user_email: user.email
+            }
         });
 
-        const data = await response.json();
+        if (error) throw error;
 
         if (data.init_point) {
-            // Redireciona o cliente para o checkout seguro do Mercado Pago
+            // Redireciona para o Mercado Pago
             window.location.href = data.init_point;
         } else {
-            // Se o Mercado Pago falhar (ex: Token não homologado), redireciona para o WhatsApp
-            console.warn("Mercado Pago indisponível, redirecionando para WhatsApp...");
-            const mensagem = encodeURIComponent(`Olá Fox Design! Quero fechar o ${pacoteId.replace('_', ' ').toUpperCase()} que vi no site.`);
-            window.location.href = `https://wa.me/5516997149568?text=${mensagem}`;
+            throw new Error('Não foi possível gerar o link de pagamento.');
         }
 
     } catch (error) {
         console.error("Erro no Checkout:", error);
-        // Fallback total para WhatsApp
-        const mensagem = encodeURIComponent(`Olá! Tentei iniciar um pedido do ${pacoteId} pelo site, pode me ajudar?`);
+        // Fallback para WhatsApp caso a automação falhe
+        const mensagem = encodeURIComponent(`Olá Fox Design! Tentei comprar o ${pacoteId} pelo site, mas ocorreu um erro: ${error.message}. Pode me ajudar?`);
         window.location.href = `https://wa.me/5516997149568?text=${mensagem}`;
+    } finally {
+        btn.innerText = originalText;
+        btn.disabled = false;
     }
 }
 
