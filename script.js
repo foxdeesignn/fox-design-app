@@ -394,20 +394,31 @@ if (authForm && supabaseClient) {
         try {
             let result;
             if (isSignUp) {
+                console.log("Tentando realizar cadastro para:", email);
                 result = await supabaseClient.auth.signUp({ email, password });
             } else {
+                console.log("Tentando realizar login para:", email);
                 result = await supabaseClient.auth.signInWithPassword({ email, password });
             }
 
-            if (result.error) throw result.error;
+            if (result.error) {
+                console.error("Erro retornado pelo Supabase:", result.error);
+                throw result.error;
+            }
 
             if (isSignUp) {
-                alert('Conta criada! Verifique seu e-mail para confirmar o cadastro.');
+                if (result.data.user && result.data.session) {
+                    alert('Bem-vindo à Elite! Sua conta foi criada e o acesso liberado.');
+                    closeAuthModalFunc();
+                } else {
+                    alert('Conta criada! Verifique seu e-mail para confirmar o cadastro (caso não receba, tente logar diretamente).');
+                }
             } else {
                 closeAuthModalFunc();
             }
         } catch (error) {
-            alert('Erro: ' + error.message);
+            console.error("ERRO NO PROCESSO DE AUTH:", error);
+            alert('Erro: ' + (error.message || 'Falha na comunicação com o servidor de e-mail.'));
         } finally {
             authSubmitBtn.disabled = false;
             authSubmitBtn.innerText = isSignUp ? 'Criar Conta' : 'Entrar';
