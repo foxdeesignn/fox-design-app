@@ -284,32 +284,66 @@ const authSwitchText = document.getElementById('authSwitchText');
 const switchToSignUp = document.getElementById('switchToSignUp');
 const googleLoginBtn = document.getElementById('googleLoginBtn');
 
+// Client Panel Elements
+const clientPanel = document.getElementById('clientPanel');
+const closeClientPanel = document.getElementById('closeClientPanel');
+const logoutBtn = document.getElementById('logoutBtn');
+const profileForm = document.getElementById('profileForm');
+const avatarClick = document.getElementById('avatarClick');
+const avatarInput = document.getElementById('avatarInput');
+const panelAvatar = document.getElementById('panelAvatar');
+
 let isSignUp = false;
 
-// Modal Controls
-const openModal = () => {
+// Modal & Panel Controls
+const openAuthModal = () => {
     if (!authModal) return;
     authModal.style.display = 'flex';
     setTimeout(() => authModal.classList.add('active'), 10);
 };
 
-const closeModal = () => {
+const closeAuthModalFunc = () => {
     if (!authModal) return;
     authModal.classList.remove('active');
     setTimeout(() => authModal.style.display = 'none', 300);
 };
 
+const openClientPanel = () => {
+    if (clientPanel) clientPanel.classList.add('active');
+    loadUserProfile();
+};
+
+const closeClientPanelFunc = () => {
+    if (clientPanel) clientPanel.classList.remove('active');
+};
+
 if (loginBtn) {
     loginBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        openModal();
+        const user = supabaseClient.auth.getUser().then(({ data: { user } }) => {
+            if (user) openClientPanel();
+            else openAuthModal();
+        });
     });
 }
-if (closeAuthModal) closeAuthModal.onclick = closeModal;
+
+if (closeAuthModal) closeAuthModal.onclick = closeAuthModalFunc;
+if (closeClientPanel) closeClientPanel.onclick = closeClientPanelFunc;
 
 window.onclick = (event) => {
-    if (event.target === authModal) closeModal();
+    if (event.target === authModal) closeAuthModalFunc();
 };
+
+// Logout
+if (logoutBtn) {
+    logoutBtn.onclick = async () => {
+        if (confirm('Deseja realmente sair da sua conta?')) {
+            await supabaseClient.auth.signOut();
+            closeClientPanelFunc();
+            window.location.reload();
+        }
+    };
+}
 
 // Switch between Login and Sign Up
 if (switchToSignUp) {
@@ -354,7 +388,7 @@ if (authForm && supabaseClient) {
             if (isSignUp) {
                 alert('Conta criada! Verifique seu e-mail para confirmar o cadastro.');
             } else {
-                closeModal();
+                closeAuthModalFunc();
             }
         } catch (error) {
             alert('Erro: ' + error.message);
@@ -378,18 +412,93 @@ if (googleLoginBtn && supabaseClient) {
     };
 }
 
+// Profile Logic
+const loadUserProfile = async () => {
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+
+    // Busca dados na tabela profiles
+    const { data: profile, error } = await supabaseClient.from('profiles').select('*').eq('id', user.id).single();
+    
+    if (profile) {
+        document.getElementById('profileName').value = profile.full_name || '';
+        document.getElementById('profilePhone').value = profile.phone || '';
+        document.getElementById('profileInstagram').value = profile.instagram || '';
+        if (profile.avatar_url) panelAvatar.src = profile.avatar_url;
+    } else {
+        // Se não houver perfil, tenta pegar do metadata do Google
+        document.getElementById('profileName').value = user.user_metadata?.full_name || '';
+        if (user.user_metadata?.avatar_url) panelAvatar.src = user.user_metadata.avatar_url;
+    }
+};
+
+if (profileForm) {
+    profileForm.onsubmit = async (e) => {
+        e.preventDefault();
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        const updates = {
+            id: user.id,
+            full_name: document.getElementById('profileName').value,
+            phone: document.getElementById('profilePhone').value,
+            instagram: document.getElementById('profileInstagram').value,
+            updated_at: new Date()
+        };
+
+        const { error } = await supabaseClient.from('profiles').upsert(updates);
+        if (error) alert('Erro ao salvar perfil: ' + error.message);
+        else alert('Perfil atualizado com sucesso!');
+    };
+}
+
+// Avatar Upload
+if (avatarClick) avatarClick.onclick = () => avatarInput.click();
+
+if (avatarInput) {
+    avatarInput.onchange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${user.id}-${Math.random()}.${fileExt}`;
+        const filePath = `${fileName}`;
+
+        try {
+            // Upload para o Storage
+            let { error: uploadError } = await supabaseClient.storage.from('avatars').upload(filePath, file);
+            if (uploadError) throw uploadError;
+
+            // Pega URL pública
+            const { data: { publicUrl } } = supabaseClient.storage.from('avatars').getPublicUrl(filePath);
+
+            // Atualiza tabela profiles
+            const { error: updateError } = await supabaseClient.from('profiles').upsert({
+                id: user.id,
+                avatar_url: publicUrl,
+                updated_at: new Date()
+            });
+            if (updateError) throw updateError;
+
+            panelAvatar.src = publicUrl;
+            updateUIForAuth(user, publicUrl);
+            alert('Foto de perfil atualizada!');
+
+        } catch (error) {
+            alert('Erro no upload: ' + error.message);
+        }
+    };
+}
+
 // Check Auth State and Update UI
-const updateUIForAuth = (user) => {
+const updateUIForAuth = (user, customAvatar = null) => {
     if (user) {
         if (loginBtn) {
-            const avatar = user.user_metadata?.avatar_url || 'https://www.gravatar.com/avatar/?d=mp';
+            const avatar = customAvatar || user.user_metadata?.avatar_url || 'https://www.gravatar.com/avatar/?d=mp';
             const name = user.user_metadata?.full_name || user.email.split('@')[0];
-            loginBtn.innerHTML = `<img src="${avatar}" style="width:25px; border-radius:50%; margin-right:8px; vertical-align: middle;"> ${name}`;
+            loginBtn.innerHTML = `<img id="navAvatar" src="${avatar}" style="width:25px; height:25px; border-radius:50%; margin-right:8px; vertical-align: middle; object-fit: cover;"> ${name}`;
             loginBtn.onclick = (e) => {
                 e.preventDefault();
-                if (confirm('Deseja sair da sua conta?')) {
-                    supabaseClient.auth.signOut();
-                }
+                openClientPanel();
             };
         }
     } else {
@@ -397,7 +506,7 @@ const updateUIForAuth = (user) => {
             loginBtn.innerText = 'Entrar';
             loginBtn.onclick = (e) => {
                 e.preventDefault();
-                openModal();
+                openAuthModal();
             };
         }
     }
@@ -410,7 +519,13 @@ if (supabaseClient) {
 
     // Initial check
     supabaseClient.auth.getUser().then(({ data: { user } }) => {
-        updateUIForAuth(user);
+        if (user) {
+            // Busca avatar customizado antes de atualizar UI
+            supabaseClient.from('profiles').select('avatar_url').eq('id', user.id).single()
+                .then(({ data }) => updateUIForAuth(user, data?.avatar_url));
+        } else {
+            updateUIForAuth(null);
+        }
     });
 }
 
