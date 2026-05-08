@@ -219,9 +219,51 @@ function openPreview(productId) {
     }
 }
 
+// 8. Store Notification Popup Logic
+const showStorePopup = () => {
+    // Verifica se o usuário já fechou o popup nesta sessão
+    if (sessionStorage.getItem('storePopupClosed')) return;
+
+    const popup = document.createElement('div');
+    popup.className = 'store-popup';
+    popup.innerHTML = `
+        <div class="store-popup-icon">
+            <i data-lucide="shopping-bag"></i>
+        </div>
+        <div class="store-popup-info">
+            <h4>FOX STORE</h4>
+            <p>Novos ativos de elite disponíveis. Explore agora!</p>
+        </div>
+        <div class="store-popup-close" id="closeStorePopup">✕</div>
+    `;
+
+    document.body.appendChild(popup);
+    lucide.createIcons();
+
+    // Delay para aparecer
+    setTimeout(() => {
+        popup.classList.add('active');
+    }, 3000);
+
+    // Redirecionar para a loja ao clicar (exceto no fechar)
+    popup.addEventListener('click', (e) => {
+        if (e.target.id === 'closeStorePopup') {
+            e.stopPropagation();
+            popup.classList.remove('active');
+            sessionStorage.setItem('storePopupClosed', 'true');
+            return;
+        }
+        window.location.href = 'loja.html';
+    });
+};
+
 // Executa assim que o DOM estiver pronto e garante execução se já carregado
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', revealElements);
+    document.addEventListener('DOMContentLoaded', () => {
+        revealElements();
+        showStorePopup();
+    });
 } else {
     revealElements();
+    showStorePopup();
 }
