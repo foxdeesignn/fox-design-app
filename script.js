@@ -96,25 +96,25 @@ const startCounter = (id, target, duration) => {
 
 // 6. Mercado Pago Checkout Integration
 async function startCheckout(pacoteId) {
-    const btn = event.target;
-    const originalText = btn.innerText;
+    // Busca o botão se possível, mas não trava se não achar
+    const btn = document.querySelector(`button[onclick*="${pacoteId}"]`);
+    const originalText = btn ? btn.innerText : "COMPRAR";
     
     try {
         console.log(`Iniciando checkout para: ${pacoteId}`);
-        // Verifica se o usuário está logado
         const { data: { user } } = await supabaseClient.auth.getUser();
         
         if (!user) {
-            console.warn("Usuário não logado ao tentar comprar.");
             alert('Mestre, para garantir o recebimento dos seus ativos, por favor faça login ou crie uma conta antes de comprar.');
             openAuthModal();
             return;
         }
 
-        btn.innerText = "Preparando Checkout...";
-        btn.disabled = true;
+        if (btn) {
+            btn.innerText = "Preparando Checkout...";
+            btn.disabled = true;
+        }
 
-        // Chama a Edge Function do Supabase
         console.log("Chamando Edge Function: create-preference...");
         const { data, error } = await supabaseClient.functions.invoke('create-preference', {
             body: { 
@@ -123,29 +123,29 @@ async function startCheckout(pacoteId) {
             }
         });
 
-        if (error) {
-            console.error("Erro retornado pela Edge Function:", error);
-            throw error;
-        }
-
-        console.log("Resposta da Edge Function recebida:", data);
+        if (error) throw error;
 
         if (data && data.init_point) {
-            console.log("Redirecionando para Mercado Pago:", data.init_point);
             window.location.href = data.init_point;
         } else {
-            console.error("Resposta inválida da função (sem init_point):", data);
-            throw new Error('Não foi possível gerar o link de pagamento.');
+            throw new Error('O Mercado Pago não devolveu um link de pagamento válido.');
         }
 
     } catch (error) {
-        console.error("ERRO CRÍTICO NO CHECKOUT:", error);
-        // Fallback para WhatsApp caso a automação falhe
-        const mensagem = encodeURIComponent(`Olá Fox Design! Tentei comprar o ${pacoteId} pelo site, mas ocorreu um erro técnico. Pode me ajudar?`);
-        window.location.href = `https://wa.me/5516997149568?text=${mensagem}`;
+        console.error("ERRO NO CHECKOUT:", error);
+        
+        let errorDetail = error.message;
+        if (error.context && error.context.json && error.context.json.error) {
+            errorDetail = error.context.json.error;
+        }
+
+        alert(`❌ ERRO NO SISTEMA DE VENDAS:\n\nDetalhe: ${errorDetail}\n\nO site NÃO irá redirecionar. Por favor, verifique se o Access Token do Mercado Pago foi salvo corretamente nos Secrets do Supabase.`);
+        
     } finally {
-        btn.innerText = originalText;
-        btn.disabled = false;
+        if (btn) {
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
     }
 }
 

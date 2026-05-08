@@ -2,6 +2,7 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
@@ -15,11 +16,16 @@ serve(async (req) => {
     const { product_id, user_email } = await req.json()
     const MP_ACCESS_TOKEN = Deno.env.get('MP_ACCESS_TOKEN')
 
+    if (!MP_ACCESS_TOKEN) {
+      throw new Error('Chave do Mercado Pago não configurada no Supabase.')
+    }
+
     // Tabela de Preços Fox Store
     const products: Record<string, any> = {
       'subgoal_gta_vi': { title: 'Meta de Subs: GTA VI Edition', price: 59.90 },
       'subgoal_fortnite': { title: 'Meta de Subs: Fortnite Edition', price: 59.90 },
       'subgoal_arc_riders': { title: 'Meta de Subs: Arc Riders Vision', price: 59.90 },
+      'subgoal_grenade': { title: 'Meta de Subs: Grenade Edition', price: 59.90 },
       'pacote_iniciante': { title: 'Pacote Iniciante Fox', price: 197.00 },
       'pacote_god': { title: 'Pacote GOD Fox', price: 497.00 },
       'pacote_premium': { title: 'Pacote Premium Fox', price: 897.00 },
@@ -27,7 +33,7 @@ serve(async (req) => {
     }
 
     const product = products[product_id]
-    if (!product) throw new Error('Produto não encontrado')
+    if (!product) throw new Error(`Produto ${product_id} não encontrado na tabela de preços.`)
 
     // Criar preferência no Mercado Pago
     const response = await fetch('https://api.mercadopago.com/checkout/preferences', {
@@ -51,14 +57,16 @@ serve(async (req) => {
           pending: 'https://foxdeesignn.github.io/fox-design-app/'
         },
         auto_return: 'approved',
-        payer: {
-          email: user_email
-        },
         external_reference: product_id
       }),
     })
 
     const data = await response.json()
+    console.log("MP Response:", data)
+
+    if (!data.init_point) {
+      throw new Error(data.message || 'Erro ao gerar link no Mercado Pago.')
+    }
 
     return new Response(JSON.stringify({ init_point: data.init_point }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -66,6 +74,7 @@ serve(async (req) => {
     })
 
   } catch (error) {
+    console.error("Function Error:", error.message)
     return new Response(JSON.stringify({ error: error.message }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 400,
