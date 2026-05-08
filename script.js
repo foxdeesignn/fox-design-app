@@ -178,15 +178,42 @@ function openPreview(productId) {
         const mimeType = isWebm ? 'video/webm' : 'video/mp4';
 
         modal.innerHTML = `
-            <div style="position: relative; width: 90%; max-width: 1000px; aspect-ratio: 16/9; background: #000; border: 2px solid var(--fox-orange); border-radius: 12px; overflow: hidden; box-shadow: 0 0 50px var(--fox-orange-glow);">
-                <video autoplay controls style="width: 100%; height: 100%;">
-                    <source src="${videoUrl}?v=1.1" type="${mimeType}">
+            <div style="position: relative; width: 95%; max-width: 1100px; aspect-ratio: 16/9; background: #000; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; overflow: hidden; box-shadow: 0 25px 80px rgba(0,0,0,0.9);">
+                <video autoplay controls style="width: 100%; height: 100%; display: block;">
+                    <source src="${videoUrl}?v=1.2" type="${mimeType}">
                     Seu navegador não suporta vídeos.
                 </video>
-                <button style="position: absolute; top: 20px; right: 20px; background: var(--fox-orange); border: none; color: #000; padding: 10px; border-radius: 50%; cursor: pointer; font-weight: bold; z-index: 10001;">X</button>
+                <button id="close-modal-btn" style="
+                    position: absolute; top: 20px; right: 20px; 
+                    width: 40px; height: 40px; border-radius: 50%; 
+                    background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2);
+                    color: #fff; cursor: pointer; display: flex; 
+                    align-items: center; justify-content: center; 
+                    font-family: 'Orbitron', sans-serif; font-size: 1.2rem;
+                    transition: all 0.3s; z-index: 10001; backdrop-filter: blur(5px);
+                ">✕</button>
             </div>
+            <style>
+                #close-modal-btn:hover {
+                    background: var(--fox-orange) !important;
+                    color: #000 !important;
+                    transform: rotate(90deg) scale(1.1);
+                    box-shadow: 0 0 20px var(--fox-orange-glow);
+                    border-color: var(--fox-orange);
+                }
+            </style>
         `;
         modal.style.display = 'flex';
+
+        // Fechar pelo botão ou clicando fora
+        const closeBtn = document.getElementById('close-modal-btn');
+        closeBtn.onclick = (e) => { e.stopPropagation(); closeModal(); };
+        modal.onclick = () => closeModal();
+
+        function closeModal() {
+            modal.style.display = 'none';
+            modal.innerHTML = '';
+        }
     } else {
         alert("Vídeo de demonstração em breve!");
     }

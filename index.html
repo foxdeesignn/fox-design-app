@@ -44,6 +44,7 @@
                 <a href="#beneficios">Benefícios</a>
                 <a href="#servicos">Serviços</a>
                 <a href="#planos">Planos</a>
+                <a href="loja.html">Loja</a>
                 <a href="#por-que-nos">Diferenciais</a>
                 <a href="#contato" class="nav-cta">Iniciar Projeto</a>
             </nav>
@@ -320,87 +321,6 @@
                     </ul>
                     <button onclick="startCheckout('pacote_ultimate')" class="btn btn-secondary" style="margin-top: auto;">Consultar Orçamento</button>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- NOVA SEÇÃO: FOX ASSETS STORE -->
-    <section id="loja" class="store-section" style="padding: 120px 0; background: radial-gradient(circle at center, rgba(0, 255, 0, 0.05) 0%, transparent 70%);">
-        <div class="container">
-            <h2 id="store-title" style="text-align: center; font-size: 2.5rem; font-family: 'Orbitron', sans-serif; margin-bottom: 50px; color: var(--fox-orange); animation: none !important; opacity: 1 !important; transform: none !important; transition: none !important;">Meta de Subs (Tematicas)</h2>
-            
-            <div class="store-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px;">
-                <!-- Produto 1: GTA VI -->
-                <div class="store-card" data-glow style="background: var(--bg-secondary); border: 1px solid var(--glass-border); border-radius: 24px; overflow: hidden; display: flex; flex-direction: column; transition: var(--transition);">
-                    <div data-glow></div>
-                    <div class="product-preview" style="height: 250px; overflow: hidden; position: relative;">
-                        <span style="position: absolute; top: 15px; right: 15px; background: var(--fox-orange); color: #fff; padding: 4px 12px; border-radius: 100px; font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900; z-index: 10;">NEW</span>
-                        <img src="assets/Capa-meta-GTA-VI.jpg" alt="GTA VI" style="width: 100%; height: 100%; object-fit: cover; transition: var(--transition);">
-                    </div>
-                    <div class="product-details" style="padding: 25px; text-align: left;">
-                        <span style="color: var(--fox-orange); font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;">Metas de Subs</span>
-                        <h3 style="margin: 10px 0 15px; font-size: 1.15rem;">GTA VI</h3>
-                        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px;">Estética oficial do GTA VI</p>
-                        <div style="display: flex; flex-direction: column; gap: 10px; border-top: 1px solid var(--glass-border); padding-top: 15px;">
-                            <button onclick="openPreview('subgoal_gta_vi')" class="btn-preview" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--glass-border); padding: 8px; border-radius: 4px; font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 700; cursor: pointer; transition: 0.3s; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                                <i data-lucide="play-circle" size="14"></i> VISUALIZAR META
-                            </button>
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <span style="font-family: 'Orbitron'; font-size: 1.4rem; font-weight: 900; color: #fff;">R$ 59,90</span>
-                                <button onclick="startCheckout('subgoal_gta_vi')" class="btn-buy-mini" style="background: var(--fox-orange); color: #000; border: none; padding: 10px 20px; border-radius: 4px; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; transition: 0.3s;">COMPRAR</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Produto 2: Fortnite -->
-                <div class="store-card" data-glow style="background: var(--bg-secondary); border: 1px solid var(--glass-border); border-radius: 24px; overflow: hidden; display: flex; flex-direction: column; transition: var(--transition);">
-                    <div data-glow></div>
-                    <div class="product-preview" style="height: 250px; overflow: hidden; position: relative;">
-                        <img src="assets/Capa-meta-Fortnite.jpg" alt="Fortnite" style="width: 100%; height: 100%; object-fit: cover; transition: var(--transition);">
-                    </div>
-                    <div class="product-details" style="padding: 25px; text-align: left;">
-                        <span style="color: var(--fox-orange); font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;">Metas de Subs</span>
-                        <h3 style="margin: 10px 0 15px; font-size: 1.15rem;">Fortnite</h3>
-                        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px;">Estética oficial do Fortnite</p>
-                        <div style="display: flex; flex-direction: column; gap: 10px; border-top: 1px solid var(--glass-border); padding-top: 15px;">
-                            <button onclick="openPreview('subgoal_fortnite')" class="btn-preview" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--glass-border); padding: 8px; border-radius: 4px; font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 700; cursor: pointer; transition: 0.3s; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                                <i data-lucide="play-circle" size="14"></i> VISUALIZAR META
-                            </button>
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <span style="font-family: 'Orbitron'; font-size: 1.4rem; font-weight: 900; color: #fff;">R$ 59,90</span>
-                                <button onclick="startCheckout('subgoal_fortnite')" class="btn-buy-mini" style="background: var(--fox-orange); color: #000; border: none; padding: 10px 20px; border-radius: 4px; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; transition: 0.3s;">COMPRAR</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Produto 3: Arc Riders -->
-                <div class="store-card" data-glow style="background: var(--bg-secondary); border: 1px solid var(--glass-border); border-radius: 24px; overflow: hidden; display: flex; flex-direction: column; transition: var(--transition);">
-                    <div data-glow></div>
-                    <div class="product-preview" style="height: 250px; overflow: hidden; position: relative;">
-                        <img src="assets/Capa-meta-Arc-Riders.jpg" alt="Arc Riders" style="width: 100%; height: 100%; object-fit: cover; transition: var(--transition);">
-                    </div>
-                    <div class="product-details" style="padding: 25px; text-align: left;">
-                        <span style="color: var(--fox-orange); font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;">Metas de Subs</span>
-                        <h3 style="margin: 10px 0 15px; font-size: 1.15rem;">Arc Riders</h3>
-                        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px;">Estética oficial do Arc Riders</p>
-                        <div style="display: flex; flex-direction: column; gap: 10px; border-top: 1px solid var(--glass-border); padding-top: 15px;">
-                            <button onclick="openPreview('subgoal_arc_riders')" class="btn-preview" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--glass-border); padding: 8px; border-radius: 4px; font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 700; cursor: pointer; transition: 0.3s; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                                <i data-lucide="play-circle" size="14"></i> VISUALIZAR META
-                            </button>
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <span style="font-family: 'Orbitron'; font-size: 1.4rem; font-weight: 900; color: #fff;">R$ 59,90</span>
-                                <button onclick="startCheckout('subgoal_arc_riders')" class="btn-buy-mini" style="background: var(--fox-orange); color: #000; border: none; padding: 10px 20px; border-radius: 4px; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; transition: 0.3s;">COMPRAR</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            
-            <div style="text-align: center; margin-top: 50px;">
-                <p style="color: var(--text-secondary);">Procurando algo exclusivo? <a href="#contato" style="color: var(--fox-orange); text-decoration: none; font-weight: bold;">Solicite um design sob medida →</a></p>
             </div>
         </div>
     </section>
