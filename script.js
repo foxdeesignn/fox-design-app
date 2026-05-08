@@ -420,6 +420,7 @@ const loadUserOrders = async () => {
         'subgoal_fortnite': 'Meta de Subs: Fortnite Edition',
         'subgoal_arc_riders': 'Meta de Subs: Arc Riders Vision',
         'subgoal_grenade': 'Meta de Subs: Grenade Edition',
+        'pack_jett_valorant': 'Pack Jett: Valorant Edition',
         'pacote_iniciante': 'Pacote Iniciante Fox',
         'pacote_god': 'Pacote GOD Fox',
         'pacote_premium': 'Pacote Premium Fox',

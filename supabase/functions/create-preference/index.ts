@@ -26,6 +26,7 @@ serve(async (req) => {
       'subgoal_fortnite': { title: 'Meta de Subs: Fortnite Edition', price: 59.90 },
       'subgoal_arc_riders': { title: 'Meta de Subs: Arc Riders Vision', price: 59.90 },
       'subgoal_grenade': { title: 'Meta de Subs: Grenade Edition', price: 59.90 },
+      'pack_jett_valorant': { title: 'Pack Jett: Valorant Edition', price: 197.00 },
       'pacote_iniciante': { title: 'Pacote Iniciante Fox', price: 197.00 },
       'pacote_god': { title: 'Pacote GOD Fox', price: 497.00 },
       'pacote_premium': { title: 'Pacote Premium Fox', price: 897.00 },
