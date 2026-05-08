@@ -408,7 +408,7 @@ if (authForm && supabaseClient) {
 
             if (isSignUp) {
                 if (result.data.user && result.data.session) {
-                    alert('Bem-vindo à Elite! Sua conta foi criada e o acesso liberado.');
+                    alert('Bem-vindo à Fox Store! Sua conta foi criada e o acesso liberado.');
                     closeAuthModalFunc();
                 } else {
                     alert('Conta criada! Verifique seu e-mail para confirmar o cadastro (caso não receba, tente logar diretamente).');
