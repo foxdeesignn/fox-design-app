@@ -401,6 +401,12 @@
                 <button type="submit" id="saveProfileBtn" class="btn btn-primary btn-full">Salvar Alterações</button>
             </form>
 
+            <div class="panel-section" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--glass-border);">
+                <button id="openDownloadsBtn" class="btn btn-secondary btn-full">
+                    <i data-lucide="download-cloud"></i> Meus Produtos / Downloads
+                </button>
+            </div>
+
             <div class="panel-footer">
                 <button id="logoutBtn" class="btn btn-secondary btn-full">
                     <i data-lucide="log-out"></i> Sair da Conta
@@ -408,6 +414,28 @@
             </div>
         </div>
     </aside>
+
+    <!-- Downloads / Member Area Modal -->
+    <div id="downloadsModal" class="modal-overlay">
+        <div class="modal-content glass-effect" style="max-width: 600px;">
+            <button class="modal-close" id="closeDownloadsModal">&times;</button>
+            <div class="auth-box">
+                <div class="auth-header">
+                    <h2>Área de <span>Downloads Fox</span></h2>
+                    <p>Aqui você encontra o histórico dos seus ativos de elite.</p>
+                </div>
+                
+                <div id="ordersList" class="orders-container">
+                    <!-- Preenchido via JS -->
+                    <div class="loading-spinner">Buscando seus ativos...</div>
+                </div>
+
+                <div class="auth-footer" style="margin-top: 20px;">
+                    <p>Precisa de ajuda? <a href="mailto:suportefoxdesignn@gmail.com">suportefoxdesignn@gmail.com</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Floating WhatsApp -->
     <a href="https://wa.me/5516997149568" class="whatsapp-float">

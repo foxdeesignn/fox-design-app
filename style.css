@@ -1119,6 +1119,63 @@ footer { padding: 80px 0 40px; border-top: 1px solid var(--glass-border); backgr
 
 .btn-full { width: 100%; margin-top: 10px; }
 
+/* --- MEMBER AREA / ORDERS --- */
+.orders-container {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 20px;
+    padding-right: 10px;
+}
+.orders-container::-webkit-scrollbar { width: 4px; }
+.orders-container::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
+
+.order-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: var(--transition);
+}
+.order-card:hover { background: rgba(255, 255, 255, 0.05); border-color: var(--fox-orange); }
+
+.order-info h4 { font-size: 1rem; margin-bottom: 5px; color: var(--white); }
+.order-info p { font-size: 0.75rem; color: var(--text-secondary); }
+.order-status {
+    padding: 5px 12px;
+    border-radius: 100px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.status-approved { background: rgba(0, 255, 0, 0.1); color: #00ff00; }
+.status-pending { background: rgba(255, 255, 0, 0.1); color: #ffff00; }
+
+.btn-request {
+    background: var(--fox-orange);
+    color: #000;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 900;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn-request:hover { transform: scale(1.05); filter: brightness(1.1); }
+
+.empty-orders {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--text-secondary);
+}
+.empty-orders i { display: block; margin-bottom: 15px; opacity: 0.5; }
+
 /* --- OFFCANVAS PANEL (CLIENT AREA) --- */
 .offcanvas-panel {
     position: fixed; top: 0; right: -450px; width: 400px; height: 100%;

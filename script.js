@@ -308,6 +308,10 @@ const profileForm = document.getElementById('profileForm');
 const avatarClick = document.getElementById('avatarClick');
 const avatarInput = document.getElementById('avatarInput');
 const panelAvatar = document.getElementById('panelAvatar');
+const openDownloadsBtn = document.getElementById('openDownloadsBtn');
+const downloadsModal = document.getElementById('downloadsModal');
+const closeDownloadsModal = document.getElementById('closeDownloadsModal');
+const ordersList = document.getElementById('ordersList');
 
 let isSignUp = false;
 
@@ -333,10 +337,23 @@ const closeClientPanelFunc = () => {
     if (clientPanel) clientPanel.classList.remove('active');
 };
 
+const openDownloadsModal = () => {
+    if (!downloadsModal) return;
+    downloadsModal.style.display = 'flex';
+    setTimeout(() => downloadsModal.classList.add('active'), 10);
+    loadUserOrders();
+};
+
+const closeDownloadsModalFunc = () => {
+    if (!downloadsModal) return;
+    downloadsModal.classList.remove('active');
+    setTimeout(() => downloadsModal.style.display = 'none', 300);
+};
+
 if (loginBtn) {
     loginBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        const user = supabaseClient.auth.getUser().then(({ data: { user } }) => {
+        supabaseClient.auth.getUser().then(({ data: { user } }) => {
             if (user) openClientPanel();
             else openAuthModal();
         });
@@ -345,9 +362,15 @@ if (loginBtn) {
 
 if (closeAuthModal) closeAuthModal.onclick = closeAuthModalFunc;
 if (closeClientPanel) closeClientPanel.onclick = closeClientPanelFunc;
+if (openDownloadsBtn) openDownloadsBtn.onclick = () => {
+    closeClientPanelFunc();
+    openDownloadsModal();
+};
+if (closeDownloadsModal) closeDownloadsModal.onclick = closeDownloadsModalFunc;
 
 window.onclick = (event) => {
     if (event.target === authModal) closeAuthModalFunc();
+    if (event.target === downloadsModal) closeDownloadsModalFunc();
 };
 
 // Logout
@@ -359,6 +382,79 @@ if (logoutBtn) {
             window.location.reload();
         }
     };
+}
+
+// Member Area - Load Orders
+const loadUserOrders = async () => {
+    if (!ordersList) return;
+    ordersList.innerHTML = '<div class="loading-spinner">Buscando seus ativos de elite...</div>';
+
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+
+    const { data: orders, error } = await supabaseClient
+        .from('orders')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+
+    if (error) {
+        ordersList.innerHTML = `<p style="color:red; text-align:center;">Erro ao carregar pedidos: ${error.message}</p>`;
+        return;
+    }
+
+    if (!orders || orders.length === 0) {
+        ordersList.innerHTML = `
+            <div class="empty-orders">
+                <i data-lucide="shopping-cart" size="48"></i>
+                <p>Você ainda não possui produtos adquiridos.</p>
+                <a href="loja.html" class="btn btn-primary" style="margin-top:15px; display:inline-block;">Explorar Loja</a>
+            </div>
+        `;
+        lucide.createIcons();
+        return;
+    }
+
+    const productNames = {
+        'subgoal_gta_vi': 'Meta de Subs: GTA VI Edition',
+        'subgoal_fortnite': 'Meta de Subs: Fortnite Edition',
+        'subgoal_arc_riders': 'Meta de Subs: Arc Riders Vision',
+        'subgoal_grenade': 'Meta de Subs: Grenade Edition',
+        'pacote_iniciante': 'Pacote Iniciante Fox',
+        'pacote_god': 'Pacote GOD Fox',
+        'pacote_premium': 'Pacote Premium Fox',
+        'pacote_ultimate': 'Pacote Ultimate Fox'
+    };
+
+    ordersList.innerHTML = '';
+    orders.forEach(order => {
+        const date = new Date(order.created_at).toLocaleDateString('pt-BR');
+        const card = document.createElement('div');
+        card.className = 'order-card';
+        
+        const productName = productNames[order.product_id] || order.product_id;
+        const statusClass = order.status === 'approved' ? 'status-approved' : 'status-pending';
+        const statusText = order.status === 'approved' ? 'Aprovado' : 'Pendente';
+
+        card.innerHTML = `
+            <div class="order-info">
+                <h4>${productName}</h4>
+                <p>Data: ${date} | Pedido: #${order.id.split('-')[0].toUpperCase()}</p>
+                <span class="order-status ${statusClass}">${statusText}</span>
+            </div>
+            ${order.status === 'approved' ? `
+                <button onclick="requestFile('${order.id}', '${productName}')" class="btn-request">
+                    SOLICITAR ARQUIVOS
+                </button>
+            ` : ''}
+        `;
+        ordersList.appendChild(card);
+    });
+};
+
+function requestFile(orderId, productName) {
+    const msg = encodeURIComponent(`Olá Fox Design! Gostaria de receber os arquivos do meu pedido #${orderId.split('-')[0].toUpperCase()} (${productName}) que adquiri no site.`);
+    window.open(`https://wa.me/5516997149568?text=${msg}`, '_blank');
 }
 
 // Switch between Login and Sign Up
@@ -484,6 +580,13 @@ if (avatarInput) {
     avatarInput.onchange = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
+
+        // Limite de 2MB
+        if (file.size > 2 * 1024 * 1024) {
+            alert('A foto de perfil deve ter no máximo 2MB.');
+            avatarInput.value = '';
+            return;
+        }
 
         const { data: { user } } = await supabaseClient.auth.getUser();
         const fileExt = file.name.split('.').pop();
