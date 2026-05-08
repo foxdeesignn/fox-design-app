@@ -261,9 +261,16 @@ const showStorePopup = () => {
 const SUPABASE_URL = 'https://pnewkedxkqdhplhfkrij.supabase.co'; 
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBuZXdrZWR4a3FkaHBsaGZrcmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMDM0MTEsImV4cCI6MjA5Mzc3OTQxMX0.EBhhXQ9uVZEINEv8zgI3mmvZpKeueu4jw7u2VXhW_rw'; 
 
-let supabase = null;
-if (typeof supabasejs !== 'undefined') {
-    supabase = supabasejs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+let supabaseClient = null;
+try {
+    if (typeof supabase !== 'undefined') {
+        supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        console.log("Supabase inicializado com sucesso.");
+    } else {
+        console.error("SDK do Supabase não encontrado. Verifique o link do CDN.");
+    }
+} catch (e) {
+    console.error("Erro ao inicializar Supabase:", e);
 }
 
 const authModal = document.getElementById('authModal');
@@ -281,16 +288,23 @@ let isSignUp = false;
 
 // Modal Controls
 const openModal = () => {
+    if (!authModal) return;
     authModal.style.display = 'flex';
     setTimeout(() => authModal.classList.add('active'), 10);
 };
 
 const closeModal = () => {
+    if (!authModal) return;
     authModal.classList.remove('active');
     setTimeout(() => authModal.style.display = 'none', 300);
 };
 
-if (loginBtn) loginBtn.onclick = openModal;
+if (loginBtn) {
+    loginBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal();
+    });
+}
 if (closeAuthModal) closeAuthModal.onclick = closeModal;
 
 window.onclick = (event) => {
@@ -318,7 +332,7 @@ if (switchToSignUp) {
 }
 
 // Handle Form Submission
-if (authForm) {
+if (authForm && supabaseClient) {
     authForm.onsubmit = async (e) => {
         e.preventDefault();
         const email = document.getElementById('authEmail').value;
@@ -330,9 +344,9 @@ if (authForm) {
         try {
             let result;
             if (isSignUp) {
-                result = await supabase.auth.signUp({ email, password });
+                result = await supabaseClient.auth.signUp({ email, password });
             } else {
-                result = await supabase.auth.signInWithPassword({ email, password });
+                result = await supabaseClient.auth.signInWithPassword({ email, password });
             }
 
             if (result.error) throw result.error;
@@ -352,9 +366,9 @@ if (authForm) {
 }
 
 // Google Login
-if (googleLoginBtn) {
+if (googleLoginBtn && supabaseClient) {
     googleLoginBtn.onclick = async () => {
-        const { error } = await supabase.auth.signInWithOAuth({
+        const { error } = await supabaseClient.auth.signInWithOAuth({
             provider: 'google',
             options: {
                 redirectTo: window.location.origin
@@ -368,28 +382,34 @@ if (googleLoginBtn) {
 const updateUIForAuth = (user) => {
     if (user) {
         if (loginBtn) {
-            loginBtn.innerHTML = `<img src="${user.user_metadata.avatar_url || 'https://www.gravatar.com/avatar/?d=mp'}" style="width:25px; border-radius:50%; margin-right:8px;"> ${user.user_metadata.full_name || user.email.split('@')[0]}`;
-            loginBtn.onclick = () => {
+            const avatar = user.user_metadata?.avatar_url || 'https://www.gravatar.com/avatar/?d=mp';
+            const name = user.user_metadata?.full_name || user.email.split('@')[0];
+            loginBtn.innerHTML = `<img src="${avatar}" style="width:25px; border-radius:50%; margin-right:8px; vertical-align: middle;"> ${name}`;
+            loginBtn.onclick = (e) => {
+                e.preventDefault();
                 if (confirm('Deseja sair da sua conta?')) {
-                    supabase.auth.signOut();
+                    supabaseClient.auth.signOut();
                 }
             };
         }
     } else {
         if (loginBtn) {
             loginBtn.innerText = 'Entrar';
-            loginBtn.onclick = openModal;
+            loginBtn.onclick = (e) => {
+                e.preventDefault();
+                openModal();
+            };
         }
     }
 };
 
-if (supabase) {
-    supabase.auth.onAuthStateChange((event, session) => {
+if (supabaseClient) {
+    supabaseClient.auth.onAuthStateChange((event, session) => {
         updateUIForAuth(session?.user);
     });
 
     // Initial check
-    supabase.auth.getUser().then(({ data: { user } }) => {
+    supabaseClient.auth.getUser().then(({ data: { user } }) => {
         updateUIForAuth(user);
     });
 }
