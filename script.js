@@ -394,8 +394,7 @@ if (supabase) {
     });
 }
 
-// Executa assim que o DOM estiver pronto
- e garante execução se já carregado
+// Executa assim que o DOM estiver pronto e garante execução se já carregado
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         revealElements();
