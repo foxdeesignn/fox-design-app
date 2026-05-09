@@ -50,8 +50,28 @@
         <div class="glass-panel">
             <i data-lucide="shield-alert" size="64" style="color: var(--fox-orange); margin-bottom: 20px;"></i>
             <h1 style="font-family: 'Orbitron';">ACESSO NEGADO</h1>
-            <p style="color: #888; margin-top: 20px;">Esta área é exclusiva para o administrador master da Fox Design.</p>
-            <a href="index.html" class="btn btn-primary" style="margin-top: 30px; display: inline-block;">VOLTAR AO INÍCIO</a>
+            <p style="color: #888; margin-top: 20px;">Seu e-mail não possui permissão de Administrador Master.</p>
+            <button onclick="logoutAndRetry()" class="btn btn-primary" style="margin-top: 30px;">TENTAR OUTRA CONTA</button>
+        </div>
+    </div>
+
+    <div id="admin-login" class="admin-container" style="display: none; max-width: 500px;">
+        <div class="glass-panel">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h1 style="font-family: 'Orbitron'; font-size: 1.5rem;">FOX <span>ADMIN</span></h1>
+                <p style="color: #888; font-size: 0.9rem; margin-top: 10px;">Autenticação de Nível Master</p>
+            </div>
+            <form id="loginForm" class="auth-form">
+                <div class="input-group">
+                    <label>E-mail Administrador</label>
+                    <input type="email" id="adminEmail" placeholder="admin@foxdesign.com" required style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 12px; border-radius: 8px; width: 100%; margin-top: 8px;">
+                </div>
+                <div class="input-group" style="margin-top: 20px;">
+                    <label>Senha de Acesso</label>
+                    <input type="password" id="adminPassword" placeholder="••••••••" required style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 12px; border-radius: 8px; width: 100%; margin-top: 8px;">
+                </div>
+                <button type="submit" id="btnLogin" class="btn btn-primary" style="width: 100%; margin-top: 30px; font-family: 'Orbitron'; font-weight: 900;">ENTRAR NO SISTEMA</button>
+            </form>
         </div>
     </div>
 
@@ -116,21 +136,63 @@
             try {
                 const { data: { user }, error: authError } = await supabaseAdmin.auth.getUser();
                 
-                if (authError) throw authError;
+                document.getElementById('loader').style.display = 'none';
 
-                if (user && user.email === MASTER_EMAIL) {
-                    document.getElementById('loader').style.display = 'none';
-                    document.getElementById('admin-content').style.display = 'block';
-                    loadDashboardData();
+                if (user) {
+                    if (user.email === MASTER_EMAIL) {
+                        document.getElementById('admin-content').style.display = 'block';
+                        document.getElementById('admin-login').style.display = 'none';
+                        document.getElementById('access-denied').style.display = 'none';
+                        loadDashboardData();
+                    } else {
+                        document.getElementById('access-denied').style.display = 'block';
+                        document.getElementById('admin-content').style.display = 'none';
+                        document.getElementById('admin-login').style.display = 'none';
+                    }
                 } else {
-                    document.getElementById('loader').style.display = 'none';
-                    document.getElementById('access-denied').style.display = 'block';
+                    document.getElementById('admin-login').style.display = 'block';
+                    document.getElementById('admin-content').style.display = 'none';
+                    document.getElementById('access-denied').style.display = 'none';
                 }
             } catch (error) {
                 console.error("Erro na verificação de acesso:", error);
                 document.getElementById('loader').style.display = 'none';
-                document.getElementById('access-denied').style.display = 'block';
+                document.getElementById('admin-login').style.display = 'block';
             }
+        }
+
+        // Lógica de Login Direto
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm) {
+            loginForm.onsubmit = async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('adminEmail').value;
+                const password = document.getElementById('adminPassword').value;
+                const btn = document.getElementById('btnLogin');
+
+                if (email !== MASTER_EMAIL) {
+                    alert("Acesso Negado: Este e-mail não possui privilégios de Administrador.");
+                    return;
+                }
+
+                btn.innerText = "AUTENTICANDO...";
+                btn.disabled = true;
+
+                try {
+                    const { data, error } = await supabaseAdmin.auth.signInWithPassword({ email, password });
+                    if (error) throw error;
+                    window.location.reload();
+                } catch (error) {
+                    alert("Erro ao entrar: " + error.message);
+                    btn.innerText = "ENTRAR NO SISTEMA";
+                    btn.disabled = false;
+                }
+            };
+        }
+
+        async function logoutAndRetry() {
+            await supabaseAdmin.auth.signOut();
+            window.location.reload();
         }
 
         async function loadDashboardData() {
