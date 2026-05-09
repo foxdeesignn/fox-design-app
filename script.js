@@ -171,7 +171,8 @@ function openPreview(productId) {
         'subgoal_arc_riders': 'assets/video_arc_riders.webm',
         'subgoal_grenade': 'assets/video_grenade.mp4',
         'pack_jett_valorant': 'assets/video_jett.webm',
-        'pack_killjoy_valorant': 'assets/video_killjoy.webm'
+        'pack_killjoy_valorant': 'assets/video_killjoy.webm',
+        'pack_raze_valorant': 'assets/video_raze.webm'
     };
 
     const videoUrl = videoUrls[productId];
