@@ -422,6 +422,7 @@ const loadUserOrders = async () => {
         'subgoal_arc_riders': 'Meta de Subs: Arc Riders Vision',
         'subgoal_grenade': 'Meta de Subs: Grenade Edition',
         'pack_jett_valorant': 'Pack Jett: Valorant Edition',
+        'pack_killjoy_valorant': 'Pack Killjoy: Valorant Edition',
         'pacote_iniciante': 'Pacote Iniciante Fox',
         'pacote_god': 'Pacote GOD Fox',
         'pacote_premium': 'Pacote Premium Fox',
