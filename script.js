@@ -127,6 +127,15 @@ async function startCheckout(pacoteId) {
         if (error) throw error;
 
         // --- REGISTRO DO PEDIDO NO SUPABASE ---
+        // Tabela de Preços Sincronizada para Registro
+        const productPrices = {
+            'subgoal_gta_vi': 29.90, 'subgoal_fortnite': 29.90, 'subgoal_arc_riders': 29.90, 'subgoal_grenade': 29.90,
+            'pack_jett_valorant': 59.90, 'pack_killjoy_valorant': 59.90, 'pack_raze_valorant': 59.90,
+            'pacote_iniciante': 297.00, 'pacote_god': 457.00, 'pacote_premium': 897.00, 'pacote_ultimate': 1197.00
+        };
+
+        const amount = productPrices[pacoteId] || 0;
+
         // Registra a intenção de compra antes de sair do site
         const { error: orderError } = await supabaseClient
             .from('orders')
@@ -134,13 +143,19 @@ async function startCheckout(pacoteId) {
                 { 
                     user_id: user.id, 
                     product_id: pacoteId, 
-                    status: 'pending'
+                    status: 'pending',
+                    amount: amount
                 }
             ]);
         
         if (orderError) {
             console.error("Erro ao registrar pedido pendente:", orderError);
-            alert("AVISO JARVIS: O pagamento será gerado, mas houve um erro ao registrar no seu histórico: " + orderError.message);
+            // Se o erro for sobre a coluna amount não existir, tentamos total_price
+            if (orderError.message.includes('column "amount" does not exist')) {
+                 await supabaseClient.from('orders').insert([{ user_id: user.id, product_id: pacoteId, status: 'pending', total_price: amount }]);
+            } else {
+                alert("AVISO JARVIS: O pagamento será gerado, mas houve um erro ao registrar no seu histórico: " + orderError.message);
+            }
         }
 
         if (data && data.init_point) {
