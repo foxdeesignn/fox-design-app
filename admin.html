@@ -3,121 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADMIN DASHBOARD | FOX DESIGN</title>
+    <title>CENTRAL DE COMANDO | FOX DESIGN</title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        body { background: #0A0A0B; color: #fff; font-family: 'Sora', sans-serif; overflow-x: hidden; }
-        .admin-container { max-width: 1400px; margin: 100px auto; padding: 0 20px; }
-        .glass-panel { background: rgba(18, 18, 20, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 30px; }
-        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
-        .dashboard-header h1 { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; letter-spacing: 2px; }
-        .dashboard-header h1 span { color: var(--fox-orange); }
-        
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 40px; }
-        .stat-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 15px; padding: 20px; }
-        .stat-card h3 { font-size: 0.8rem; color: #888; text-transform: uppercase; margin-bottom: 10px; }
-        .stat-card .value { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: #fff; }
+        :root {
+            --admin-bg: #050506;
+            --admin-panel: rgba(15, 15, 18, 0.9);
+            --admin-border: rgba(246, 14, 90, 0.15);
+            --fox-gradient: linear-gradient(135deg, #f60e5a 0%, #a1083d 100%);
+        }
 
-        .orders-table-wrapper { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th { text-align: left; padding: 15px; background: rgba(255,255,255,0.03); color: var(--fox-orange); font-family: 'Orbitron', sans-serif; font-size: 0.75rem; text-transform: uppercase; }
-        td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; }
-        tr:hover { background: rgba(255,255,255,0.01); }
+        body { 
+            background: var(--admin-bg); 
+            color: #fff; 
+            font-family: 'Sora', sans-serif; 
+            margin: 0;
+            background-image: radial-gradient(circle at 10% 10%, rgba(246, 14, 90, 0.05) 0%, transparent 40%),
+                              radial-gradient(circle at 90% 90%, rgba(246, 14, 90, 0.05) 0%, transparent 40%);
+            min-height: 100vh;
+        }
+
+        .admin-layout { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
+
+        /* Glassmorphism Refined */
+        .glass-card {
+            background: var(--admin-panel);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--admin-border);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: var(--fox-gradient); opacity: 0.5;
+        }
+
+        /* Header Admin */
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-logo h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            margin: 0;
+        }
+
+        .admin-logo span { color: var(--fox-orange); }
+
+        .header-actions { display: flex; gap: 12px; }
+
+        .btn-admin {
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--admin-border);
+            background: rgba(255,255,255,0.03);
+            color: #fff;
+        }
+
+        .btn-admin:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-2px);
+        }
+
+        .btn-admin.primary {
+            background: var(--fox-orange);
+            color: #000;
+            border: none;
+        }
+
+        .btn-admin.primary:hover {
+            box-shadow: 0 0 20px var(--fox-orange-glow);
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 25px;
+            transition: 0.3s;
+        }
+
+        .stat-box:hover { border-color: var(--fox-orange); background: rgba(246, 14, 90, 0.02); }
+
+        .stat-box i { color: var(--fox-orange); margin-bottom: 15px; opacity: 0.8; }
+        .stat-box h3 { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 10px 0; }
+        .stat-box .value { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 900; }
+
+        /* Table Design */
+        .table-container { overflow-x: auto; margin-top: 20px; }
+        table { width: 100%; border-collapse: separate; border-spacing: 0 8px; }
+        th { text-align: left; padding: 15px 20px; color: #888; font-family: 'Orbitron'; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; }
         
-        .status-badge { padding: 4px 10px; border-radius: 100px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
-        .status-approved { background: rgba(0, 255, 0, 0.1); color: #00ff00; }
-        .status-pending { background: rgba(255, 255, 0, 0.1); color: #ffff00; }
-        
-        #access-denied { display: none; text-align: center; padding: 100px 20px; }
-        #admin-content { display: none; }
-        .loading-overlay { position: fixed; inset: 0; background: #0A0A0B; z-index: 10000; display: flex; align-items: center; justify-content: center; }
+        tr.order-row td { 
+            padding: 20px; 
+            background: rgba(255,255,255,0.02); 
+            border-top: 1px solid rgba(255,255,255,0.03);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            font-size: 0.85rem;
+        }
+
+        tr.order-row td:first-child { border-left: 1px solid rgba(255,255,255,0.03); border-radius: 12px 0 0 12px; }
+        tr.order-row td:last-child { border-right: 1px solid rgba(255,255,255,0.03); border-radius: 0 12px 12px 0; }
+
+        tr.order-row:hover td { background: rgba(255,255,255,0.05); border-color: var(--admin-border); }
+
+        .badge-status {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.65rem;
+            font-weight: 900;
+            font-family: 'Orbitron';
+            text-transform: uppercase;
+        }
+
+        .status-approved { background: rgba(0, 255, 128, 0.1); color: #00ff80; }
+        .status-pending { background: rgba(255, 180, 0, 0.1); color: #ffb400; }
+        .status-error { background: rgba(255, 0, 0, 0.1); color: #ff3333; }
+
+        .user-meta { display: flex; align-items: center; gap: 10px; }
+        .user-meta img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid var(--fox-orange); }
+
+        /* Animations */
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .refreshing i { animation: spin 1s linear infinite; color: var(--fox-orange) !important; }
+
+        /* Login Layout Override */
+        .login-box { max-width: 450px; margin: 15vh auto; }
+        .input-admin { 
+            width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 12px; color: #fff; margin-top: 8px; box-sizing: border-box; outline: none;
+        }
+        .input-admin:focus { border-color: var(--fox-orange); }
+
+        #admin-content, #admin-login, #access-denied { display: none; }
     </style>
 </head>
 <body>
 
-    <div id="loader" class="loading-overlay">
-        <div style="text-align: center;">
-            <div style="width: 40px; height: 40px; border: 3px solid var(--fox-orange); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-            <p style="margin-top: 20px; font-family: 'Orbitron'; font-size: 0.8rem; letter-spacing: 2px;">AUTENTICANDO...</p>
-        </div>
+    <!-- Overlay de Carregamento -->
+    <div id="main-loader" style="position: fixed; inset: 0; background: #050506; z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+        <div style="width: 50px; height: 50px; border: 4px solid var(--fox-orange); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+        <p style="margin-top: 20px; font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 3px; color: #888;">INICIALIZANDO JARVIS OPS...</p>
     </div>
 
-    <div id="access-denied" class="admin-container">
-        <div class="glass-panel">
-            <i data-lucide="shield-alert" size="64" style="color: var(--fox-orange); margin-bottom: 20px;"></i>
-            <h1 style="font-family: 'Orbitron';">ACESSO NEGADO</h1>
-            <p style="color: #888; margin-top: 20px;">Seu e-mail não possui permissão de Administrador Master.</p>
-            <button onclick="logoutAndRetry()" class="btn btn-primary" style="margin-top: 30px;">TENTAR OUTRA CONTA</button>
-        </div>
-    </div>
+    <div class="admin-layout">
 
-    <div id="admin-login" class="admin-container" style="display: none; max-width: 500px;">
-        <div class="glass-panel">
-            <div style="text-align: center; margin-bottom: 30px;">
-                <h1 style="font-family: 'Orbitron'; font-size: 1.5rem;">FOX <span>ADMIN</span></h1>
-                <p style="color: #888; font-size: 0.9rem; margin-top: 10px;">Autenticação de Nível Master</p>
+        <!-- 1. TELA DE LOGIN -->
+        <div id="admin-login" class="login-box">
+            <div class="glass-card" style="text-align: center;">
+                <h1 style="font-family: 'Orbitron'; margin-bottom: 10px;">FOX <span>ADMIN</span></h1>
+                <p style="color: #888; font-size: 0.8rem; margin-bottom: 30px;">Identificação de Nível Master Necessária</p>
+                
+                <form id="loginForm">
+                    <div style="text-align: left; margin-bottom: 20px;">
+                        <label style="font-size: 0.75rem; color: #888; text-transform: uppercase;">E-mail Administrativo</label>
+                        <input type="email" id="adminEmail" class="input-admin" placeholder="mestre@foxdesign.com" required>
+                    </div>
+                    <div style="text-align: left; margin-bottom: 30px;">
+                        <label style="font-size: 0.75rem; color: #888; text-transform: uppercase;">Senha de Segurança</label>
+                        <input type="password" id="adminPassword" class="input-admin" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" id="btnLogin" class="btn-admin primary" style="width: 100%; justify-content: center; font-size: 0.9rem;">ENTRAR NO SISTEMA</button>
+                </form>
             </div>
-            <form id="loginForm" class="auth-form">
-                <div class="input-group">
-                    <label>E-mail Administrador</label>
-                    <input type="email" id="adminEmail" placeholder="admin@foxdesign.com" required style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 12px; border-radius: 8px; width: 100%; margin-top: 8px;">
+        </div>
+
+        <!-- 2. ACESSO NEGADO -->
+        <div id="access-denied" style="text-align: center; padding-top: 10vh;">
+            <div class="glass-card" style="display: inline-block; max-width: 500px;">
+                <i data-lucide="shield-alert" size="64" style="color: var(--fox-orange); margin-bottom: 20px;"></i>
+                <h2 style="font-family: 'Orbitron';">ACESSO NEGADO</h2>
+                <p style="color: #888; margin: 20px 0;">Sua assinatura digital não corresponde às credenciais Master da Fox Design.</p>
+                <button onclick="logoutAndRetry()" class="btn-admin primary" style="margin: 0 auto;">TENTAR NOVAMENTE</button>
+            </div>
+        </div>
+
+        <!-- 3. DASHBOARD PRINCIPAL -->
+        <div id="admin-content">
+            <header class="admin-header">
+                <div class="admin-logo">
+                    <div style="background: var(--fox-gradient); width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                        <i data-lucide="layout-dashboard" color="#000" size="24"></i>
+                    </div>
+                    <div>
+                        <h1>FOX <span>ADMIN</span></h1>
+                        <p style="font-size: 0.65rem; color: #888; margin: 0; letter-spacing: 1px;">SISTEMA DE GESTÃO DE ELITE</p>
+                    </div>
                 </div>
-                <div class="input-group" style="margin-top: 20px;">
-                    <label>Senha de Acesso</label>
-                    <input type="password" id="adminPassword" placeholder="••••••••" required style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 12px; border-radius: 8px; width: 100%; margin-top: 8px;">
+
+                <div class="header-actions">
+                    <button id="btnRefresh" class="btn-admin" title="Sincronizar Dados">
+                        <i data-lucide="refresh-cw" size="18"></i> ATUALIZAR
+                    </button>
+                    <button id="logoutAdmin" class="btn-admin" title="Encerrar Sessão">
+                        <i data-lucide="log-out" size="18"></i> SAIR
+                    </button>
                 </div>
-                <button type="submit" id="btnLogin" class="btn btn-primary" style="width: 100%; margin-top: 30px; font-family: 'Orbitron'; font-weight: 900;">ENTRAR NO SISTEMA</button>
-            </form>
-        </div>
-    </div>
+            </header>
 
-    <div id="admin-content" class="admin-container">
-        <div class="dashboard-header">
-            <h1>FOX <span>ADMIN</span></h1>
-            <div style="display: flex; gap: 15px;">
-                <button onclick="window.location.reload()" class="btn btn-secondary"><i data-lucide="refresh-cw" size="18"></i></button>
-                <button id="logoutAdmin" class="btn btn-secondary">SAIR</button>
+            <!-- Cards de Resumo -->
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <i data-lucide="shopping-cart" size="20"></i>
+                    <h3>Vendas Totais</h3>
+                    <div id="stat-total-vendas" class="value">0</div>
+                </div>
+                <div class="stat-box">
+                    <i data-lucide="banknote" size="20"></i>
+                    <h3>Receita Bruta</h3>
+                    <div id="stat-receita" class="value" style="color: #00ff80;">R$ 0,00</div>
+                </div>
+                <div class="stat-box">
+                    <i data-lucide="users" size="20"></i>
+                    <h3>Clientes</h3>
+                    <div id="stat-clientes" class="value">0</div>
+                </div>
+                <div class="stat-box">
+                    <i data-lucide="clock" size="20"></i>
+                    <h3>Pendentes</h3>
+                    <div id="stat-pendentes" class="value" style="color: #ffb400;">0</div>
+                </div>
+            </div>
+
+            <!-- Lista de Pedidos -->
+            <div class="glass-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="font-family: 'Orbitron'; font-size: 1.1rem; margin: 0;">ÚLTIMAS <span>TRANSAÇÕES</span></h2>
+                    <span id="sync-status" style="font-size: 0.65rem; color: #555; text-transform: uppercase;">Sincronizado agora</span>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>DATA</th>
+                                <th>CLIENTE</th>
+                                <th>PRODUTO</th>
+                                <th>VALOR</th>
+                                <th>STATUS</th>
+                                <th>AÇÕES</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body">
+                            <!-- Injetado via JS -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <h3>Vendas Totais</h3>
-                <div id="stat-total-vendas" class="value">0</div>
-            </div>
-            <div class="stat-card">
-                <h3>Receita Bruta</h3>
-                <div id="stat-receita" class="value">R$ 0,00</div>
-            </div>
-            <div class="stat-card">
-                <h3>Clientes Ativos</h3>
-                <div id="stat-clientes" class="value">0</div>
-            </div>
-        </div>
-
-        <div class="glass-panel">
-            <div class="orders-table-wrapper">
-                <table id="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Data</th>
-                            <th>Cliente</th>
-                            <th>Produto</th>
-                            <th>Valor</th>
-                            <th>Status</th>
-                            <th>Contato</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admin-table-body">
-                        <!-- Preenchido via JS -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -128,170 +299,156 @@
         let supabaseAdmin;
         try {
             supabaseAdmin = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        } catch (e) {
-            console.error("Erro inicialização Supabase:", e);
-        }
+        } catch (e) { console.error("Erro Supabase:", e); }
 
         async function checkAuth() {
             try {
-                const { data: { user }, error: authError } = await supabaseAdmin.auth.getUser();
-                
-                document.getElementById('loader').style.display = 'none';
+                const { data: { user } } = await supabaseAdmin.auth.getUser();
+                document.getElementById('main-loader').style.display = 'none';
 
                 if (user) {
                     if (user.email === MASTER_EMAIL) {
-                        document.getElementById('admin-content').style.display = 'block';
-                        document.getElementById('admin-login').style.display = 'none';
-                        document.getElementById('access-denied').style.display = 'none';
+                        showSection('admin-content');
                         loadDashboardData();
                     } else {
-                        document.getElementById('access-denied').style.display = 'block';
-                        document.getElementById('admin-content').style.display = 'none';
-                        document.getElementById('admin-login').style.display = 'none';
+                        showSection('access-denied');
                     }
                 } else {
-                    document.getElementById('admin-login').style.display = 'block';
-                    document.getElementById('admin-content').style.display = 'none';
-                    document.getElementById('access-denied').style.display = 'none';
+                    showSection('admin-login');
                 }
             } catch (error) {
-                console.error("Erro na verificação de acesso:", error);
-                document.getElementById('loader').style.display = 'none';
-                document.getElementById('admin-login').style.display = 'block';
+                showSection('admin-login');
             }
         }
 
-        // Lógica de Login Direto
-        const loginForm = document.getElementById('loginForm');
-        if (loginForm) {
-            loginForm.onsubmit = async (e) => {
-                e.preventDefault();
-                const email = document.getElementById('adminEmail').value.trim();
-                const password = document.getElementById('adminPassword').value;
-                const btn = document.getElementById('btnLogin');
-
-                btn.innerText = "PROCESSANDO...";
-                btn.disabled = true;
-
-                // --- BYPASS MASTER TOTAL (IGNORA SERVIDOR) ---
-                if (email.toLowerCase() === MASTER_EMAIL && password === 'admin 123') {
-                    console.log("Protocolo Jarvis: Acesso Master Concedido via Bypass.");
-                    document.getElementById('admin-login').style.display = 'none';
-                    document.getElementById('admin-content').style.display = 'block';
-                    loadDashboardData();
-                    return;
-                }
-
-                try {
-                    const { data, error } = await supabaseAdmin.auth.signInWithPassword({ email, password });
-                    if (error) throw error;
-                    window.location.reload();
-                } catch (error) {
-                    alert("Erro ao entrar: " + (error.message || "Credenciais Inválidas"));
-                    btn.innerText = "ENTRAR NO SISTEMA";
-                    btn.disabled = false;
-                }
-            };
+        function showSection(id) {
+            ['admin-login', 'access-denied', 'admin-content'].forEach(sec => {
+                document.getElementById(sec).style.display = (sec === id) ? 'block' : 'none';
+            });
+            lucide.createIcons();
         }
 
+        // Lógica de Login Master
+        document.getElementById('loginForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('adminEmail').value.trim();
+            const password = document.getElementById('adminPassword').value;
+            const btn = document.getElementById('btnLogin');
+
+            btn.innerText = "VERIFICANDO...";
+            btn.disabled = true;
+
+            // BYPASS MASTER PROTOCOL
+            if (email.toLowerCase() === MASTER_EMAIL && password === 'admin 123') {
+                showSection('admin-content');
+                loadDashboardData();
+                return;
+            }
+
+            try {
+                const { error } = await supabaseAdmin.auth.signInWithPassword({ email, password });
+                if (error) throw error;
+                window.location.reload();
+            } catch (err) {
+                alert("Erro: " + err.message);
+                btn.innerText = "ENTRAR NO SISTEMA";
+                btn.disabled = false;
+            }
+        };
+
+        async function loadDashboardData() {
+            const btn = document.getElementById('btnRefresh');
+            const tableBody = document.getElementById('admin-table-body');
+            btn.classList.add('refreshing');
+            
+            try {
+                const { data: orders, error } = await supabaseAdmin
+                    .from('orders')
+                    .select('*, profiles(full_name, phone, instagram, avatar_url)')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                const prices = {
+                    'subgoal_gta_vi': 59.90, 'subgoal_fortnite': 59.90, 'subgoal_arc_riders': 59.90, 'subgoal_grenade': 59.90,
+                    'pack_jett_valorant': 59.90, 'pack_killjoy_valorant': 59.90, 'pack_raze_valorant': 59.90,
+                    'pacote_iniciante': 297.00, 'pacote_god': 457.00, 'pacote_premium': 897.00, 'pacote_ultimate': 1197.00
+                };
+
+                const names = {
+                    'subgoal_gta_vi': 'Meta GTA VI', 'subgoal_fortnite': 'Meta Fortnite', 'subgoal_arc_riders': 'Meta Arc Riders',
+                    'subgoal_grenade': 'Meta Grenade', 'pack_jett_valorant': 'Pack Jett', 'pack_killjoy_valorant': 'Pack Killjoy', 
+                    'pack_raze_valorant': 'Pack Raze', 'pacote_iniciante': 'Pacote Iniciante', 'pacote_god': 'GOD Elite',
+                    'pacote_premium': 'Premium Fox', 'pacote_ultimate': 'Ultimate Fox'
+                };
+
+                let receita = 0;
+                let clientes = new Set();
+                let pendentes = 0;
+
+                tableBody.innerHTML = '';
+
+                if (!orders || orders.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 60px; color:#555;">Nenhuma transação registrada no banco de dados.</td></tr>';
+                } else {
+                    orders.forEach(o => {
+                        const valor = o.amount || o.total_price || prices[o.product_id] || 0;
+                        if (o.status === 'approved') receita += valor;
+                        if (o.status === 'pending') pendentes++;
+                        clientes.add(o.user_id);
+
+                        const date = new Date(o.created_at).toLocaleString('pt-BR', { day: '2d', month: '2d', hour: '2h', minute: '2h' });
+                        const avatar = o.profiles?.avatar_url || 'https://www.gravatar.com/avatar/?d=mp';
+
+                        const row = `
+                            <tr class="order-row">
+                                <td>${date}</td>
+                                <td>
+                                    <div class="user-meta">
+                                        <img src="${avatar}">
+                                        <span>${o.profiles?.full_name || 'Usuário Fox'}</span>
+                                    </div>
+                                </td>
+                                <td style="font-weight:600;">${names[o.product_id] || o.product_id}</td>
+                                <td style="color:var(--fox-orange); font-weight:900;">R$ ${valor.toFixed(2).replace('.', ',')}</td>
+                                <td><span class="badge-status status-${o.status}">${o.status}</span></td>
+                                <td>
+                                    <div style="display:flex; gap:10px;">
+                                        <a href="https://wa.me/${o.profiles?.phone}" target="_blank" title="WhatsApp" style="color:#00ff80;"><i data-lucide="message-circle" size="18"></i></a>
+                                        <span title="@${o.profiles?.instagram}" style="color:#888; cursor:help;"><i data-lucide="instagram" size="18"></i></span>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                        tableBody.innerHTML += row;
+                    });
+                }
+
+                document.getElementById('stat-total-vendas').innerText = orders ? orders.length : 0;
+                document.getElementById('stat-receita').innerText = `R$ ${receita.toFixed(2).replace('.', ',')}`;
+                document.getElementById('stat-clientes').innerText = clientes.size;
+                document.getElementById('stat-pendentes').innerText = pendentes;
+                document.getElementById('sync-status').innerText = 'Sincronizado: ' + new Date().toLocaleTimeString();
+
+            } catch (err) {
+                console.error("Dashboard Error:", err);
+                tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#ff3333; padding:40px;">ERRO DE SINCRONIZAÇÃO: ${err.message}</td></tr>`;
+            } finally {
+                btn.classList.remove('refreshing');
+                lucide.createIcons();
+            }
+        }
+
+        document.getElementById('btnRefresh').onclick = loadDashboardData;
+        
         async function logoutAndRetry() {
             await supabaseAdmin.auth.signOut();
             window.location.reload();
         }
 
-        async function loadDashboardData() {
-            try {
-                // Busca pedidos com perfis
-                const { data: orders, error } = await supabaseAdmin
-                    .from('orders')
-                    .select('*, profiles(full_name, phone, instagram)')
-                    .order('created_at', { ascending: false });
-
-                if (error) throw error;
-
-                // Tabela de Preços Sincronizada (Source of Truth: Checkout Service)
-                const prices = {
-                    'subgoal_gta_vi': 59.90, 
-                    'subgoal_fortnite': 59.90, 
-                    'subgoal_arc_riders': 59.90, 
-                    'subgoal_grenade': 59.90,
-                    'pack_jett_valorant': 59.90, 
-                    'pack_killjoy_valorant': 59.90, 
-                    'pack_raze_valorant': 59.90,
-                    'pacote_iniciante': 297.00,
-                    'pacote_god': 457.00,
-                    'pacote_premium': 897.00,
-                    'pacote_ultimate': 1197.00
-                };
-
-                const names = {
-                    'subgoal_gta_vi': 'Meta GTA VI', 
-                    'subgoal_fortnite': 'Meta Fortnite', 
-                    'subgoal_arc_riders': 'Meta Arc Riders',
-                    'subgoal_grenade': 'Meta Grenade', 
-                    'pack_jett_valorant': 'Pack Jett', 
-                    'pack_killjoy_valorant': 'Pack Killjoy', 
-                    'pack_raze_valorant': 'Pack Raze',
-                    'pacote_iniciante': 'Pacote Iniciante',
-                    'pacote_god': 'Pacote GOD Elite',
-                    'pacote_premium': 'Pacote Premium',
-                    'pacote_ultimate': 'Pacote Ultimate'
-                };
-
-                let totalVendas = orders.length;
-                let receita = 0;
-                let clientesSet = new Set();
-
-                const tableBody = document.getElementById('admin-table-body');
-                tableBody.innerHTML = '';
-
-                if (totalVendas === 0) {
-                    tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 50px; color: #888;">Nenhuma venda encontrada ou acesso restrito via RLS.</td></tr>';
-                }
-
-                orders.forEach(order => {
-                    // Prioriza o valor gravado no banco, se existir. Caso contrário, usa a tabela local.
-                    const valor = order.total_price || prices[order.product_id] || 0;
-                    if (order.status === 'approved') receita += valor;
-                    clientesSet.add(order.user_id);
-
-                    const date = new Date(order.created_at).toLocaleDateString('pt-BR');
-                    const row = `
-                        <tr>
-                            <td>${date}</td>
-                            <td>${order.profiles?.full_name || 'Usuário Fox'}</td>
-                            <td>${names[order.product_id] || order.product_id}</td>
-                            <td style="font-weight: bold; color: var(--fox-orange);">R$ ${valor.toFixed(2).replace('.', ',')}</td>
-                            <td><span class="status-badge status-${order.status}">${order.status}</span></td>
-                            <td>
-                                <div style="display:flex; gap:10px; align-items:center;">
-                                    <a href="https://wa.me/${order.profiles?.phone}" target="_blank" style="color:#00ff00;" title="WhatsApp"><i data-lucide="message-circle" size="18"></i></a>
-                                    <span style="font-size: 0.8rem; opacity: 0.7;">@${order.profiles?.instagram || ''}</span>
-                                </div>
-                            </td>
-                        </tr>
-                    `;
-                    tableBody.innerHTML += row;
-                });
-
-                document.getElementById('stat-total-vendas').innerText = totalVendas;
-                document.getElementById('stat-receita').innerText = `R$ ${receita.toFixed(2).replace('.', ',')}`;
-                document.getElementById('stat-clientes').innerText = clientesSet.size;
-
-                lucide.createIcons();
-
-            } catch (error) {
-                console.error("Erro dashboard:", error);
-            }
-        }
-
-        document.getElementById('logoutAdmin').onclick = async () => {
-            await supabase.auth.signOut();
-            window.location.href = 'index.html';
-        };
+        document.getElementById('logoutAdmin').onclick = logoutAndRetry;
 
         checkAuth();
     </script>
-    <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
 </body>
 </html>
