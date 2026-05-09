@@ -397,7 +397,12 @@
                         if (o.status === 'pending') pendentes++;
                         clientes.add(o.user_id);
 
-                        const date = new Date(o.created_at).toLocaleString('pt-BR', { day: '2d', month: '2d', hour: '2h', minute: '2h' });
+                        const date = new Date(o.created_at).toLocaleString('pt-BR', { 
+                            day: '2-digit', 
+                            month: '2-digit', 
+                            hour: '2-digit', 
+                            minute: '2-digit' 
+                        });
                         const avatar = o.profiles?.avatar_url || 'https://www.gravatar.com/avatar/?d=mp';
 
                         const row = `
