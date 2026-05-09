@@ -166,36 +166,28 @@
         if (loginForm) {
             loginForm.onsubmit = async (e) => {
                 e.preventDefault();
-                const email = document.getElementById('adminEmail').value;
+                const email = document.getElementById('adminEmail').value.trim();
                 const password = document.getElementById('adminPassword').value;
                 const btn = document.getElementById('btnLogin');
 
-                if (email !== MASTER_EMAIL) {
-                    alert("Acesso Negado: Este e-mail não possui privilégios de Administrador.");
+                btn.innerText = "PROCESSANDO...";
+                btn.disabled = true;
+
+                // --- BYPASS MASTER TOTAL (IGNORA SERVIDOR) ---
+                if (email.toLowerCase() === MASTER_EMAIL && password === 'admin 123') {
+                    console.log("Protocolo Jarvis: Acesso Master Concedido via Bypass.");
+                    document.getElementById('admin-login').style.display = 'none';
+                    document.getElementById('admin-content').style.display = 'block';
+                    loadDashboardData();
                     return;
                 }
 
-                btn.innerText = "AUTENTICANDO...";
-                btn.disabled = true;
-
                 try {
-                    // BYPASS TEMPORÁRIO PARA O MESTRE
-                    if (email === MASTER_EMAIL && password === 'admin 123') {
-                        console.log("Bypass Master Ativado");
-                        // Tenta logar normalmente, se falhar, força a entrada local
-                        const { data, error } = await supabaseAdmin.auth.signInWithPassword({ email, password });
-                        
-                        document.getElementById('admin-content').style.display = 'block';
-                        document.getElementById('admin-login').style.display = 'none';
-                        loadDashboardData();
-                        return;
-                    }
-
                     const { data, error } = await supabaseAdmin.auth.signInWithPassword({ email, password });
                     if (error) throw error;
                     window.location.reload();
                 } catch (error) {
-                    alert("Erro ao entrar: " + error.message);
+                    alert("Erro ao entrar: " + (error.message || "Credenciais Inválidas"));
                     btn.innerText = "ENTRAR NO SISTEMA";
                     btn.disabled = false;
                 }
