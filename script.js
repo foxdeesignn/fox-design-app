@@ -126,6 +126,21 @@ async function startCheckout(pacoteId) {
 
         if (error) throw error;
 
+        // --- REGISTRO DO PEDIDO NO SUPABASE ---
+        // Registra a intenção de compra antes de sair do site
+        const { error: orderError } = await supabaseClient
+            .from('orders')
+            .insert([
+                { 
+                    user_id: user.id, 
+                    product_id: pacoteId, 
+                    status: 'pending',
+                    created_at: new Date()
+                }
+            ]);
+        
+        if (orderError) console.error("Erro ao registrar pedido pendente:", orderError);
+
         if (data && data.init_point) {
             window.location.href = data.init_point;
         } else {
