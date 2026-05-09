@@ -105,16 +105,29 @@
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBuZXdrZWR4a3FkaHBsaGZrcmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMDM0MTEsImV4cCI6MjA5Mzc3OTQxMX0.EBhhXQ9uVZEINEv8zgI3mmvZpKeueu4jw7u2VXhW_rw';
         const MASTER_EMAIL = 'foxdeesignn@gmail.com';
         
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        let supabaseAdmin;
+        try {
+            supabaseAdmin = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        } catch (e) {
+            console.error("Erro inicialização Supabase:", e);
+        }
 
         async function checkAuth() {
-            const { data: { user } } = await supabase.auth.getUser();
-            
-            if (user && user.email === MASTER_EMAIL) {
-                document.getElementById('loader').style.display = 'none';
-                document.getElementById('admin-content').style.display = 'block';
-                loadDashboardData();
-            } else {
+            try {
+                const { data: { user }, error: authError } = await supabaseAdmin.auth.getUser();
+                
+                if (authError) throw authError;
+
+                if (user && user.email === MASTER_EMAIL) {
+                    document.getElementById('loader').style.display = 'none';
+                    document.getElementById('admin-content').style.display = 'block';
+                    loadDashboardData();
+                } else {
+                    document.getElementById('loader').style.display = 'none';
+                    document.getElementById('access-denied').style.display = 'block';
+                }
+            } catch (error) {
+                console.error("Erro na verificação de acesso:", error);
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('access-denied').style.display = 'block';
             }
@@ -123,7 +136,7 @@
         async function loadDashboardData() {
             try {
                 // Busca pedidos com perfis
-                const { data: orders, error } = await supabase
+                const { data: orders, error } = await supabaseAdmin
                     .from('orders')
                     .select('*, profiles(full_name, phone, instagram)')
                     .order('created_at', { ascending: false });
