@@ -35,8 +35,8 @@ h1, h2, h3, .logo { font-family: 'Sora', sans-serif; }
 .main-nav {
     position: fixed;
     top: 0; width: 100%;
-    padding: 20px 0;
-    background: rgba(10, 10, 11, 0.8);
+    padding: 15px 0;
+    background: rgba(10, 10, 11, 0.85);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--glass-border);
     z-index: 1000;
@@ -53,89 +53,145 @@ h1, h2, h3, .logo { font-family: 'Sora', sans-serif; }
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 900;
     color: var(--white);
     text-decoration: none;
     letter-spacing: 2px;
     display: flex;
     align-items: center;
-    /* Removido overflow: hidden para evitar cortes */
+    z-index: 1001;
 }
 
 .logo span {
     color: var(--fox-orange);
-    display: inline-block;
-    max-width: 0;
-    opacity: 0;
-    overflow: hidden; /* Mantém o oculto apenas no DESIGN */
-    white-space: nowrap;
-    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    transform: translateX(-15px);
 }
 
-.logo:hover span {
-    max-width: 250px; /* Aumentado para garantir que nada seja cortado */
-    opacity: 1;
-    transform: translateX(12px); /* Gap elegante após o FOX */
-    margin-right: 10px; /* Garante que o DESIGN não cole na borda */
+.desktop-nav {
+    display: flex;
+    align-items: center;
 }
 
 .desktop-nav a {
     color: var(--text-primary);
     text-decoration: none;
-    margin-left: 30px;
-    font-size: 0.85rem;
+    margin-left: 25px;
+    font-size: 0.8rem;
     font-weight: 600;
     transition: var(--transition);
     position: relative;
     padding: 5px 0;
 }
 
-.desktop-nav a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background: var(--fox-orange);
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    transform: translateX(-50%);
-    box-shadow: 0 0 10px var(--fox-orange-glow);
+/* Mobile Menu Styles */
+@media (max-width: 992px) {
+    .mobile-menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--glass);
+        border: 1px solid var(--glass-border);
+        color: var(--white);
+        width: 45px;
+        height: 45px;
+        border-radius: 10px;
+        cursor: pointer;
+        z-index: 1001;
+        transition: var(--transition);
+    }
+
+    .mobile-menu-toggle:active { transform: scale(0.9); }
+
+    .desktop-nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 320px;
+        height: 100vh;
+        background: var(--bg-secondary);
+        flex-direction: column;
+        justify-content: center;
+        padding: 40px;
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 1000;
+        border-left: 1px solid var(--glass-border);
+        box-shadow: -20px 0 50px rgba(0,0,0,0.5);
+    }
+
+    .desktop-nav.active {
+        transform: translateX(-100%);
+    }
+
+    .desktop-nav a {
+        margin: 15px 0;
+        font-size: 1.2rem;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .nav-cta {
+        margin-top: 20px !important;
+        width: 100%;
+    }
+
+    /* Overlay */
+    .nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.7);
+        backdrop-filter: blur(5px);
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+        z-index: 999;
+    }
+
+    .nav-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
-.desktop-nav a:hover {
-    color: var(--fox-orange);
-    transform: translateY(-3px);
+/* Hero Mobile Adjustments */
+@media (max-width: 768px) {
+    .hero {
+        padding-top: 100px;
+        text-align: center;
+    }
+    .hero h1 {
+        font-size: 2.2rem;
+        line-height: 1.1;
+    }
+    .hero p {
+        font-size: 1rem;
+    }
+    .hero-btns {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .btn {
+        width: 100%;
+    }
 }
 
-.desktop-nav a:hover::after {
-    width: 100%;
-}
-
-.nav-cta {
-    background: var(--fox-orange);
-    color: #000 !important;
-    padding: 10px 20px !important;
-    border-radius: 4px;
-    transition: all 0.3s ease !important;
-}
-
-.nav-cta::after { display: none; } /* Remove underline do CTA */
-
-.nav-cta:hover {
-    transform: translateY(-3px) scale(1.05) !important;
-    box-shadow: 0 5px 15px var(--fox-orange-glow);
-    filter: brightness(1.1);
-}
-
-.mobile-menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: var(--white);
-    cursor: pointer;
+/* Performance Fix: Disable Spotlight on Touch */
+@media (hover: none) {
+    [data-glow]::before,
+    [data-glow]::after,
+    [data-glow] [data-glow] {
+        display: none !important;
+    }
+    .benefit-card, .pricing-card {
+        animation: none !important;
+        background: var(--bg-secondary) !important;
+        border-color: var(--glass-border) !important;
+    }
 }
 
 /* --- HERO SECTION --- */

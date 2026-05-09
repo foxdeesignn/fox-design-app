@@ -27,33 +27,34 @@ accordionHeaders.forEach(header => {
 
 // 2. Menu Mobile
 const menuToggle = document.getElementById('menuToggle');
-const desktopNav = document.querySelector('.desktop-nav');
+const mainNav = document.getElementById('mainNav');
+const navOverlay = document.getElementById('navOverlay');
 
-menuToggle.addEventListener('click', () => {
-    if (desktopNav.style.display === 'flex') {
-        desktopNav.style.display = 'none';
-    } else {
-        desktopNav.style.display = 'flex';
-        desktopNav.style.flexDirection = 'column';
-        desktopNav.style.position = 'absolute';
-        desktopNav.style.top = '100%';
-        desktopNav.style.left = '0';
-        desktopNav.style.width = '100%';
-        desktopNav.style.background = 'var(--bg-main)';
-        desktopNav.style.padding = '20px';
-        desktopNav.style.borderBottom = '1px solid var(--glass-border)';
-    }
+const toggleMenu = () => {
+    mainNav.classList.toggle('active');
+    navOverlay.classList.toggle('active');
+    document.body.style.overflow = mainNav.classList.contains('active') ? 'hidden' : '';
+};
+
+if (menuToggle) menuToggle.addEventListener('click', toggleMenu);
+if (navOverlay) navOverlay.addEventListener('click', toggleMenu);
+
+// Fecha menu ao clicar em links
+document.querySelectorAll('.desktop-nav a').forEach(link => {
+    link.addEventListener('click', () => {
+        if (mainNav.classList.contains('active')) toggleMenu();
+    });
 });
 
 // 3. Header Scroll Effect
 window.addEventListener('scroll', () => {
     const header = document.querySelector('.main-nav');
     if (window.scrollY > 50) {
-        header.style.padding = '15px 0';
+        header.style.padding = '10px 0';
         header.style.background = 'rgba(10, 10, 11, 0.95)';
     } else {
-        header.style.padding = '20px 0';
-        header.style.background = 'rgba(10, 10, 11, 0.8)';
+        header.style.padding = '15px 0';
+        header.style.background = 'rgba(10, 10, 11, 0.85)';
     }
 });
 
@@ -161,7 +162,10 @@ const syncPointer = (e) => {
     document.documentElement.style.setProperty('--yp', yp);
 };
 
-document.addEventListener('pointermove', syncPointer);
+// Somente ativa se o dispositivo tiver ponteiro preciso (mouse)
+if (window.matchMedia('(hover: hover)').matches) {
+    document.addEventListener('pointermove', syncPointer);
+}
 
 // 4. Lógica da Loja e Previews
 function openPreview(productId) {

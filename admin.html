@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN DASHBOARD | FOX DESIGN</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body { background: #0A0A0B; color: #fff; font-family: 'Sora', sans-serif; overflow-x: hidden; }
+        .admin-container { max-width: 1400px; margin: 100px auto; padding: 0 20px; }
+        .glass-panel { background: rgba(18, 18, 20, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 30px; }
+        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .dashboard-header h1 { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; letter-spacing: 2px; }
+        .dashboard-header h1 span { color: var(--fox-orange); }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .stat-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 15px; padding: 20px; }
+        .stat-card h3 { font-size: 0.8rem; color: #888; text-transform: uppercase; margin-bottom: 10px; }
+        .stat-card .value { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: #fff; }
+
+        .orders-table-wrapper { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { text-align: left; padding: 15px; background: rgba(255,255,255,0.03); color: var(--fox-orange); font-family: 'Orbitron', sans-serif; font-size: 0.75rem; text-transform: uppercase; }
+        td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; }
+        tr:hover { background: rgba(255,255,255,0.01); }
+        
+        .status-badge { padding: 4px 10px; border-radius: 100px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
+        .status-approved { background: rgba(0, 255, 0, 0.1); color: #00ff00; }
+        .status-pending { background: rgba(255, 255, 0, 0.1); color: #ffff00; }
+        
+        #access-denied { display: none; text-align: center; padding: 100px 20px; }
+        #admin-content { display: none; }
+        .loading-overlay { position: fixed; inset: 0; background: #0A0A0B; z-index: 10000; display: flex; align-items: center; justify-content: center; }
+    </style>
+</head>
+<body>
+
+    <div id="loader" class="loading-overlay">
+        <div style="text-align: center;">
+            <div style="width: 40px; height: 40px; border: 3px solid var(--fox-orange); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+            <p style="margin-top: 20px; font-family: 'Orbitron'; font-size: 0.8rem; letter-spacing: 2px;">AUTENTICANDO...</p>
+        </div>
+    </div>
+
+    <div id="access-denied" class="admin-container">
+        <div class="glass-panel">
+            <i data-lucide="shield-alert" size="64" style="color: var(--fox-orange); margin-bottom: 20px;"></i>
+            <h1 style="font-family: 'Orbitron';">ACESSO NEGADO</h1>
+            <p style="color: #888; margin-top: 20px;">Esta área é exclusiva para o administrador master da Fox Design.</p>
+            <a href="index.html" class="btn btn-primary" style="margin-top: 30px; display: inline-block;">VOLTAR AO INÍCIO</a>
+        </div>
+    </div>
+
+    <div id="admin-content" class="admin-container">
+        <div class="dashboard-header">
+            <h1>FOX <span>ADMIN</span></h1>
+            <div style="display: flex; gap: 15px;">
+                <button onclick="window.location.reload()" class="btn btn-secondary"><i data-lucide="refresh-cw" size="18"></i></button>
+                <button id="logoutAdmin" class="btn btn-secondary">SAIR</button>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Vendas Totais</h3>
+                <div id="stat-total-vendas" class="value">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Receita Bruta</h3>
+                <div id="stat-receita" class="value">R$ 0,00</div>
+            </div>
+            <div class="stat-card">
+                <h3>Clientes Ativos</h3>
+                <div id="stat-clientes" class="value">0</div>
+            </div>
+        </div>
+
+        <div class="glass-panel">
+            <div class="orders-table-wrapper">
+                <table id="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Cliente</th>
+                            <th>Produto</th>
+                            <th>Valor</th>
+                            <th>Status</th>
+                            <th>Contato</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-table-body">
+                        <!-- Preenchido via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://pnewkedxkqdhplhfkrij.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBuZXdrZWR4a3FkaHBsaGZrcmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMDM0MTEsImV4cCI6MjA5Mzc3OTQxMX0.EBhhXQ9uVZEINEv8zgI3mmvZpKeueu4jw7u2VXhW_rw';
+        const MASTER_EMAIL = 'foxdeesignn@gmail.com';
+        
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function checkAuth() {
+            const { data: { user } } = await supabase.auth.getUser();
+            
+            if (user && user.email === MASTER_EMAIL) {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('admin-content').style.display = 'block';
+                loadDashboardData();
+            } else {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('access-denied').style.display = 'block';
+            }
+        }
+
+        async function loadDashboardData() {
+            try {
+                // Busca pedidos com perfis
+                const { data: orders, error } = await supabase
+                    .from('orders')
+                    .select('*, profiles(full_name, phone, instagram)')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                const prices = {
+                    'subgoal_gta_vi': 29.90, 'subgoal_fortnite': 29.90, 'subgoal_arc_riders': 29.90, 'subgoal_grenade': 29.90,
+                    'pack_jett_valorant': 59.90, 'pack_killjoy_valorant': 59.90, 'pack_raze_valorant': 59.90
+                };
+
+                const names = {
+                    'subgoal_gta_vi': 'Meta GTA VI', 'subgoal_fortnite': 'Meta Fortnite', 'subgoal_arc_riders': 'Meta Arc Riders',
+                    'subgoal_grenade': 'Meta Grenade', 'pack_jett_valorant': 'Pack Jett', 'pack_killjoy_valorant': 'Pack Killjoy', 'pack_raze_valorant': 'Pack Raze'
+                };
+
+                let totalVendas = orders.length;
+                let receita = 0;
+                let clientesSet = new Set();
+
+                const tableBody = document.getElementById('admin-table-body');
+                tableBody.innerHTML = '';
+
+                orders.forEach(order => {
+                    const valor = prices[order.product_id] || 0;
+                    if (order.status === 'approved') receita += valor;
+                    clientesSet.add(order.user_id);
+
+                    const date = new Date(order.created_at).toLocaleDateString('pt-BR');
+                    const row = `
+                        <tr>
+                            <td>${date}</td>
+                            <td>${order.profiles?.full_name || 'Desconhecido'}</td>
+                            <td>${names[order.product_id] || order.product_id}</td>
+                            <td>R$ ${valor.toFixed(2).replace('.', ',')}</td>
+                            <td><span class="status-badge status-${order.status}">${order.status}</span></td>
+                            <td>
+                                <a href="https://wa.me/${order.profiles?.phone}" target="_blank" style="color:#00ff00;"><i data-lucide="message-circle" size="16"></i></a>
+                                <span style="margin-left:10px;">@${order.profiles?.instagram || ''}</span>
+                            </td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+
+                document.getElementById('stat-total-vendas').innerText = totalVendas;
+                document.getElementById('stat-receita').innerText = `R$ ${receita.toFixed(2).replace('.', ',')}`;
+                document.getElementById('stat-clientes').innerText = clientesSet.size;
+
+                lucide.createIcons();
+
+            } catch (error) {
+                console.error("Erro dashboard:", error);
+            }
+        }
+
+        document.getElementById('logoutAdmin').onclick = async () => {
+            await supabase.auth.signOut();
+            window.location.href = 'index.html';
+        };
+
+        checkAuth();
+    </script>
+    <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+</body>
+</html>

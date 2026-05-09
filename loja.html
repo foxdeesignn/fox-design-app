@@ -26,7 +26,7 @@
     <header class="main-nav">
         <div class="nav-container">
             <a href="index.html" class="logo">FOX<span>DESIGN</span></a>
-            <nav class="desktop-nav">
+            <nav class="desktop-nav" id="mainNav">
                 <a href="index.html">Início</a>
                 <a href="index.html#servicos">Serviços</a>
                 <a href="index.html#planos">Planos</a>
@@ -38,6 +38,7 @@
                 <i data-lucide="menu"></i>
             </button>
         </div>
+        <div class="nav-overlay" id="navOverlay"></div>
     </header>
 
     <!-- Loja Hero com Partículas Interativas -->
@@ -534,7 +535,8 @@
         // --- Lógica de Partículas Interativas FOX STORE ---
         const banner = document.getElementById("particle-banner");
         const particles = [];
-        const COUNT = 70;
+        const isTouch = window.matchMedia('(hover: none)').matches;
+        const COUNT = isTouch ? 30 : 70; // Reduz partículas no mobile
         let width = banner.offsetWidth;
         let height = banner.offsetHeight;
 
