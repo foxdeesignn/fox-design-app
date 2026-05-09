@@ -209,14 +209,33 @@
 
                 if (error) throw error;
 
+                // Tabela de Preços Sincronizada (Source of Truth: Checkout Service)
                 const prices = {
-                    'subgoal_gta_vi': 29.90, 'subgoal_fortnite': 29.90, 'subgoal_arc_riders': 29.90, 'subgoal_grenade': 29.90,
-                    'pack_jett_valorant': 59.90, 'pack_killjoy_valorant': 59.90, 'pack_raze_valorant': 59.90
+                    'subgoal_gta_vi': 59.90, 
+                    'subgoal_fortnite': 59.90, 
+                    'subgoal_arc_riders': 59.90, 
+                    'subgoal_grenade': 59.90,
+                    'pack_jett_valorant': 59.90, 
+                    'pack_killjoy_valorant': 59.90, 
+                    'pack_raze_valorant': 59.90,
+                    'pacote_iniciante': 297.00,
+                    'pacote_god': 457.00,
+                    'pacote_premium': 897.00,
+                    'pacote_ultimate': 1197.00
                 };
 
                 const names = {
-                    'subgoal_gta_vi': 'Meta GTA VI', 'subgoal_fortnite': 'Meta Fortnite', 'subgoal_arc_riders': 'Meta Arc Riders',
-                    'subgoal_grenade': 'Meta Grenade', 'pack_jett_valorant': 'Pack Jett', 'pack_killjoy_valorant': 'Pack Killjoy', 'pack_raze_valorant': 'Pack Raze'
+                    'subgoal_gta_vi': 'Meta GTA VI', 
+                    'subgoal_fortnite': 'Meta Fortnite', 
+                    'subgoal_arc_riders': 'Meta Arc Riders',
+                    'subgoal_grenade': 'Meta Grenade', 
+                    'pack_jett_valorant': 'Pack Jett', 
+                    'pack_killjoy_valorant': 'Pack Killjoy', 
+                    'pack_raze_valorant': 'Pack Raze',
+                    'pacote_iniciante': 'Pacote Iniciante',
+                    'pacote_god': 'Pacote GOD Elite',
+                    'pacote_premium': 'Pacote Premium',
+                    'pacote_ultimate': 'Pacote Ultimate'
                 };
 
                 let totalVendas = orders.length;
@@ -226,8 +245,13 @@
                 const tableBody = document.getElementById('admin-table-body');
                 tableBody.innerHTML = '';
 
+                if (totalVendas === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 50px; color: #888;">Nenhuma venda encontrada ou acesso restrito via RLS.</td></tr>';
+                }
+
                 orders.forEach(order => {
-                    const valor = prices[order.product_id] || 0;
+                    // Prioriza o valor gravado no banco, se existir. Caso contrário, usa a tabela local.
+                    const valor = order.total_price || prices[order.product_id] || 0;
                     if (order.status === 'approved') receita += valor;
                     clientesSet.add(order.user_id);
 
@@ -235,13 +259,15 @@
                     const row = `
                         <tr>
                             <td>${date}</td>
-                            <td>${order.profiles?.full_name || 'Desconhecido'}</td>
+                            <td>${order.profiles?.full_name || 'Usuário Fox'}</td>
                             <td>${names[order.product_id] || order.product_id}</td>
-                            <td>R$ ${valor.toFixed(2).replace('.', ',')}</td>
+                            <td style="font-weight: bold; color: var(--fox-orange);">R$ ${valor.toFixed(2).replace('.', ',')}</td>
                             <td><span class="status-badge status-${order.status}">${order.status}</span></td>
                             <td>
-                                <a href="https://wa.me/${order.profiles?.phone}" target="_blank" style="color:#00ff00;"><i data-lucide="message-circle" size="16"></i></a>
-                                <span style="margin-left:10px;">@${order.profiles?.instagram || ''}</span>
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    <a href="https://wa.me/${order.profiles?.phone}" target="_blank" style="color:#00ff00;" title="WhatsApp"><i data-lucide="message-circle" size="18"></i></a>
+                                    <span style="font-size: 0.8rem; opacity: 0.7;">@${order.profiles?.instagram || ''}</span>
+                                </div>
                             </td>
                         </tr>
                     `;
