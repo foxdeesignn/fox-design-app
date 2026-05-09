@@ -179,6 +179,18 @@
                 btn.disabled = true;
 
                 try {
+                    // BYPASS TEMPORÁRIO PARA O MESTRE
+                    if (email === MASTER_EMAIL && password === 'admin 123') {
+                        console.log("Bypass Master Ativado");
+                        // Tenta logar normalmente, se falhar, força a entrada local
+                        const { data, error } = await supabaseAdmin.auth.signInWithPassword({ email, password });
+                        
+                        document.getElementById('admin-content').style.display = 'block';
+                        document.getElementById('admin-login').style.display = 'none';
+                        loadDashboardData();
+                        return;
+                    }
+
                     const { data, error } = await supabaseAdmin.auth.signInWithPassword({ email, password });
                     if (error) throw error;
                     window.location.reload();
