@@ -362,12 +362,22 @@
             btn.classList.add('refreshing');
             
             try {
-                const { data: orders, error } = await supabaseAdmin
+                // Busca pedidos e perfis separadamente para garantir que nada trave
+                const { data: orders, error: ordersError } = await supabaseAdmin
                     .from('orders')
-                    .select('*, profiles(full_name, phone, instagram, avatar_url)')
+                    .select('*')
                     .order('created_at', { ascending: false });
 
-                if (error) throw error;
+                if (ordersError) throw ordersError;
+
+                const { data: profiles, error: profilesError } = await supabaseAdmin
+                    .from('profiles')
+                    .select('*');
+
+                const profileMap = {};
+                if (profiles) {
+                    profiles.forEach(p => profileMap[p.id] = p);
+                }
 
                 const prices = {
                     'subgoal_gta_vi': 59.90, 'subgoal_fortnite': 59.90, 'subgoal_arc_riders': 59.90, 'subgoal_grenade': 59.90,
