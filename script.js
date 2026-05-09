@@ -170,7 +170,8 @@ function openPreview(productId) {
         'subgoal_fortnite': 'assets/video_fortnite.webm',
         'subgoal_arc_riders': 'assets/video_arc_riders.webm',
         'subgoal_grenade': 'assets/video_grenade.mp4',
-        'pack_jett_valorant': 'assets/video_jett.webm'
+        'pack_jett_valorant': 'assets/video_jett.webm',
+        'pack_killjoy_valorant': 'assets/video_killjoy.webm'
     };
 
     const videoUrl = videoUrls[productId];
