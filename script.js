@@ -134,12 +134,14 @@ async function startCheckout(pacoteId) {
                 { 
                     user_id: user.id, 
                     product_id: pacoteId, 
-                    status: 'pending',
-                    created_at: new Date()
+                    status: 'pending'
                 }
             ]);
         
-        if (orderError) console.error("Erro ao registrar pedido pendente:", orderError);
+        if (orderError) {
+            console.error("Erro ao registrar pedido pendente:", orderError);
+            alert("AVISO JARVIS: O pagamento será gerado, mas houve um erro ao registrar no seu histórico: " + orderError.message);
+        }
 
         if (data && data.init_point) {
             window.location.href = data.init_point;
