@@ -101,7 +101,8 @@ h1, h2, h3, .logo { font-family: 'Sora', sans-serif; }
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--glass-border);
     color: var(--white);
-    padding: 10px 20px;
+    padding: 0 20px;
+    height: 42px;
     border-radius: 8px;
     font-family: 'Orbitron', sans-serif;
     font-size: 0.75rem;
@@ -112,6 +113,7 @@ h1, h2, h3, .logo { font-family: 'Sora', sans-serif; }
     justify-content: center;
     white-space: nowrap;
     min-width: 100px;
+    box-sizing: border-box;
 }
 
 .btn-login:hover {
@@ -125,7 +127,8 @@ h1, h2, h3, .logo { font-family: 'Sora', sans-serif; }
 .nav-cta {
     background: var(--fox-orange);
     color: #fff;
-    padding: 10px 20px;
+    padding: 0 20px;
+    height: 42px;
     border-radius: 8px;
     font-family: 'Orbitron', sans-serif;
     font-size: 0.75rem;
@@ -137,6 +140,8 @@ h1, h2, h3, .logo { font-family: 'Sora', sans-serif; }
     align-items: center;
     justify-content: center;
     min-width: 160px;
+    box-sizing: border-box;
+    border: 1px solid transparent; /* Para igualar ao botão de login que tem borda */
 }
 
 .nav-cta:hover {
