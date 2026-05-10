@@ -101,15 +101,16 @@ h1, h2, h3, .logo { font-family: 'Sora', sans-serif; }
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--glass-border);
     color: var(--white);
-    padding: 10px 22px;
+    padding: 8px 18px;
     border-radius: 8px;
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 700;
     cursor: pointer;
     transition: var(--transition);
     align-items: center;
     justify-content: center;
+    white-space: nowrap;
 }
 
 .btn-login:hover {
@@ -123,13 +124,17 @@ h1, h2, h3, .logo { font-family: 'Sora', sans-serif; }
 .nav-cta {
     background: var(--fox-orange);
     color: #fff;
-    padding: 10px 22px;
+    padding: 8px 18px;
     border-radius: 8px;
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 700;
     text-decoration: none;
     transition: var(--transition);
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .nav-cta:hover {

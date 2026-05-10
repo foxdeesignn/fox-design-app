@@ -43,24 +43,31 @@ if (navOverlay) navOverlay.addEventListener('click', toggleMenu);
 // 3. Login Modal Logic
 const authModal = document.getElementById('authModal');
 const closeAuthModal = document.getElementById('closeAuthModal');
-const switchToSignUp = document.getElementById('switchToSignUp');
-const authTitle = document.getElementById('authTitle');
-const authSubmitBtn = document.getElementById('authSubmitBtn');
-const authSwitchText = document.getElementById('authSwitchText');
-
-let isSignUp = false;
 
 const openModal = () => {
-    authModal.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    if (authModal) {
+        authModal.style.display = 'flex';
+        setTimeout(() => authModal.classList.add('active'), 10);
+        document.body.style.overflow = 'hidden';
+    }
 };
 
 const closeModal = () => {
-    authModal.classList.remove('active');
-    document.body.style.overflow = '';
+    if (authModal) {
+        authModal.classList.remove('active');
+        setTimeout(() => {
+            authModal.style.display = 'none';
+            document.body.style.overflow = '';
+        }, 300);
+    }
 };
 
-if (loginBtn) loginBtn.addEventListener('click', openModal);
+if (loginBtn) {
+    loginBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal();
+    });
+}
 if (closeAuthModal) closeAuthModal.addEventListener('click', closeModal);
 
 if (switchToSignUp) {
