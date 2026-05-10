@@ -1,5 +1,5 @@
 // 0. JARVIS Version Control
-console.log("JARVIS: Fox Design System v1.6.1 ativo.");
+console.log("JARVIS: Fox Design System v2.1 ativo.");
 
 // 1. Core Functions
 const openAuthModal = () => {
@@ -157,7 +157,8 @@ const updateUIForAuth = (user, customAvatar = null) => {
         const name = user.user_metadata?.full_name || user.email.split('@')[0];
         loginBtn.innerHTML = `<img src="${avatar}" style="width:25px; height:25px; border-radius:50%; margin-right:8px; vertical-align: middle; object-fit: cover;"> ${name}`;
     } else {
-        loginBtn.innerText = 'Entrar';
+        loginBtn.innerHTML = `<i data-lucide="user"></i> <span>Entrar</span>`;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
     }
 };
 
