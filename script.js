@@ -1,4 +1,26 @@
 // 1. Accordion FAQ
+console.log("JARVIS: Fox Design System v1.6 ativo.");
+
+const openAuthModal = () => {
+    const modal = document.getElementById('authModal');
+    if (modal) {
+        modal.style.display = 'flex';
+        setTimeout(() => modal.classList.add('active'), 10);
+        document.body.style.overflow = 'hidden';
+    }
+};
+
+const closeAuthModalFunc = () => {
+    const modal = document.getElementById('authModal');
+    if (modal) {
+        modal.classList.remove('active');
+        setTimeout(() => {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }, 300);
+    }
+};
+
 const accordionHeaders = document.querySelectorAll('.accordion-header');
 
 accordionHeaders.forEach(header => {
@@ -44,31 +66,13 @@ if (navOverlay) navOverlay.addEventListener('click', toggleMenu);
 const authModal = document.getElementById('authModal');
 const closeAuthModal = document.getElementById('closeAuthModal');
 
-const openModal = () => {
-    if (authModal) {
-        authModal.style.display = 'flex';
-        setTimeout(() => authModal.classList.add('active'), 10);
-        document.body.style.overflow = 'hidden';
-    }
-};
-
-const closeModal = () => {
-    if (authModal) {
-        authModal.classList.remove('active');
-        setTimeout(() => {
-            authModal.style.display = 'none';
-            document.body.style.overflow = '';
-        }, 300);
-    }
-};
-
 if (loginBtn) {
     loginBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        openModal();
+        openAuthModal();
     });
 }
-if (closeAuthModal) closeAuthModal.addEventListener('click', closeModal);
+if (closeAuthModal) closeAuthModal.addEventListener('click', closeAuthModalFunc);
 
 if (switchToSignUp) {
     switchToSignUp.addEventListener('click', () => {

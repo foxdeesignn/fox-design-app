@@ -90,8 +90,8 @@ h1, h2, h3, .logo { font-family: 'Sora', sans-serif; }
 .nav-auth-group {
     display: flex !important;
     align-items: center;
-    margin-left: 30px;
-    gap: 15px;
+    margin-left: 20px;
+    gap: 12px;
     visibility: visible !important;
     opacity: 1 !important;
 }
@@ -101,16 +101,17 @@ h1, h2, h3, .logo { font-family: 'Sora', sans-serif; }
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--glass-border);
     color: var(--white);
-    padding: 8px 18px;
+    padding: 10px 20px;
     border-radius: 8px;
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: 700;
     cursor: pointer;
     transition: var(--transition);
     align-items: center;
     justify-content: center;
     white-space: nowrap;
+    min-width: 100px;
 }
 
 .btn-login:hover {
@@ -124,10 +125,10 @@ h1, h2, h3, .logo { font-family: 'Sora', sans-serif; }
 .nav-cta {
     background: var(--fox-orange);
     color: #fff;
-    padding: 8px 18px;
+    padding: 10px 20px;
     border-radius: 8px;
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: 700;
     text-decoration: none;
     transition: var(--transition);
@@ -135,6 +136,7 @@ h1, h2, h3, .logo { font-family: 'Sora', sans-serif; }
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    min-width: 160px;
 }
 
 .nav-cta:hover {
