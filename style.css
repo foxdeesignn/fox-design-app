@@ -148,6 +148,7 @@ h1, h2, h3, .logo { font-family: 'Sora', sans-serif; }
     transform: translateY(-2px);
     box-shadow: 0 5px 15px var(--fox-orange-glow);
     filter: brightness(1.1);
+    color: #fff !important;
 }
 
 .mobile-menu-toggle, #menuToggle {
