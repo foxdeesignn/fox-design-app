@@ -83,10 +83,73 @@ h1, h2, h3, .logo { font-family: 'Sora', sans-serif; }
     padding: 5px 0;
 }
 
+.desktop-nav a:hover {
+    color: var(--fox-orange);
+}
+
+.nav-auth-group {
+    display: flex !important;
+    align-items: center;
+    margin-left: 30px;
+    gap: 15px;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.btn-login {
+    display: inline-flex !important;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    color: var(--white);
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-login:hover {
+    background: var(--fox-orange);
+    border-color: var(--fox-orange);
+    color: #fff;
+    box-shadow: 0 0 20px var(--fox-orange-glow);
+    transform: translateY(-2px);
+}
+
+.nav-cta {
+    background: var(--fox-orange);
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.nav-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px var(--fox-orange-glow);
+    filter: brightness(1.1);
+}
+
+.mobile-menu-toggle, #menuToggle {
+    display: none !important;
+}
+
+.nav-overlay {
+    display: none !important;
+}
+
 /* Mobile Menu Styles */
 @media (max-width: 992px) {
-    .mobile-menu-toggle {
-        display: flex;
+    .mobile-menu-toggle, #menuToggle {
+        display: flex !important;
         align-items: center;
         justify-content: center;
         background: var(--glass);
@@ -1086,8 +1149,7 @@ footer { padding: 80px 0 40px; border-top: 1px solid var(--glass-border); backgr
 }
 
 @media (max-width: 768px) {
-    .desktop-nav { display: none; }
-    .mobile-menu-toggle { display: block; }
+    .desktop-nav { display: none !important; }
     .testimonials-slider { grid-template-columns: 1fr; }
     .footer-grid { grid-template-columns: 1fr; }
     .section-title { text-align: center; }
@@ -1270,4 +1332,25 @@ footer { padding: 80px 0 40px; border-top: 1px solid var(--glass-border); backgr
 @media (max-width: 480px) {
     .offcanvas-panel { width: 100%; right: -100%; }
     .offcanvas-panel.active { transform: translateX(-100%); }
+}
+
+/* --- FINAL DESKTOP CLEANUP --- */
+@media (min-width: 993px) {
+    .mobile-menu-toggle, 
+    #menuToggle, 
+    .nav-overlay,
+    .mobile-menu-toggle *,
+    #menuToggle * {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        position: absolute !important;
+        overflow: hidden !important;
+    }
 }

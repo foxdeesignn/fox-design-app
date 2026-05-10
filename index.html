@@ -29,7 +29,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Sora:wght@300;400;600;800&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=1.4">
     
     <!-- Lucide Icons (CDN) -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -49,8 +49,10 @@
                 <a href="#planos">Planos</a>
                 <a href="loja.html">Loja</a>
                 <a href="#por-que-nos">Diferenciais</a>
-                <a href="javascript:void(0)" class="nav-login" id="loginBtn">Entrar</a>
-                <a href="#contato" class="nav-cta">Iniciar Projeto</a>
+                <div class="nav-auth-group">
+                    <button class="btn-login" id="loginBtn">Entrar</button>
+                    <a href="#contato" class="nav-cta">Iniciar Projeto</a>
+                </div>
             </nav>
             <button class="mobile-menu-toggle" id="menuToggle">
                 <i data-lucide="menu"></i>

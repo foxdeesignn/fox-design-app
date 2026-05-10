@@ -29,6 +29,7 @@ accordionHeaders.forEach(header => {
 const menuToggle = document.getElementById('menuToggle');
 const mainNav = document.getElementById('mainNav');
 const navOverlay = document.getElementById('navOverlay');
+const loginBtn = document.getElementById('loginBtn');
 
 const toggleMenu = () => {
     mainNav.classList.toggle('active');
@@ -39,12 +40,40 @@ const toggleMenu = () => {
 if (menuToggle) menuToggle.addEventListener('click', toggleMenu);
 if (navOverlay) navOverlay.addEventListener('click', toggleMenu);
 
-// Fecha menu ao clicar em links
-document.querySelectorAll('.desktop-nav a').forEach(link => {
-    link.addEventListener('click', () => {
-        if (mainNav.classList.contains('active')) toggleMenu();
+// 3. Login Modal Logic
+const authModal = document.getElementById('authModal');
+const closeAuthModal = document.getElementById('closeAuthModal');
+const switchToSignUp = document.getElementById('switchToSignUp');
+const authTitle = document.getElementById('authTitle');
+const authSubmitBtn = document.getElementById('authSubmitBtn');
+const authSwitchText = document.getElementById('authSwitchText');
+
+let isSignUp = false;
+
+const openModal = () => {
+    authModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+};
+
+const closeModal = () => {
+    authModal.classList.remove('active');
+    document.body.style.overflow = '';
+};
+
+if (loginBtn) loginBtn.addEventListener('click', openModal);
+if (closeAuthModal) closeAuthModal.addEventListener('click', closeModal);
+
+if (switchToSignUp) {
+    switchToSignUp.addEventListener('click', () => {
+        isSignUp = !isSignUp;
+        authTitle.innerHTML = isSignUp ? 'Crie sua <span>Conta Fox</span>' : 'Acesse sua <span>Área Fox Store</span>';
+        authSubmitBtn.innerText = isSignUp ? 'Criar Conta' : 'Entrar';
+        authSwitchText.innerHTML = isSignUp ? 'Já tem uma conta? <a href="javascript:void(0)" id="switchToSignUp">Entrar</a>' : 'Não tem uma conta? <a href="javascript:void(0)" id="switchToSignUp">Criar conta</a>';
+        
+        // Re-bind event listener because we replaced the innerHTML
+        document.getElementById('switchToSignUp').addEventListener('click', arguments.callee);
     });
-});
+}
 
 // 3. Header Scroll Effect
 window.addEventListener('scroll', () => {
