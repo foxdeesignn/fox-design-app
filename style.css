@@ -101,7 +101,7 @@ h1, h2, h3, .logo { font-family: 'Sora', sans-serif; }
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--glass-border);
     color: var(--white);
-    padding: 0 20px;
+    padding: 0 18px;
     height: 42px;
     border-radius: 8px;
     font-family: 'Orbitron', sans-serif;
@@ -112,8 +112,15 @@ h1, h2, h3, .logo { font-family: 'Sora', sans-serif; }
     align-items: center;
     justify-content: center;
     white-space: nowrap;
-    min-width: 100px;
+    min-width: 120px; /* Aumentado para comportar o ícone confortavelmente */
     box-sizing: border-box;
+    gap: 8px;
+}
+
+.btn-login i {
+    width: 16px;
+    height: 16px;
+    color: var(--fox-orange); /* Ícone em destaque */
 }
 
 .btn-login:hover {
