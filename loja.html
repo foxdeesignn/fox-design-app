@@ -7,7 +7,7 @@
     <!-- SEO & Meta Tags -->
     <title>LOJA FOX | Ativos Premium para Streamers</title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=1.6.2">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,8 +31,10 @@
                 <a href="index.html#servicos">Serviços</a>
                 <a href="index.html#planos">Planos</a>
                 <a href="loja.html" class="active" style="color: var(--fox-orange);">Loja</a>
-                <a href="javascript:void(0)" class="nav-login" id="loginBtn">Entrar</a>
-                <a href="index.html#contato" class="nav-cta">Iniciar Projeto</a>
+                <div class="nav-auth-group">
+                    <button class="btn-login" id="loginBtn">Entrar</button>
+                    <a href="index.html#contato" class="nav-cta">Iniciar Projeto</a>
+                </div>
             </nav>
             <button class="mobile-menu-toggle" id="menuToggle">
                 <i data-lucide="menu"></i>
@@ -528,9 +530,14 @@
     </a>
 
     <!-- Scripts -->
-    <script src="script.js?v=1.3"></script>
+    <script src="script.js?v=1.6.2"></script>
     <script>
-        lucide.createIcons();
+        // Inicialização garantida
+        window.addEventListener('DOMContentLoaded', () => {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
 
         // --- Lógica de Partículas Interativas FOX STORE ---
         const banner = document.getElementById("particle-banner");
