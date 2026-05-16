@@ -219,6 +219,7 @@ function openPreview(productId) {
         'pack_yoru_valorant': 'assets/video_yoru.mp4',
         'pack_sage_valorant': 'assets/video_sage.mp4',
         'pack_spiderman_miles': 'assets/video_spiderman.mp4',
+        'streamdeck_fortnite': 'https://www.youtube.com/embed/HBT3VSOTzrw?autoplay=1',
         'chat_cyberpunk': 'https://www.youtube.com/embed/mPIpPg-fbvc?autoplay=1'
     };
     const videoUrl = videoUrls[productId];
