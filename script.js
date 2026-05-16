@@ -208,7 +208,7 @@ function openPreview(productId) {
         'pack_jett_valorant': 'assets/video_jett.webm',
         'pack_killjoy_valorant': 'assets/video_killjoy.webm',
         'pack_raze_valorant': 'assets/video_raze.webm',
-        'pack_yoru_valorant': 'https://www.youtube.com/embed/ceYAm7PlT04?autoplay=1',
+        'pack_yoru_valorant': 'assets/video_yoru.mp4',
         'chat_cyberpunk': 'https://www.youtube.com/embed/mPIpPg-fbvc?autoplay=1'
     };
     const videoUrl = videoUrls[productId];
