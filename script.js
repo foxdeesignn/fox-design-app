@@ -199,6 +199,14 @@ async function startCheckout(pacoteId) {
     }
 }
 
+function closePreview() {
+    const modal = document.getElementById('preview-modal');
+    if (modal) {
+        modal.innerHTML = ""; // Limpa o conteúdo (para parar áudio de iframes e vídeos)
+        modal.style.display = 'none';
+    }
+}
+
 function openPreview(productId) {
     const videoUrls = {
         'subgoal_gta_vi': 'assets/video_gta_vi.webm',
@@ -224,10 +232,12 @@ function openPreview(productId) {
         const isYouTube = videoUrl.includes('youtube.com/embed/');
         const isWebm = videoUrl.endsWith('.webm');
         
+        let closeBtn = `<button onclick="closePreview()" style="position: absolute; top: 20px; right: 20px; color: white; background: rgba(0,0,0,0.5); border: none; font-size: 2rem; cursor: pointer; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10001; transition: 0.3s;">✕</button>`;
+
         if (isYouTube) {
-            modal.innerHTML = `<div style="position: relative; width: 95%; max-width: 1100px; aspect-ratio: 16/9;"><iframe width="100%" height="100%" src="${videoUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 20px;"></iframe><button onclick="this.parentElement.parentElement.style.display='none'" style="position: absolute; top: 20px; right: 20px; color: white; background: rgba(0,0,0,0.5); border: none; font-size: 2rem; cursor: pointer; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">✕</button></div>`;
+            modal.innerHTML = `<div style="position: relative; width: 95%; max-width: 1100px; aspect-ratio: 16/9;"><iframe width="100%" height="100%" src="${videoUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 20px;"></iframe>${closeBtn}</div>`;
         } else {
-            modal.innerHTML = `<div style="position: relative; width: 95%; max-width: 1100px; aspect-ratio: 16/9;"><video autoplay controls style="width: 100%; height: 100%; border-radius: 20px;"><source src="${videoUrl}" type="${isWebm ? 'video/webm' : 'video/mp4'}"></video><button onclick="this.parentElement.parentElement.style.display='none'" style="position: absolute; top: 20px; right: 20px; color: white; background: rgba(0,0,0,0.5); border: none; font-size: 2rem; cursor: pointer; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">✕</button></div>`;
+            modal.innerHTML = `<div style="position: relative; width: 95%; max-width: 1100px; aspect-ratio: 16/9;"><video autoplay controls style="width: 100%; height: 100%; border-radius: 20px;"><source src="${videoUrl}" type="${isWebm ? 'video/webm' : 'video/mp4'}"></video>${closeBtn}</div>`;
         }
         modal.style.display = 'flex';
     }
