@@ -71,6 +71,24 @@ if (loginBtn) {
 const closeAuthModal = document.getElementById('closeAuthModal');
 if (closeAuthModal) closeAuthModal.onclick = closeAuthModalFunc;
 
+const closeClientPanel = document.getElementById('closeClientPanel');
+const clientPanel = document.getElementById('clientPanel');
+if (closeClientPanel && clientPanel) {
+    closeClientPanel.onclick = () => {
+        clientPanel.classList.remove('active');
+    };
+}
+
+const closeDownloadsModal = document.getElementById('closeDownloadsModal');
+const downloadsModal = document.getElementById('downloadsModal');
+if (closeDownloadsModal && downloadsModal) {
+    closeDownloadsModal.onclick = () => {
+        downloadsModal.style.display = 'none';
+        downloadsModal.classList.remove('active');
+        document.body.style.overflow = '';
+    };
+}
+
 // 4. Accordion FAQ
 const accordionHeaders = document.querySelectorAll('.accordion-header');
 accordionHeaders.forEach(header => {
@@ -266,7 +284,8 @@ async function startCheckout(pacoteId) {
         if (error) throw error;
         if (data?.init_point) window.location.href = data.init_point;
     } catch (error) {
-        alert("Erro no sistema de vendas. Tente novamente em instantes.");
+        console.error("JARVIS: Erro no Checkout:", error);
+        alert(`Erro no sistema de vendas: ${error.message || 'Falha na comunicação'}. Tente novamente em instantes.`);
     } finally {
         if (btn) btn.disabled = false;
     }
