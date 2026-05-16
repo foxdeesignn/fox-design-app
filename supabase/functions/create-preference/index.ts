@@ -45,7 +45,7 @@ serve(async (req) => {
     if (!product) throw new Error(`Produto ${product_id} não encontrado na tabela de preços.`)
 
     // Criar preferência no Mercado Pago
-    const response = await fetch('https://api.mercadopago.com/checkout/preferences', {
+    const mpResponse = await fetch('https://api.mercadopago.com/checkout/preferences', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${MP_ACCESS_TOKEN}`,
@@ -66,15 +66,23 @@ serve(async (req) => {
           pending: 'https://foxdeesignn.github.io/fox-design-app/'
         },
         auto_return: 'approved',
-        external_reference: product_id
+        external_reference: product_id,
+        payer: {
+          email: user_email
+        }
       }),
     })
 
-    const data = await response.json()
-    console.log("MP Response:", data)
+    const data = await mpResponse.json()
+    console.log("MP Response Status:", mpResponse.status)
+    console.log("MP Response Body:", data)
+
+    if (!mpResponse.ok) {
+      throw new Error(`Mercado Pago Erro (${mpResponse.status}): ${data.message || JSON.stringify(data)}`)
+    }
 
     if (!data.init_point) {
-      throw new Error(data.message || 'Erro ao gerar link no Mercado Pago.')
+      throw new Error('Link de pagamento (init_point) não encontrado na resposta do Mercado Pago.')
     }
 
     return new Response(JSON.stringify({ init_point: data.init_point }), {
