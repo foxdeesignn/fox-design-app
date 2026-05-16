@@ -218,6 +218,7 @@ function openPreview(productId) {
         'pack_raze_valorant': 'assets/video_raze.webm',
         'pack_yoru_valorant': 'assets/video_yoru.mp4',
         'pack_sage_valorant': 'assets/video_sage.mp4',
+        'pack_spiderman_miles': 'assets/video_spiderman.mp4',
         'chat_cyberpunk': 'https://www.youtube.com/embed/mPIpPg-fbvc?autoplay=1'
     };
     const videoUrl = videoUrls[productId];
