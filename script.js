@@ -269,25 +269,55 @@ if (supabaseClient) {
 
 // 8. Store Functions (Checkout/Preview)
 async function startCheckout(pacoteId) {
-    const btn = document.querySelector(`button[onclick*="${pacoteId}"]`);
+    // Seletor mais específico para evitar capturar o botão de preview
+    const btn = document.querySelector(`button.btn-buy-mini[onclick*="${pacoteId}"]`) || 
+                document.querySelector(`button[onclick*="startCheckout('${pacoteId}')"]`);
+    
     try {
+        console.log(`JARVIS: Iniciando checkout para o produto: ${pacoteId}`);
         const { data: { user } } = await supabaseClient.auth.getUser();
+        
         if (!user) {
             alert('Fala gamer! Faça login antes de comprar.');
             openAuthModal();
             return;
         }
-        if (btn) btn.disabled = true;
+
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<i data-lucide="loader" class="refreshing"></i> PROCESSANDO...';
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
         const { data, error } = await supabaseClient.functions.invoke('create-preference', {
             body: { product_id: pacoteId, user_email: user.email }
         });
-        if (error) throw error;
-        if (data?.init_point) window.location.href = data.init_point;
+
+        if (error) {
+            console.error("JARVIS: Erro retornado pela Edge Function:", error);
+            throw new Error(error.message || "Erro na Edge Function");
+        }
+
+        if (data && data.error) {
+            console.error("JARVIS: Erro lógico na função:", data.error);
+            throw new Error(data.error);
+        }
+
+        if (data && data.init_point) {
+            console.log("JARVIS: Link de pagamento gerado com sucesso!");
+            window.location.href = data.init_point;
+        } else {
+            throw new Error("Link de pagamento não recebido do servidor.");
+        }
+
     } catch (error) {
-        console.error("JARVIS: Erro no Checkout:", error);
-        alert(`Erro no sistema de vendas: ${error.message || 'Falha na comunicação'}. Tente novamente em instantes.`);
+        console.error("JARVIS: Erro Crítico no Checkout:", error);
+        alert(`Erro no sistema de vendas: ${error.message}\n\nPor favor, informe este erro ao suporte: suportefoxdesignn@gmail.com`);
     } finally {
-        if (btn) btn.disabled = false;
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = 'COMPRAR';
+        }
     }
 }
 
