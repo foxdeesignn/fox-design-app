@@ -289,8 +289,9 @@ async function startCheckout(pacoteId) {
             if (typeof lucide !== 'undefined') lucide.createIcons();
         }
 
+        const productIdSanitized = pacoteId.trim().toLowerCase();
         const { data, error } = await supabaseClient.functions.invoke('create-preference', {
-            body: { product_id: pacoteId, user_email: user.email }
+            body: { product_id: productIdSanitized, user_email: user.email }
         });
 
         if (error) {
