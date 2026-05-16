@@ -443,6 +443,35 @@
                     </div>
                 </div>
 
+                <!-- Produto 8: Pack Sage Valorant -->
+                <div class="store-card" data-category="overlays" data-glow style="background: var(--bg-secondary); border: 1px solid var(--glass-border); border-radius: 24px; overflow: hidden; transition: var(--transition);">
+                    <div data-glow></div>
+                    <div class="product-preview" style="height: 250px; overflow: hidden; position: relative;">
+                        <span style="position: absolute; top: 15px; right: 15px; background: #00f2ff; color: #000; padding: 4px 12px; border-radius: 100px; font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900; z-index: 10;">NEW</span>
+                        <img src="assets/capa-sage.jpg" alt="Pack Sage Valorant" style="width: 100%; height: 100%; object-fit: cover; transition: var(--transition);">
+                    </div>
+                    <div class="product-details" style="padding: 25px; text-align: left;">
+                        <span style="color: var(--fox-orange); font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;">Overlays Temáticos</span>
+                        <h3 style="margin: 10px 0 15px; font-size: 1.25rem;">Pack Sage: Valorant Edition</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 20px;">
+                            <strong>Inclui:</strong> Início/Fim de live, 4 Alertas, 4 Emotes, Facecam, 6 Painéis e Transição de cena.
+                        </p>
+                        
+                        <div class="product-footer">
+                            <button onclick="openPreview('pack_sage_valorant')" class="btn-preview" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--glass-border); padding: 12px; border-radius: 6px; font-family: 'Orbitron'; font-size: 0.75rem; font-weight: 700; cursor: pointer; transition: 0.3s; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                <i data-lucide="play-circle" size="18"></i> VISUALIZAR DEMO
+                            </button>
+                            <div class="price-box">
+                                <div class="price-tag">
+                                    <span class="price-value">R$ 59,90</span>
+                                    <span style="font-size: 0.6rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;">Preço à vista no PIX</span>
+                                </div>
+                                <button onclick="startCheckout('pack_sage_valorant')" class="btn-buy-mini" style="background: var(--fox-orange); color: #000; border: none; padding: 15px 25px; border-radius: 6px; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; transition: 0.3s;">COMPRAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <!-- MENSAGEM: EM BREVE -->
@@ -592,7 +621,7 @@
     </a>
 
     <!-- Scripts -->
-    <script src="script.js?v=2.3"></script>
+    <script src="script.js?v=2.4"></script>
     <script>
         // Inicialização garantida
         window.addEventListener('DOMContentLoaded', () => {
