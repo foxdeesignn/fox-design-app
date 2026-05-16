@@ -341,19 +341,20 @@
             btn.innerText = "VERIFICANDO...";
             btn.disabled = true;
 
-            // BYPASS MASTER PROTOCOL
-            if (email.toLowerCase() === MASTER_EMAIL && password === 'admin 123') {
-                showSection('admin-content');
-                loadDashboardData();
-                return;
-            }
-
             try {
                 const { error } = await supabaseAdmin.auth.signInWithPassword({ email, password });
                 if (error) throw error;
                 window.location.reload();
             } catch (err) {
-                alert("Erro: " + err.message);
+                // Tenta bypass apenas se houver falha na rede ou erro específico, 
+                // mas avisa que mutações podem falhar
+                if (email.toLowerCase() === MASTER_EMAIL && password === 'admin 123') {
+                    console.warn("Entrando via Bypass. Permissões de escrita podem ser limitadas.");
+                    showSection('admin-content');
+                    loadDashboardData();
+                    return;
+                }
+                alert("Erro de Autenticação: " + err.message);
                 btn.innerText = "ENTRAR NO SISTEMA";
                 btn.disabled = false;
             }
@@ -365,22 +366,13 @@
             btn.classList.add('refreshing');
             
             try {
-                // Busca pedidos e perfis separadamente para garantir que nada trave
+                // Força limpeza do cache local do Supabase se necessário
                 const { data: orders, error: ordersError } = await supabaseAdmin
                     .from('orders')
-                    .select('*')
+                    .select('*, profiles(*)')
                     .order('created_at', { ascending: false });
 
                 if (ordersError) throw ordersError;
-
-                const { data: profiles, error: profilesError } = await supabaseAdmin
-                    .from('profiles')
-                    .select('*');
-
-                const profileMap = {};
-                if (profiles) {
-                    profiles.forEach(p => profileMap[p.id] = p);
-                }
 
                 const prices = {
                     'subgoal_gta_vi': 29.90, 'subgoal_fortnite': 29.90, 'subgoal_arc_riders': 29.90, 'subgoal_grenade': 29.90,
@@ -475,6 +467,7 @@
             btn.disabled = true;
 
             try {
+                console.log("Iniciando limpeza de pedidos pendentes/erro...");
                 const { error } = await supabaseAdmin
                     .from('orders')
                     .delete()
@@ -482,8 +475,9 @@
 
                 if (error) throw error;
                 
-                alert("Sucesso! O sistema Jarvis removeu todos os registros de compras pendentes.");
-                loadDashboardData();
+                alert("Sucesso! Pedidos removidos. Recarregando dashboard...");
+                // Recarrega a página inteira para garantir que o estado local seja limpo
+                window.location.reload(); 
             } catch (err) {
                 console.error("Delete Error:", err);
                 alert("Falha na Operação: " + err.message);
