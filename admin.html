@@ -229,6 +229,9 @@
                 </div>
 
                 <div class="header-actions">
+                    <button id="btnClearPending" class="btn-admin" title="Limpar Pedidos Pendentes" style="color: #ff3333; border-color: rgba(255, 51, 51, 0.2);">
+                        <i data-lucide="trash-2" size="18"></i> LIMPAR PENDENTES
+                    </button>
                     <button id="btnRefresh" class="btn-admin" title="Sincronizar Dados">
                         <i data-lucide="refresh-cw" size="18"></i> ATUALIZAR
                     </button>
@@ -462,6 +465,36 @@
         }
 
         document.getElementById('btnRefresh').onclick = loadDashboardData;
+
+        async function clearPendingOrders() {
+            if (!confirm("⚠️ ATENÇÃO: Isso excluirá PERMANENTEMENTE todos os pedidos pendentes do banco de dados. Deseja continuar?")) return;
+            
+            const btn = document.getElementById('btnClearPending');
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i data-lucide="loader" class="refreshing" size="18"></i> LIMPANDO...';
+            btn.disabled = true;
+
+            try {
+                const { error } = await supabaseAdmin
+                    .from('orders')
+                    .delete()
+                    .in('status', ['pending', 'error']);
+
+                if (error) throw error;
+                
+                alert("Sucesso! O sistema Jarvis removeu todos os registros de compras pendentes.");
+                loadDashboardData();
+            } catch (err) {
+                console.error("Delete Error:", err);
+                alert("Falha na Operação: " + err.message);
+            } finally {
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+                lucide.createIcons();
+            }
+        }
+
+        document.getElementById('btnClearPending').onclick = clearPendingOrders;
         
         async function logoutAndRetry() {
             await supabaseAdmin.auth.signOut();
