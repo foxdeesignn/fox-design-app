@@ -162,6 +162,79 @@ const updateUIForAuth = (user, customAvatar = null) => {
     }
 };
 
+// Funções de Autenticação
+const loginWithGoogle = async () => {
+    if (!supabaseClient) return;
+    console.log("JARVIS: Iniciando login via Google...");
+    try {
+        const { error } = await supabaseClient.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+                redirectTo: window.location.origin + window.location.pathname
+            }
+        });
+        if (error) throw error;
+    } catch (err) {
+        console.error("JARVIS: Erro no login Google:", err.message);
+        alert("Erro ao conectar com Google: " + err.message);
+    }
+};
+
+// Listeners do Modal de Autenticação
+if (googleLoginBtn) {
+    googleLoginBtn.addEventListener('click', loginWithGoogle);
+}
+
+if (authForm) {
+    authForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('authEmail').value;
+        const password = document.getElementById('authPassword').value;
+        const submitBtn = document.getElementById('authSubmitBtn');
+        const isSignUp = submitBtn.innerText.toLowerCase().includes('criar');
+
+        submitBtn.disabled = true;
+        submitBtn.innerText = isSignUp ? "CRIANDO CONTA..." : "ENTRANDO...";
+
+        try {
+            let res;
+            if (isSignUp) {
+                res = await supabaseClient.auth.signUp({ email, password });
+            } else {
+                res = await supabaseClient.auth.signInWithPassword({ email, password });
+            }
+
+            if (res.error) throw res.error;
+            
+            closeAuthModalFunc();
+            if (isSignUp) alert("Conta criada! Verifique seu e-mail para confirmar (se necessário) ou faça login.");
+        } catch (err) {
+            alert("Erro: " + err.message);
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerText = isSignUp ? "Criar Conta" : "Entrar";
+        }
+    });
+}
+
+if (switchToSignUp) {
+    switchToSignUp.addEventListener('click', () => {
+        const title = document.getElementById('authTitle');
+        const btn = document.getElementById('authSubmitBtn');
+        const linkText = document.getElementById('authSwitchText');
+        
+        if (btn.innerText === "Entrar") {
+            title.innerHTML = "Crie sua Conta <span>Fox</span>";
+            btn.innerText = "Criar Conta";
+            linkText.innerHTML = 'Já tem uma conta? <a href="javascript:void(0)" id="switchToSignUp">Fazer Login</a>';
+        } else {
+            title.innerHTML = "Acesse sua Área <span>Fox Store</span>";
+            btn.innerText = "Entrar";
+            linkText.innerHTML = 'Não tem uma conta? <a href="javascript:void(0)" id="switchToSignUp">Criar conta</a>';
+        }
+    });
+}
+
 if (supabaseClient) {
     supabaseClient.auth.onAuthStateChange((event, session) => {
         updateUIForAuth(session?.user);
