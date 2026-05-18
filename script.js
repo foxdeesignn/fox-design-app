@@ -137,6 +137,16 @@ async function fetchUserOrders() {
 
         if (error) throw error;
 
+        // JARVIS: Atalho de visualização para o Mestre
+        if (user.email === 'foxdeesignn@gmail.com') {
+            orders.unshift({
+                product_id: 'pack_fortnite_stream',
+                product_title: 'Pack Fortnite: Stream Edition (Simulação)',
+                status: 'paid',
+                created_at: new Date().toISOString()
+            });
+        }
+
         if (!orders || orders.length === 0) {
             ordersList.innerHTML = '<div style="text-align:center; padding: 20px;">Nenhum pedido encontrado.</div>';
             return;
