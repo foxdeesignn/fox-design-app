@@ -1158,6 +1158,23 @@ footer { padding: 80px 0 40px; border-top: 1px solid var(--glass-border); backgr
 .whatsapp-float:hover { transform: scale(1.1) rotate(10deg); }
 
 /* --- WISHLIST ANIMATIONS & COLORS --- */
+#wishlistContainer {
+    max-height: 280px;
+    overflow-y: auto;
+    padding-right: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--fox-orange) rgba(255,255,255,0.05);
+}
+
+#wishlistContainer::-webkit-scrollbar {
+    width: 4px;
+}
+
+#wishlistContainer::-webkit-scrollbar-thumb {
+    background: var(--fox-orange);
+    border-radius: 10px;
+}
+
 .wishlist-btn {
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
 }
