@@ -116,6 +116,69 @@ const DOWNLOAD_LINKS = {
     'chat_cyberpunk': 'https://github.com/foxdeesignn/fox-design-app/raw/main/downloads/Chat_Cyberpunk_Fox.zip'
 };
 
+// 7.1 Wishlist System
+let wishlist = JSON.parse(localStorage.getItem('fox_wishlist')) || [];
+
+function updateWishlistUI() {
+    const container = document.getElementById('wishlistContainer');
+    if (!container) return;
+
+    if (wishlist.length === 0) {
+        container.innerHTML = '<p style="color: #666; font-size: 0.75rem; font-style: italic;">Sua lista está vazia.</p>';
+    } else {
+        container.innerHTML = '';
+        wishlist.forEach(item => {
+            const div = document.createElement('div');
+            div.style = "background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 10px; display: flex; align-items: center; gap: 10px; position: relative;";
+            div.innerHTML = `
+                <img src="${item.img}" style="width: 40px; height: 40px; border-radius: 4px; object-fit: cover;">
+                <div style="flex-grow: 1;">
+                    <h5 style="margin: 0; font-size: 0.75rem; color: #fff; font-family: 'Sora';">${item.title}</h5>
+                    <button onclick="startCheckout('${item.id}')" style="background: none; border: none; color: var(--fox-orange); font-size: 0.65rem; font-weight: 700; cursor: pointer; padding: 0; margin-top: 2px;">COMPRAR AGORA</button>
+                </div>
+                <button onclick="toggleWishlist('${item.id}')" style="background: none; border: none; color: #ff4444; cursor: pointer; opacity: 0.6;"><i data-lucide="x" size="14"></i></button>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    // Atualizar estrelas nos cards
+    document.querySelectorAll('.wishlist-btn').forEach(btn => {
+        const productId = btn.getAttribute('onclick').match(/'([^']+)'/)[1];
+        const isFavorited = wishlist.some(i => i.id === productId);
+        const icon = btn.querySelector('i');
+        if (isFavorited) {
+            btn.style.color = 'var(--fox-orange)';
+            btn.style.background = 'rgba(246, 14, 90, 0.2)';
+            btn.style.borderColor = 'var(--fox-orange)';
+            if (icon) icon.setAttribute('fill', 'var(--fox-orange)');
+        } else {
+            btn.style.color = '#fff';
+            btn.style.background = 'rgba(0,0,0,0.5)';
+            btn.style.borderColor = 'rgba(255,255,255,0.1)';
+            if (icon) icon.setAttribute('fill', 'none');
+        }
+    });
+
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+window.toggleWishlist = function(id, title, img) {
+    const index = wishlist.findIndex(item => item.id === id);
+    if (index === -1) {
+        wishlist.push({ id, title, img });
+    } else {
+        wishlist.splice(index, 1);
+    }
+    localStorage.setItem('fox_wishlist', JSON.stringify(wishlist));
+    updateWishlistUI();
+};
+
+// Inicializar UI de Wishlist no boot
+window.addEventListener('DOMContentLoaded', () => {
+    updateWishlistUI();
+});
+
 async function fetchUserOrders() {
     const ordersList = document.getElementById('ordersList');
     if (!ordersList) return;
