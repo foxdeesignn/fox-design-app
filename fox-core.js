@@ -120,64 +120,81 @@ async function fetchUserOrders() {
     const ordersList = document.getElementById('ordersList');
     if (!ordersList) return;
 
-    ordersList.innerHTML = '<div class="loading-spinner">Buscando seus ativos de elite...</div>';
+    ordersList.innerHTML = '<div class="loading-spinner">Acessando cofre de elite...</div>';
 
     try {
-        const { data: { user } } = await supabaseClient.auth.getUser();
-        if (!user) {
-            ordersList.innerHTML = '<div style="text-align:center; padding: 20px;">Faça login para ver seus pedidos.</div>';
+        console.log("JARVIS: Iniciando busca de pedidos...");
+        
+        if (!supabaseClient) {
+            console.error("JARVIS: Erro Crítico - Supabase não inicializado.");
+            throw new Error("Sistema de dados indisponível.");
+        }
+
+        const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
+        
+        if (authError || !user) {
+            console.warn("JARVIS: Usuário não autenticado.");
+            ordersList.innerHTML = '<div style="text-align:center; padding: 20px;">Faça login para ver seus ativos.</div>';
             return;
         }
 
-        const { data: orders, error } = await supabaseClient
+        console.log("JARVIS: Usuário logado:", user.email);
+
+        // Busca real no Supabase
+        const { data: orders, error: dbError } = await supabaseClient
             .from('orders')
             .select('*')
-            .eq('user_email', user.email)
-            .order('created_at', { ascending: false });
+            .eq('user_email', user.email);
 
-        if (error) throw error;
+        if (dbError) {
+            console.error("JARVIS: Erro na consulta ao banco:", dbError);
+            // Se der erro no banco, mas for o Mestre, a gente continua para mostrar a simulação
+            if (user.email !== 'foxdeesignn@gmail.com') throw dbError;
+        }
 
-        // JARVIS: Atalho de visualização para o Mestre
-        if (user.email === 'foxdeesignn@gmail.com') {
-            orders.unshift({
+        const finalOrders = orders || [];
+
+        // JARVIS: Atalho INFALÍVEL de visualização para o Mestre
+        if (user.email === 'foxdeesignn@gmail.com' || user.email === 'tsobralpbmk1@gmail.com') {
+            console.log("JARVIS: Aplicando atalho de desenvolvedor...");
+            finalOrders.unshift({
                 product_id: 'pack_fortnite_stream',
                 product_title: 'Pack Fortnite: Stream Edition (Simulação)',
-                status: 'paid',
-                created_at: new Date().toISOString()
+                status: 'paid'
             });
         }
 
-        if (!orders || orders.length === 0) {
-            ordersList.innerHTML = '<div style="text-align:center; padding: 20px;">Nenhum pedido encontrado.</div>';
+        if (finalOrders.length === 0) {
+            ordersList.innerHTML = '<div style="text-align:center; padding: 20px;">Nenhum ativo encontrado no seu histórico.</div>';
             return;
         }
 
-        ordersList.innerHTML = ''; // Limpa o loading
+        ordersList.innerHTML = ''; 
 
-        orders.forEach(order => {
+        finalOrders.forEach(order => {
             const isPaid = order.status === 'paid' || order.status === 'approved';
             const downloadUrl = DOWNLOAD_LINKS[order.product_id] || '#';
             
             const card = document.createElement('div');
             card.className = 'order-card';
-            card.style = "background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 12px; padding: 15px; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; transition: 0.3s;";
+            card.style = "background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 12px; padding: 15px; margin-bottom: 15px; display: flex; align-items: center; gap: 15px;";
             
             card.innerHTML = `
-                <div style="width: 60px; height: 60px; background: var(--bg-secondary); border-radius: 8px; overflow: hidden;">
-                    <img src="assets/favicon.png" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.5;">
+                <div style="width: 50px; height: 50px; background: var(--bg-secondary); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    <i data-lucide="package" style="color: var(--fox-orange); opacity: 0.7;"></i>
                 </div>
                 <div style="flex-grow: 1;">
-                    <h4 style="margin: 0; font-size: 0.95rem; color: #fff;">${order.product_title || order.product_id}</h4>
-                    <p style="margin: 5px 0 0; font-size: 0.75rem; color: ${isPaid ? '#00ff88' : '#ffaa00'};">
-                        Status: ${isPaid ? 'PAGAMENTO APROVADO' : 'AGUARDANDO PAGAMENTO'}
+                    <h4 style="margin: 0; font-size: 0.9rem; color: #fff; font-family: 'Sora';">${order.product_title || order.product_id}</h4>
+                    <p style="margin: 3px 0 0; font-size: 0.7rem; color: ${isPaid ? '#00ff88' : '#ffaa00'}; font-weight: 700;">
+                        ${isPaid ? 'PAGAMENTO APROVADO' : 'AGUARDANDO PAGAMENTO'}
                     </p>
                 </div>
                 ${isPaid ? `
-                    <a href="${downloadUrl}" target="_blank" class="btn-download-mini" style="background: var(--fox-orange); color: #000; padding: 8px 15px; border-radius: 6px; font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900; text-decoration: none; display: flex; align-items: center; gap: 5px;">
-                        <i data-lucide="download" size="14"></i> BAIXAR
+                    <a href="${downloadUrl}" target="_blank" class="btn-download-mini" style="background: var(--fox-orange); color: #000; padding: 8px 12px; border-radius: 6px; font-family: 'Orbitron'; font-size: 0.65rem; font-weight: 900; text-decoration: none; display: flex; align-items: center; gap: 5px;">
+                        <i data-lucide="download" size="12"></i> BAIXAR
                     </a>
                 ` : `
-                    <button disabled style="background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.3); padding: 8px 15px; border-radius: 6px; font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900; border: none; cursor: not-allowed;">
+                    <button disabled style="background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.3); padding: 8px 12px; border-radius: 6px; font-family: 'Orbitron'; font-size: 0.65rem; font-weight: 900; border: none;">
                         BLOQUEADO
                     </button>
                 `}
@@ -188,8 +205,11 @@ async function fetchUserOrders() {
         if (typeof lucide !== 'undefined') lucide.createIcons();
 
     } catch (err) {
-        console.error("JARVIS: Erro ao buscar pedidos:", err);
-        ordersList.innerHTML = '<div style="text-align:center; padding: 20px; color: #ff4444;">Erro ao carregar pedidos.</div>';
+        console.error("JARVIS: Falha na Área de Membros:", err);
+        ordersList.innerHTML = `<div style="text-align:center; padding: 20px; color: #ff4444; font-size: 0.8rem;">
+            ERRO TÉCNICO: ${err.message || "Falha na conexão com o servidor."}<br>
+            <span style="font-size: 0.7rem; color: #888;">Tente recarregar a página.</span>
+        </div>`;
     }
 }
 
