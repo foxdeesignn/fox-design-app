@@ -308,6 +308,11 @@ try {
 
 const updateUIForAuth = (user, customAvatar = null) => {
     if (!loginBtn) return;
+    
+    const welcomeSection = document.getElementById('welcomeSection');
+    const profileForm = document.getElementById('profileForm');
+    const userNameDisplay = document.getElementById('userNameDisplay');
+
     if (user) {
         const avatar = customAvatar || user.user_metadata?.avatar_url || 'https://www.gravatar.com/avatar/?d=mp';
         const name = user.user_metadata?.full_name || user.email.split('@')[0];
@@ -316,16 +321,90 @@ const updateUIForAuth = (user, customAvatar = null) => {
         // Preencher campos do painel lateral
         const panelAvatar = document.getElementById('panelAvatar');
         const profileName = document.getElementById('profileName');
+        const profilePhone = document.getElementById('profilePhone');
         const profileInstagram = document.getElementById('profileInstagram');
         
         if (panelAvatar) panelAvatar.src = avatar;
-        if (profileName && !profileName.value) profileName.value = user.user_metadata?.full_name || '';
-        if (profileInstagram && !profileInstagram.value) profileInstagram.value = user.user_metadata?.instagram || '';
+
+        // JARVIS: Buscar dados reais do perfil para decidir o que mostrar
+        supabaseClient.from('profiles').select('*').eq('id', user.id).single().then(({ data: profile }) => {
+            if (profile) {
+                if (profileName) profileName.value = profile.full_name || '';
+                if (profilePhone) profilePhone.value = profile.phone || '';
+                if (profileInstagram) profileInstagram.value = profile.instagram || '';
+
+                // Se já tem nome e instagram, oculta o formulário e mostra boas-vindas
+                if (profile.full_name && profile.instagram && welcomeSection && profileForm) {
+                    welcomeSection.style.display = 'block';
+                    profileForm.style.display = 'none';
+                    if (userNameDisplay) userNameDisplay.innerText = profile.full_name.split(' ')[0];
+                } else {
+                    if (welcomeSection) welcomeSection.style.display = 'none';
+                    if (profileForm) profileForm.style.display = 'block';
+                }
+            }
+        });
+
     } else {
         loginBtn.innerHTML = `<i data-lucide="user"></i> <span>Entrar</span>`;
+        if (welcomeSection) welcomeSection.style.display = 'none';
+        if (profileForm) profileForm.style.display = 'block';
         if (typeof lucide !== 'undefined') lucide.createIcons();
     }
 };
+
+// Lógica de Salvamento de Perfil
+const profileFormElement = document.getElementById('profileForm');
+if (profileFormElement) {
+    profileFormElement.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submitBtn = document.getElementById('saveProfileBtn');
+        const fullName = document.getElementById('profileName').value;
+        const phone = document.getElementById('profilePhone').value;
+        const instagram = document.getElementById('profileInstagram').value;
+
+        if (!supabaseClient) return;
+
+        try {
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerText = "SALVANDO...";
+            }
+
+            const { data: { user } } = await supabaseClient.auth.getUser();
+            if (!user) throw new Error("Usuário não autenticado.");
+
+            const { error } = await supabaseClient.from('profiles').upsert({
+                id: user.id,
+                full_name: fullName,
+                phone: phone,
+                instagram: instagram,
+                updated_at: new Date().toISOString()
+            });
+
+            if (error) throw error;
+
+            // Sucesso: Atualiza UI para modo "Boas-vindas"
+            const welcomeSection = document.getElementById('welcomeSection');
+            const userNameDisplay = document.getElementById('userNameDisplay');
+            
+            if (welcomeSection) welcomeSection.style.display = 'block';
+            if (profileFormElement) profileFormElement.style.display = 'none';
+            if (userNameDisplay) userNameDisplay.innerText = fullName.split(' ')[0];
+
+            alert("Perfil Fox atualizado com sucesso de elite!");
+
+        } catch (err) {
+            console.error("JARVIS: Erro ao salvar perfil:", err);
+            alert("Erro ao salvar: " + err.message);
+        } finally {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Salvar Alterações";
+            }
+        }
+    });
+}
 
 // Funções de Autenticação
 const loginWithGoogle = async () => {
