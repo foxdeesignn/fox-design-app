@@ -106,6 +106,83 @@ if (logoutBtn) {
 }
 
 // Global Click for Downloads Button
+// 7. Client Area & Downloads
+const DOWNLOAD_LINKS = {
+    'pack_fortnite_stream': 'https://github.com/foxdeesignn/fox-design-app/raw/main/downloads/Pack_Fortnite_Stream_Edition.zip',
+    'streamdeck_fortnite': 'https://github.com/foxdeesignn/fox-design-app/raw/main/downloads/Pack_Fortnite_Stream_Deck.zip',
+    'streamdeck_akatsuki': 'https://github.com/foxdeesignn/fox-design-app/raw/main/downloads/Pack_Akatsuki_Stream_Deck.zip',
+    'pack_jett_valorant': 'https://github.com/foxdeesignn/fox-design-app/raw/main/downloads/Pack_Jett_Valorant.zip',
+    'pack_raze_valorant': 'https://github.com/foxdeesignn/fox-design-app/raw/main/downloads/Pack_Raze_Valorant.zip',
+    'chat_cyberpunk': 'https://github.com/foxdeesignn/fox-design-app/raw/main/downloads/Chat_Cyberpunk_Fox.zip'
+};
+
+async function fetchUserOrders() {
+    const ordersList = document.getElementById('ordersList');
+    if (!ordersList) return;
+
+    ordersList.innerHTML = '<div class="loading-spinner">Buscando seus ativos de elite...</div>';
+
+    try {
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        if (!user) {
+            ordersList.innerHTML = '<div style="text-align:center; padding: 20px;">Faça login para ver seus pedidos.</div>';
+            return;
+        }
+
+        const { data: orders, error } = await supabaseClient
+            .from('orders')
+            .select('*')
+            .eq('user_email', user.email)
+            .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        if (!orders || orders.length === 0) {
+            ordersList.innerHTML = '<div style="text-align:center; padding: 20px;">Nenhum pedido encontrado.</div>';
+            return;
+        }
+
+        ordersList.innerHTML = ''; // Limpa o loading
+
+        orders.forEach(order => {
+            const isPaid = order.status === 'paid' || order.status === 'approved';
+            const downloadUrl = DOWNLOAD_LINKS[order.product_id] || '#';
+            
+            const card = document.createElement('div');
+            card.className = 'order-card';
+            card.style = "background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 12px; padding: 15px; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; transition: 0.3s;";
+            
+            card.innerHTML = `
+                <div style="width: 60px; height: 60px; background: var(--bg-secondary); border-radius: 8px; overflow: hidden;">
+                    <img src="assets/favicon.png" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.5;">
+                </div>
+                <div style="flex-grow: 1;">
+                    <h4 style="margin: 0; font-size: 0.95rem; color: #fff;">${order.product_title || order.product_id}</h4>
+                    <p style="margin: 5px 0 0; font-size: 0.75rem; color: ${isPaid ? '#00ff88' : '#ffaa00'};">
+                        Status: ${isPaid ? 'PAGAMENTO APROVADO' : 'AGUARDANDO PAGAMENTO'}
+                    </p>
+                </div>
+                ${isPaid ? `
+                    <a href="${downloadUrl}" target="_blank" class="btn-download-mini" style="background: var(--fox-orange); color: #000; padding: 8px 15px; border-radius: 6px; font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900; text-decoration: none; display: flex; align-items: center; gap: 5px;">
+                        <i data-lucide="download" size="14"></i> BAIXAR
+                    </a>
+                ` : `
+                    <button disabled style="background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.3); padding: 8px 15px; border-radius: 6px; font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900; border: none; cursor: not-allowed;">
+                        BLOQUEADO
+                    </button>
+                `}
+            `;
+            ordersList.appendChild(card);
+        });
+
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+
+    } catch (err) {
+        console.error("JARVIS: Erro ao buscar pedidos:", err);
+        ordersList.innerHTML = '<div style="text-align:center; padding: 20px; color: #ff4444;">Erro ao carregar pedidos.</div>';
+    }
+}
+
 if (openDownloadsBtn) {
     openDownloadsBtn.addEventListener('click', () => {
         if (downloadsModal) {
@@ -113,6 +190,9 @@ if (openDownloadsBtn) {
             setTimeout(() => downloadsModal.classList.add('active'), 10);
             document.body.style.overflow = 'hidden';
             if (clientPanel) clientPanel.classList.remove('active');
+            
+            // JARVIS: Carregar pedidos reais do Supabase
+            fetchUserOrders();
         }
     });
 }
