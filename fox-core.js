@@ -1,5 +1,5 @@
 // 0. JARVIS Version Control
-console.log("JARVIS: Fox Design System v2.1 ativo.");
+console.log("JARVIS: Fox Design System v3.1 ativo.");
 
 // 1. Core Functions
 const openAuthModal = () => {
@@ -136,7 +136,7 @@ function updateWishlistUI() {
                     <h5 style="margin: 0; font-size: 0.75rem; color: #fff; font-family: 'Sora';">${item.title}</h5>
                     <button onclick="startCheckout('${item.id}')" style="background: none; border: none; color: var(--fox-orange); font-size: 0.65rem; font-weight: 700; cursor: pointer; padding: 0; margin-top: 2px;">COMPRAR AGORA</button>
                 </div>
-                <button onclick="toggleWishlist('${item.id}')" style="background: none; border: none; color: #ff4444; cursor: pointer; opacity: 0.6;"><i data-lucide="x" size="14"></i></button>
+                <button onclick="window.toggleWishlist('${item.id}')" style="background: none; border: none; color: #ff4444; cursor: pointer; opacity: 0.6;"><i data-lucide="x" size="14"></i></button>
             `;
             container.appendChild(div);
         });
@@ -144,19 +144,15 @@ function updateWishlistUI() {
 
     // Atualizar estrelas nos cards
     document.querySelectorAll('.wishlist-btn').forEach(btn => {
-        const productId = btn.getAttribute('onclick').match(/'([^']+)'/)[1];
+        const match = btn.getAttribute('onclick').match(/'([^']+)'/);
+        if (!match) return;
+        const productId = match[1];
         const isFavorited = wishlist.some(i => i.id === productId);
-        const icon = btn.querySelector('i');
+        
         if (isFavorited) {
-            btn.style.color = 'var(--fox-orange)';
-            btn.style.background = 'rgba(246, 14, 90, 0.2)';
-            btn.style.borderColor = 'var(--fox-orange)';
-            if (icon) icon.setAttribute('fill', 'var(--fox-orange)');
+            btn.classList.add('active');
         } else {
-            btn.style.color = '#fff';
-            btn.style.background = 'rgba(0,0,0,0.5)';
-            btn.style.borderColor = 'rgba(255,255,255,0.1)';
-            if (icon) icon.setAttribute('fill', 'none');
+            btn.classList.remove('active');
         }
     });
 
@@ -164,7 +160,18 @@ function updateWishlistUI() {
 }
 
 window.toggleWishlist = function(id, title, img) {
+    // Tenta capturar o botão que disparou o evento
+    const btn = event ? event.currentTarget : null;
     const index = wishlist.findIndex(item => item.id === id);
+    
+    // Animação de tremor
+    if (btn && btn.classList.contains('wishlist-btn')) {
+        btn.classList.remove('animate-shake');
+        void btn.offsetWidth; // Trigger reflow
+        btn.classList.add('animate-shake');
+        setTimeout(() => btn.classList.remove('animate-shake'), 400);
+    }
+
     if (index === -1) {
         wishlist.push({ id, title, img });
     } else {

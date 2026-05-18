@@ -1157,6 +1157,33 @@ footer { padding: 80px 0 40px; border-top: 1px solid var(--glass-border); backgr
 }
 .whatsapp-float:hover { transform: scale(1.1) rotate(10deg); }
 
+/* --- WISHLIST ANIMATIONS & COLORS --- */
+.wishlist-btn {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+.wishlist-btn.active {
+    color: #ffcc00 !important;
+    border-color: #ffcc00 !important;
+    background: rgba(255, 204, 0, 0.2) !important;
+    filter: drop-shadow(0 0 10px rgba(255, 204, 0, 0.5));
+}
+
+.wishlist-btn.active i {
+    fill: #ffcc00 !important;
+}
+
+.wishlist-btn.animate-shake {
+    animation: wishlistShake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes wishlistShake {
+    10%, 90% { transform: translate3d(-1px, 0, 0) scale(1.1); }
+    20%, 80% { transform: translate3d(2px, 0, 0) scale(1.1); }
+    30%, 50%, 70% { transform: translate3d(-3px, 0, 0) scale(1.1); }
+    40%, 60% { transform: translate3d(3px, 0, 0) scale(1.1); }
+}
+
 /* --- RESPONSIVE --- */
 @media (max-width: 992px) {
     .hero { flex-direction: column; text-align: center; }
