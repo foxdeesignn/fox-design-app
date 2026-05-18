@@ -381,7 +381,8 @@ function openPreview(productId) {
         'pack_spiderman_miles': 'assets/video_spiderman.mp4',
         'streamdeck_fortnite': 'https://www.youtube.com/embed/HBT3VSOTzrw?autoplay=1',
         'streamdeck_akatsuki': 'https://www.youtube.com/embed/kfgDWZvU84Q?autoplay=1',
-        'chat_cyberpunk': 'https://www.youtube.com/embed/mPIpPg-fbvc?autoplay=1'
+        'chat_cyberpunk': 'https://www.youtube.com/embed/mPIpPg-fbvc?autoplay=1',
+        'pack_fortnite_stream': 'https://www.youtube.com/embed/rNi7CAwz_oA?autoplay=1'
     };
     const videoUrl = videoUrls[productId];
     if (videoUrl) {

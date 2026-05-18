@@ -38,6 +38,7 @@ serve(async (req) => {
       'pack_spiderman_miles': { title: 'Pack Spider-Man: Miles Morales', price: 59.90 },
       'streamdeck_fortnite': { title: 'Pack Fortnite: Stream Deck Edition', price: 79.90 },
       'streamdeck_akatsuki': { title: 'Pack Akatsuki: Stream Deck Edition', price: 79.90 },
+      'pack_fortnite_stream': { title: 'Pack Fortnite: Stream Edition', price: 59.90 },
       'pacote_iniciante': { title: 'Pacote Iniciante Fox', price: 197.00 },
       'pacote_god': { title: 'Pacote GOD Fox', price: 497.00 },
       'pacote_premium': { title: 'Pacote Premium Fox', price: 897.00 },
