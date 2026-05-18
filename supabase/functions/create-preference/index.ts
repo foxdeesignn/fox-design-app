@@ -14,6 +14,7 @@ serve(async (req) => {
 
   try {
     const { product_id, user_email } = await req.json()
+    console.log(`JARVIS: Recebido product_id: "${product_id}" para o email: ${user_email}`)
     const MP_ACCESS_TOKEN = Deno.env.get('MP_ACCESS_TOKEN')
 
     if (!MP_ACCESS_TOKEN) {
@@ -27,6 +28,8 @@ serve(async (req) => {
       'subgoal_arc_riders': { title: 'Meta de Subs: Arc Riders Vision', price: 29.90 },
       'subgoal_grenade': { title: 'Meta de Subs: Grenade Edition', price: 29.90 },
       'chat_cyberpunk': { title: 'Widget de Chat: CyberPunk Edition', price: 19.90 },
+      'pack_cyberpunk': { title: 'Pack Cyberpunk: Neon Elite', price: 87.00 },
+      'template_venda_elite': { title: 'Template Post: Venda Elite', price: 27.00 },
       'pack_jett_valorant': { title: 'Pack Jett: Valorant Edition', price: 59.90 },
       'pack_killjoy_valorant': { title: 'Pack Killjoy: Valorant Edition', price: 59.90 },
       'pack_raze_valorant': { title: 'Pack Raze: Valorant Edition', price: 59.90 },

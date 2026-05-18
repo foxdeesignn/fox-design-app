@@ -32,6 +32,8 @@ const navOverlay = document.getElementById('navOverlay');
 const authForm = document.getElementById('authForm');
 const switchToSignUp = document.getElementById('switchToSignUp');
 const googleLoginBtn = document.getElementById('googleLoginBtn');
+const logoutBtn = document.getElementById('logoutBtn');
+const openDownloadsBtn = document.getElementById('openDownloadsBtn');
 
 // 3. Navigation Listeners
 const toggleMenu = () => {
@@ -87,6 +89,32 @@ if (closeDownloadsModal && downloadsModal) {
         downloadsModal.classList.remove('active');
         document.body.style.overflow = '';
     };
+}
+
+// Global Click for Logout Button
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', async () => {
+        console.log("JARVIS: Finalizando sessão...");
+        if (supabaseClient) {
+            const { error } = await supabaseClient.auth.signOut();
+            if (error) {
+                console.error("JARVIS: Erro ao sair:", error.message);
+            }
+            window.location.reload();
+        }
+    });
+}
+
+// Global Click for Downloads Button
+if (openDownloadsBtn) {
+    openDownloadsBtn.addEventListener('click', () => {
+        if (downloadsModal) {
+            downloadsModal.style.display = 'flex';
+            setTimeout(() => downloadsModal.classList.add('active'), 10);
+            document.body.style.overflow = 'hidden';
+            if (clientPanel) clientPanel.classList.remove('active');
+        }
+    });
 }
 
 // 4. Accordion FAQ
@@ -174,6 +202,15 @@ const updateUIForAuth = (user, customAvatar = null) => {
         const avatar = customAvatar || user.user_metadata?.avatar_url || 'https://www.gravatar.com/avatar/?d=mp';
         const name = user.user_metadata?.full_name || user.email.split('@')[0];
         loginBtn.innerHTML = `<img src="${avatar}" style="width:25px; height:25px; border-radius:50%; margin-right:8px; vertical-align: middle; object-fit: cover;"> ${name}`;
+        
+        // Preencher campos do painel lateral
+        const panelAvatar = document.getElementById('panelAvatar');
+        const profileName = document.getElementById('profileName');
+        const profileInstagram = document.getElementById('profileInstagram');
+        
+        if (panelAvatar) panelAvatar.src = avatar;
+        if (profileName && !profileName.value) profileName.value = user.user_metadata?.full_name || '';
+        if (profileInstagram && !profileInstagram.value) profileInstagram.value = user.user_metadata?.instagram || '';
     } else {
         loginBtn.innerHTML = `<i data-lucide="user"></i> <span>Entrar</span>`;
         if (typeof lucide !== 'undefined') lucide.createIcons();

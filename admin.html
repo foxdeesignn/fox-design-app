@@ -366,17 +366,21 @@
             btn.classList.add('refreshing');
             
             try {
-                // Força limpeza do cache local do Supabase se necessário
-                const { data: orders, error: ordersError } = await supabaseAdmin
-                    .from('orders')
-                    .select('*, profiles(*)')
-                    .order('created_at', { ascending: false });
+                // Busca Pedidos e Perfis separadamente (Join Manual por JS devido a falta de FK no banco)
+                const [ordersRes, profilesRes] = await Promise.all([
+                    supabaseAdmin.from('orders').select('*').order('created_at', { ascending: false }),
+                    supabaseAdmin.from('profiles').select('*')
+                ]);
 
-                if (ordersError) throw ordersError;
+                if (ordersRes.error) throw ordersRes.error;
+                if (profilesRes.error) throw profilesRes.error;
+
+                const orders = ordersRes.data;
+                const profilesMap = profilesRes.data.reduce((acc, p) => ({ ...acc, [p.id]: p }), {});
 
                 const prices = {
                     'subgoal_gta_vi': 29.90, 'subgoal_fortnite': 29.90, 'subgoal_arc_riders': 29.90, 'subgoal_grenade': 29.90,
-                    'chat_cyberpunk': 19.90,
+                    'chat_cyberpunk': 19.90, 'pack_cyberpunk': 87.00, 'template_venda_elite': 27.00,
                     'pack_jett_valorant': 59.90, 'pack_killjoy_valorant': 59.90, 'pack_raze_valorant': 59.90,
                     'pack_yoru_valorant': 59.90, 'pack_sage_valorant': 59.90, 'pack_spiderman_miles': 59.90,
                     'streamdeck_fortnite': 79.90, 'streamdeck_akatsuki': 79.90,
@@ -386,10 +390,11 @@
                 const names = {
                     'subgoal_gta_vi': 'Meta GTA VI', 'subgoal_fortnite': 'Meta Fortnite', 'subgoal_arc_riders': 'Meta Arc Riders',
                     'subgoal_grenade': 'Meta Grenade', 'chat_cyberpunk': 'Chat Cyberpunk',
+                    'pack_cyberpunk': 'Pack Cyberpunk', 'template_venda_elite': 'Template Venda Elite',
                     'pack_jett_valorant': 'Pack Jett', 'pack_killjoy_valorant': 'Pack Killjoy', 
                     'pack_raze_valorant': 'Pack Raze', 'pack_yoru_valorant': 'Pack Yoru',
                     'pack_sage_valorant': 'Pack Sage', 'pack_spiderman_miles': 'Pack Spider-Man',
-                    'streamdeck_fortnite': 'Stream Deck Fortnite',
+                    'streamdeck_fortnite': 'Stream Deck Fortnite', 'streamdeck_akatsuki': 'Stream Deck Akatsuki',
                     'pacote_iniciante': 'Pacote Iniciante', 'pacote_god': 'GOD Elite',
                     'pacote_premium': 'Premium Fox', 'pacote_ultimate': 'Ultimate Fox'
                 };
@@ -409,13 +414,14 @@
                         if (o.status === 'pending') pendentes++;
                         clientes.add(o.user_id);
 
+                        const profile = profilesMap[o.user_id] || {};
                         const date = new Date(o.created_at).toLocaleString('pt-BR', { 
                             day: '2-digit', 
                             month: '2-digit', 
                             hour: '2-digit', 
                             minute: '2-digit' 
                         });
-                        const avatar = o.profiles?.avatar_url || 'https://www.gravatar.com/avatar/?d=mp';
+                        const avatar = profile.avatar_url || 'https://www.gravatar.com/avatar/?d=mp';
 
                         const row = `
                             <tr class="order-row">
@@ -423,7 +429,7 @@
                                 <td>
                                     <div class="user-meta">
                                         <img src="${avatar}">
-                                        <span>${o.profiles?.full_name || 'Usuário Fox'}</span>
+                                        <span>${profile.full_name || 'Usuário Fox'}</span>
                                     </div>
                                 </td>
                                 <td style="font-weight:600;">${names[o.product_id] || o.product_id}</td>
@@ -431,8 +437,8 @@
                                 <td><span class="badge-status status-${o.status}">${o.status}</span></td>
                                 <td>
                                     <div style="display:flex; gap:10px;">
-                                        <a href="https://wa.me/${o.profiles?.phone}" target="_blank" title="WhatsApp" style="color:#00ff80;"><i data-lucide="message-circle" size="18"></i></a>
-                                        <span title="@${o.profiles?.instagram}" style="color:#888; cursor:help;"><i data-lucide="instagram" size="18"></i></span>
+                                        <a href="https://wa.me/${profile.phone}" target="_blank" title="WhatsApp" style="color:#00ff80;"><i data-lucide="message-circle" size="18"></i></a>
+                                        <span title="@${profile.instagram}" style="color:#888; cursor:help;"><i data-lucide="instagram" size="18"></i></span>
                                     </div>
                                 </td>
                             </tr>
