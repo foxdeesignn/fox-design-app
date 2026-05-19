@@ -788,6 +788,18 @@
         <i data-lucide="message-circle"></i>
     </a>
 
+    <!-- Modal de Preview de Vídeo -->
+    <div id="videoModal" class="modal-overlay" style="z-index: 9999;">
+        <div class="modal-content glass-effect" style="max-width: 900px; padding: 10px; position: relative;">
+            <button class="modal-close" onclick="closePreview()" style="top: -15px; right: -15px; background: var(--fox-orange); color: #000; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; border: none; cursor: pointer; transition: 0.3s; z-index: 10;">&times;</button>
+            <div class="video-container" style="width: 100%; border-radius: 12px; overflow: hidden; background: #000; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;">
+                <video id="previewVideo" controls controlsList="nodownload" style="width: 100%; height: 100%; object-fit: contain;">
+                    Seu navegador não suporta vídeos.
+                </video>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="fox-core.js?v=4.5" onerror="alert('Erro ao carregar fox-core.js! Verifique sua conexão ou cache.')"></script>
     <script>

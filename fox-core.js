@@ -279,6 +279,54 @@ const DOWNLOAD_LINKS = {
     'pack_fortnite_stream': 'https://github.com/foxdeesignn/fox-design-app/raw/main/downloads/Pack_Fortnite_Stream_Edition.rar'
 };
 
+const PREVIEW_VIDEOS = {
+    'pack_fortnite_stream': 'assets/video_fortnite.webm',
+    'chat_cyberpunk': 'arma3d.mp4',
+    'subgoal_gta_vi': 'assets/video_gta_vi.webm',
+    'subgoal_fortnite': 'assets/video_fortnite.webm',
+    'subgoal_arc_riders': 'assets/video_arc_riders.webm',
+    'pack_jett_valorant': 'assets/video_jett.webm',
+    'pack_killjoy_valorant': 'assets/video_killjoy.webm',
+    'pack_raze_valorant': 'assets/video_raze.webm',
+    'pack_yoru_valorant': 'assets/video_yoru.mp4',
+    'pack_sage_valorant': 'assets/video_sage.mp4',
+    'pack_spiderman_miles': 'assets/video_spiderman.mp4',
+    'streamdeck_fortnite': 'assets/video_fortnite.webm',
+    'streamdeck_akatsuki': 'assets/video_yoru.mp4'
+};
+
+window.openPreview = function(productId) {
+    const modal = document.getElementById('videoModal');
+    const video = document.getElementById('previewVideo');
+    const videoSrc = PREVIEW_VIDEOS[productId];
+
+    if (modal && video && videoSrc) {
+        video.src = videoSrc;
+        modal.style.display = 'flex';
+        setTimeout(() => modal.classList.add('active'), 10);
+        video.play();
+        document.body.style.overflow = 'hidden';
+    } else {
+        alert("Vídeo de demonstração em processamento. Tente novamente em breve!");
+    }
+};
+
+window.closePreview = function() {
+    const modal = document.getElementById('videoModal');
+    const video = document.getElementById('previewVideo');
+    if (modal) {
+        modal.classList.remove('active');
+        if (video) {
+            video.pause();
+            video.src = "";
+        }
+        setTimeout(() => {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }, 300);
+    }
+};
+
 async function fetchUserOrders() {
     const ordersList = document.getElementById('ordersList');
     if (!ordersList || !window.supabaseClient) return;
