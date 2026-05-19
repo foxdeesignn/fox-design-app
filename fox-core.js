@@ -141,6 +141,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeAuthBtn = document.getElementById('closeAuthModal');
     if (closeAuthBtn) closeAuthBtn.onclick = window.closeAuthModalFunc;
 
+    const closeDownloadsBtn = document.getElementById('closeDownloadsModal');
+    if (closeDownloadsBtn) {
+        closeDownloadsBtn.onclick = () => {
+            const modal = document.getElementById('downloadsModal');
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+        };
+    }
+
     // Login Form
     const authForm = document.getElementById('authForm');
     if (authForm) {
