@@ -1,5 +1,10 @@
 // 0. JARVIS Version Control
-console.log("JARVIS: Fox Design System v3.3 [ULTRA-STABLE] ativo.");
+console.log("JARVIS: Fox Design System v3.4 [MASTER] ativo.");
+
+// --- SUPABASE CONFIGURATION ---
+const SUPABASE_URL = 'https://pnewkedxkqdhplhfkrij.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBuZXdrZWR4a3FkaHBsaGZrcmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMDM0MTEsImV4cCI6MjA5Mzc3OTQxMX0.EBhhXQ9uVZEINEv8zgI3mmvZpKeueu4jw7u2VXhW_rw';
+window.supabaseClient = (typeof supabase !== 'undefined') ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
 // 1. Core Functions & Modals
 window.openAuthModal = () => {
