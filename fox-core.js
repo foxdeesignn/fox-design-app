@@ -280,7 +280,7 @@ const DOWNLOAD_LINKS = {
 };
 
 const PREVIEW_VIDEOS = {
-    'pack_fortnite_stream': 'assets/video_fortnite.webm',
+    'pack_fortnite_stream': 'https://www.youtube.com/embed/rNi7CAwz_oA?autoplay=1',
     'chat_cyberpunk': 'https://www.youtube.com/embed/mPIpPg-fbvc?autoplay=1',
     'subgoal_gta_vi': 'assets/video_gta_vi.webm',
     'subgoal_fortnite': 'assets/video_fortnite.webm',
@@ -291,8 +291,8 @@ const PREVIEW_VIDEOS = {
     'pack_yoru_valorant': 'assets/video_yoru.mp4',
     'pack_sage_valorant': 'assets/video_sage.mp4',
     'pack_spiderman_miles': 'assets/video_spiderman.mp4',
-    'streamdeck_fortnite': 'assets/video_fortnite.webm',
-    'streamdeck_akatsuki': 'assets/video_yoru.mp4'
+    'streamdeck_fortnite': 'https://www.youtube.com/embed/HBT3VSOTzrw?autoplay=1',
+    'streamdeck_akatsuki': 'https://www.youtube.com/embed/kfgDWZvU84Q?autoplay=1'
 };
 
 window.openPreview = function(productId) {
