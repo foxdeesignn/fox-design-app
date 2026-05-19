@@ -159,7 +159,18 @@ function updateWishlistUI() {
     if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
-window.toggleWishlist = function(id, title, img) {
+window.toggleWishlist = async function(id, title, img) {
+    // JARVIS: Verificação de Autenticação de Elite
+    if (!supabaseClient) return;
+    
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    
+    if (!user) {
+        alert("Fala gamer! Faça login para salvar itens na sua lista de desejos de elite.");
+        openAuthModal();
+        return;
+    }
+
     // Tenta capturar o botão que disparou o evento
     const btn = event ? event.currentTarget : null;
     const index = wishlist.findIndex(item => item.id === id);
@@ -550,7 +561,16 @@ if (switchToSignUp) {
 }
 
 if (supabaseClient) {
-    supabaseClient.auth.onAuthStateChange((event, session) => {
+    supabaseClient.auth.onAuthStateChange(async (event, session) => {
+        if (session?.user) {
+            console.log(`JARVIS: Evento ${event} detectado. Garantindo registro do perfil...`);
+            
+            // Registra o login básico se o perfil não existir ou para atualizar data
+            await supabaseClient.from('profiles').upsert({
+                id: session.user.id,
+                updated_at: new Date().toISOString()
+            }, { onConflict: 'id' });
+        }
         updateUIForAuth(session?.user);
     });
     supabaseClient.auth.getUser().then(({ data: { user } }) => {
