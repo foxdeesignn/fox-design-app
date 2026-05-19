@@ -41,7 +41,44 @@
         <i data-lucide="shield-alert" size="64" style="color: var(--fox-orange); margin-bottom: 20px;"></i>
         <h2 style="font-family: 'Orbitron'; margin-bottom: 15px;">ACESSO RESTRITO</h2>
         <p style="color: var(--text-secondary);">Esta área é exclusiva para o Comando Fox Design.</p>
-        <a href="index.html" class="btn btn-primary" style="margin-top: 30px;">Voltar para Segurança</a>
+        <div style="display:flex; gap: 15px; justify-content: center; margin-top: 30px;">
+            <button onclick="openAuthModal()" class="btn btn-primary">Fazer Login Admin</button>
+            <a href="index.html" class="btn btn-secondary">Voltar para Início</a>
+        </div>
+    </div>
+
+    <!-- Login Modal Overlay (Copiado da Home para consistência) -->
+    <div id="authModal" class="modal-overlay">
+        <div class="modal-content glass-effect">
+            <button class="modal-close" id="closeAuthModal">&times;</button>
+            <div class="auth-box">
+                <div class="auth-header">
+                    <h2 id="authTitle">Comando <span>Fox Design</span></h2>
+                    <p id="authSubtitle">Identifique-se para acessar o painel.</p>
+                </div>
+                
+                <form id="authForm" class="auth-form">
+                    <div class="input-group">
+                        <label>E-mail</label>
+                        <input type="email" id="authEmail" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="input-group" id="passwordGroup">
+                        <label>Senha</label>
+                        <input type="password" id="authPassword" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" id="authSubmitBtn" class="btn btn-primary btn-full">Entrar no Comando</button>
+                </form>
+
+                <div class="auth-divider">
+                    <span>ou</span>
+                </div>
+
+                <button id="googleLoginBtn" class="btn btn-google btn-full">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                    Entrar com Google Admin
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- Conteúdo Admin -->
