@@ -305,7 +305,7 @@ async function startCheckout(pacoteId) {
     const { data: { user } } = await window.supabaseClient.auth.getUser();
     if (!user) { window.openAuthModal(); return; }
     const { data } = await window.supabaseClient.functions.invoke('create-preference', { body: { product_id: pacoteId, user_email: user.email } });
-    if (data?.init_point) window.location.href = data.init_point;
+    if (data?.init_point) window.open(data.init_point, '_blank');
 }
 
 const openDownloadsBtn = document.getElementById('openDownloadsBtn');
