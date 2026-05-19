@@ -1,5 +1,5 @@
-// FOX CORE v4.3 - WISHLIST & ACCESS ENGINE
-console.log("JARVIS: Núcleo Fox Iniciado v4.3");
+// FOX CORE v4.5 - GESTÃO DE CADASTRO ÚNICO
+console.log("JARVIS: Núcleo Fox Iniciado v4.5");
 
 // --- SUPABASE SETUP ---
 const SUPABASE_URL = 'https://pnewkedxkqdhplhfkrij.supabase.co';
@@ -55,7 +55,6 @@ window.updateWishlistUI = function() {
 window.toggleWishlist = async function(id, title, img) {
     const btn = event ? event.currentTarget : null;
     
-    // Check Auth
     if (!window.supabaseClient) return;
     const { data: { user } } = await window.supabaseClient.auth.getUser();
     if (!user) {
@@ -64,7 +63,6 @@ window.toggleWishlist = async function(id, title, img) {
         return;
     }
 
-    // Animation
     if (btn && btn.classList.contains('wishlist-btn')) {
         btn.classList.remove('animate-shake');
         void btn.offsetWidth;
@@ -72,7 +70,6 @@ window.toggleWishlist = async function(id, title, img) {
         setTimeout(() => btn.classList.remove('animate-shake'), 400);
     }
 
-    // Data Update
     const index = wishlist.findIndex(item => item.id === id);
     if (index === -1) {
         wishlist.push({ id, title, img });
@@ -112,7 +109,7 @@ window.handleLoginClick = async function(e) {
             const panel = document.getElementById('clientPanel');
             if (panel) {
                 panel.classList.add('active');
-                window.updateWishlistUI(); // Sincroniza ao abrir
+                window.updateWishlistUI();
             }
         } else {
             window.openAuthModal();
@@ -131,12 +128,10 @@ window.handleLogout = async function() {
 
 // --- BOOT DO SISTEMA ---
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("JARVIS: Boot v4.3 Concluído.");
+    console.log("JARVIS: Boot v4.5 Master.");
 
-    // Wishlist Init
     window.updateWishlistUI();
 
-    // Listeners
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) logoutBtn.onclick = window.handleLogout;
 
@@ -155,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const password = document.getElementById('authPassword').value;
             const btn = document.getElementById('authSubmitBtn');
             btn.disabled = true;
-            btn.innerText = "AUTENTICANDO...";
+            btn.innerText = "AGUARDE...";
             try {
                 const { error } = await window.supabaseClient.auth.signInWithPassword({ email, password });
                 if (error) throw error;
@@ -173,27 +168,97 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
 
+    // Profile Form Save
+    const profileForm = document.getElementById('profileForm');
+    if (profileForm) {
+        profileForm.onsubmit = async (e) => {
+            e.preventDefault();
+            const submitBtn = document.getElementById('saveProfileBtn');
+            const fullName = document.getElementById('profileName').value;
+            const phone = document.getElementById('profilePhone').value;
+            const instagram = document.getElementById('profileInstagram').value;
+
+            try {
+                submitBtn.disabled = true;
+                submitBtn.innerText = "SALVANDO...";
+
+                const { data: { user } } = await window.supabaseClient.auth.getUser();
+                if (!user) throw new Error("Usuário não logado.");
+
+                const { error } = await window.supabaseClient.from('profiles').upsert({
+                    id: user.id,
+                    full_name: fullName,
+                    phone: phone,
+                    instagram: instagram,
+                    updated_at: new Date().toISOString()
+                });
+
+                if (error) throw error;
+
+                // Sucesso: Esconder formulário e mostrar boas-vindas
+                alert("Perfil Fox atualizado com sucesso!");
+                window.updateUIForAuth(user);
+
+            } catch (err) {
+                alert("Erro ao salvar: " + err.message);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Salvar Alterações";
+            }
+        };
+    }
+
     // UI Watcher
     if (window.supabaseClient) {
         window.supabaseClient.auth.onAuthStateChange((event, session) => {
-            const loginBtn = document.getElementById('loginBtn');
-            if (session?.user) {
-                const name = session.user.user_metadata?.full_name || session.user.email.split('@')[0];
-                if (loginBtn) loginBtn.innerHTML = `<i data-lucide="user-check"></i> <span>${name}</span>`;
-            } else {
-                if (loginBtn) loginBtn.innerHTML = `<i data-lucide="user"></i> <span>Entrar</span>`;
-            }
-            if (typeof lucide !== 'undefined') lucide.createIcons();
+            window.updateUIForAuth(session?.user);
         });
+        window.supabaseClient.auth.getUser().then(({ data: { user } }) => window.updateUIForAuth(user));
     }
 
-    // Mobile Menu
-    const menuToggle = document.getElementById('menuToggle');
-    if (menuToggle) menuToggle.onclick = () => {
-        document.getElementById('mainNav')?.classList.toggle('active');
-        document.getElementById('navOverlay')?.classList.toggle('active');
-    };
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+    revealElements();
 });
+
+// --- PERFIL E UI ---
+window.updateUIForAuth = (user) => {
+    const loginBtn = document.getElementById('loginBtn');
+    const welcomeSection = document.getElementById('welcomeSection');
+    const profileForm = document.getElementById('profileForm');
+    const userNameDisplay = document.getElementById('userNameDisplay');
+    
+    if (!loginBtn) return;
+
+    if (user) {
+        const name = user.user_metadata?.full_name || user.email.split('@')[0];
+        loginBtn.innerHTML = `<i data-lucide="user-check"></i> <span>${name}</span>`;
+        
+        if (window.supabaseClient) {
+            window.supabaseClient.from('profiles').select('*').eq('id', user.id).single().then(({ data: profile }) => {
+                if (profile) {
+                    if (document.getElementById('profileName')) document.getElementById('profileName').value = profile.full_name || '';
+                    if (document.getElementById('profilePhone')) document.getElementById('profilePhone').value = profile.phone || '';
+                    if (document.getElementById('profileInstagram')) document.getElementById('profileInstagram').value = profile.instagram || '';
+
+                    // JARVIS: Lógica de Ocultação do Formulário
+                    if (profile.full_name && welcomeSection && profileForm) {
+                        welcomeSection.style.display = 'block';
+                        profileForm.style.display = 'none';
+                        if (userNameDisplay) userNameDisplay.innerText = profile.full_name.split(' ')[0];
+                    } else {
+                        if (welcomeSection) welcomeSection.style.display = 'none';
+                        if (profileForm) profileForm.style.display = 'block';
+                    }
+                }
+            });
+        }
+    } else {
+        loginBtn.innerHTML = `<i data-lucide="user"></i> <span>Entrar</span>`;
+        if (welcomeSection) welcomeSection.style.display = 'none';
+        if (profileForm) profileForm.style.display = 'block';
+    }
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+};
 
 // --- DOWNLOADS & CHECKOUT ---
 const DOWNLOAD_LINKS = {
