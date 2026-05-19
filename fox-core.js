@@ -159,18 +159,7 @@ function updateWishlistUI() {
     if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
-window.toggleWishlist = async function(id, title, img) {
-    // JARVIS: Verificação de Autenticação de Elite
-    if (!supabaseClient) return;
-    
-    const { data: { user } } = await supabaseClient.auth.getUser();
-    
-    if (!user) {
-        alert("Fala gamer! Faça login para salvar itens na sua lista de desejos de elite.");
-        openAuthModal();
-        return;
-    }
-
+window.toggleWishlist = function(id, title, img) {
     // Tenta capturar o botão que disparou o evento
     const btn = event ? event.currentTarget : null;
     const index = wishlist.findIndex(item => item.id === id);
