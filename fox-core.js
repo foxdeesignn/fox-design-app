@@ -281,7 +281,7 @@ const DOWNLOAD_LINKS = {
 
 const PREVIEW_VIDEOS = {
     'pack_fortnite_stream': 'assets/video_fortnite.webm',
-    'chat_cyberpunk': 'arma3d.mp4',
+    'chat_cyberpunk': 'https://www.youtube.com/embed/mPIpPg-fbvc?autoplay=1',
     'subgoal_gta_vi': 'assets/video_gta_vi.webm',
     'subgoal_fortnite': 'assets/video_fortnite.webm',
     'subgoal_arc_riders': 'assets/video_arc_riders.webm',
@@ -298,13 +298,20 @@ const PREVIEW_VIDEOS = {
 window.openPreview = function(productId) {
     const modal = document.getElementById('videoModal');
     const video = document.getElementById('previewVideo');
+    const container = modal?.querySelector('.video-container');
     const videoSrc = PREVIEW_VIDEOS[productId];
 
-    if (modal && video && videoSrc) {
-        video.src = videoSrc;
+    if (modal && container && videoSrc) {
+        const isYouTube = videoSrc.includes('youtube.com/embed/');
+        
+        if (isYouTube) {
+            container.innerHTML = `<iframe width="100%" height="100%" src="${videoSrc}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 12px;"></iframe>`;
+        } else {
+            container.innerHTML = `<video id="previewVideo" controls controlsList="nodownload" autoplay style="width: 100%; height: 100%; object-fit: contain;"><source src="${videoSrc}" type="${videoSrc.endsWith('.webm') ? 'video/webm' : 'video/mp4'}">Seu navegador não suporta vídeos.</video>`;
+        }
+
         modal.style.display = 'flex';
         setTimeout(() => modal.classList.add('active'), 10);
-        video.play();
         document.body.style.overflow = 'hidden';
     } else {
         alert("Vídeo de demonstração em processamento. Tente novamente em breve!");
@@ -313,12 +320,11 @@ window.openPreview = function(productId) {
 
 window.closePreview = function() {
     const modal = document.getElementById('videoModal');
-    const video = document.getElementById('previewVideo');
+    const container = modal?.querySelector('.video-container');
     if (modal) {
         modal.classList.remove('active');
-        if (video) {
-            video.pause();
-            video.src = "";
+        if (container) {
+            container.innerHTML = ''; // Limpa iframe ou vídeo
         }
         setTimeout(() => {
             modal.style.display = 'none';
