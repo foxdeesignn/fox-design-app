@@ -1362,13 +1362,34 @@ footer { padding: 80px 0 40px; border-top: 1px solid var(--glass-border); backgr
 .offcanvas-panel {
     position: fixed; top: 0; right: -450px; width: 400px; height: 100%;
     z-index: 3000; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    padding: 40px; display: flex; flex-direction: column;
+    background: rgba(10, 10, 11, 0.98); backdrop-filter: blur(20px);
+    border-left: 1px solid var(--glass-border);
+    display: flex; flex-direction: column;
+    padding: 0; /* Remove padding global */
 }
 .offcanvas-panel.active { transform: translateX(-450px); }
 
 .panel-header {
+    padding: 30px;
     display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 40px;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.panel-content {
+    padding: 30px;
+    overflow-y: auto;
+    flex-grow: 1;
+    scrollbar-width: thin;
+    scrollbar-color: var(--fox-orange) transparent;
+}
+
+.panel-content::-webkit-scrollbar { width: 4px; }
+.panel-content::-webkit-scrollbar-thumb { background: var(--fox-orange); border-radius: 10px; }
+
+.panel-footer {
+    padding: 20px 30px;
+    border-top: 1px solid var(--glass-border);
+    background: rgba(0,0,0,0.2);
 }
 .panel-header h3 span { color: var(--fox-orange); }
 .panel-close { background: none; border: none; color: var(--text-secondary); font-size: 1.8rem; cursor: pointer; transition: var(--transition); }
