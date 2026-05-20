@@ -291,6 +291,7 @@ const PREVIEW_VIDEOS = {
     'pack_yoru_valorant': 'assets/video_yoru.mp4',
     'pack_sage_valorant': 'assets/video_sage.mp4',
     'pack_spiderman_miles': 'assets/video_spiderman.mp4',
+    'pack_cod_edition': 'https://www.youtube.com/embed/eNNGfvln3dE?autoplay=1',
     'streamdeck_fortnite': 'https://www.youtube.com/embed/HBT3VSOTzrw?autoplay=1',
     'streamdeck_akatsuki': 'https://www.youtube.com/embed/kfgDWZvU84Q?autoplay=1'
 };
