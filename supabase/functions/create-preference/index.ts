@@ -36,6 +36,7 @@ serve(async (req) => {
       'pack_yoru_valorant': { title: 'Pack Yoru: Valorant Edition', price: 59.90 },
       'pack_sage_valorant': { title: 'Pack Sage: Valorant Edition', price: 59.90 },
       'pack_spiderman_miles': { title: 'Pack Spider-Man: Miles Morales', price: 59.90 },
+      'pack_cod_edition': { title: 'Pack Call of Duty Edition', price: 97.00 },
       'streamdeck_fortnite': { title: 'Pack Fortnite: Stream Deck Edition', price: 19.90 },
       'streamdeck_akatsuki': { title: 'Pack Akatsuki: Stream Deck Edition', price: 19.90 },
       'pack_fortnite_stream': { title: 'Pack Fortnite: Stream Edition', price: 59.90 },
