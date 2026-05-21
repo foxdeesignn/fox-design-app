@@ -280,6 +280,7 @@ const DOWNLOAD_LINKS = {
 };
 
 const PREVIEW_VIDEOS = {
+    'pack_one_piece_stream': 'https://www.youtube.com/embed/HuZvjTXxu7s?autoplay=1',
     'pack_fortnite_stream': 'https://www.youtube.com/embed/rNi7CAwz_oA?autoplay=1',
     'chat_cyberpunk': 'https://www.youtube.com/embed/mPIpPg-fbvc?autoplay=1',
     'subgoal_gta_vi': 'assets/video_gta_vi.webm',
