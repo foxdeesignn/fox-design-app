@@ -276,6 +276,7 @@ window.updateUIForAuth = (user) => {
 
 // --- DOWNLOADS & CHECKOUT ---
 const DOWNLOAD_LINKS = {
+    'pack_one_piece_stream': 'https://github.com/foxdeesignn/fox-design-app/raw/main/downloads/Pack_One_Piece_Stream_Edition.rar',
     'pack_fortnite_stream': 'https://github.com/foxdeesignn/fox-design-app/raw/main/downloads/Pack_Fortnite_Stream_Edition.rar'
 };
 
