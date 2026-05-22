@@ -41,6 +41,7 @@ serve(async (req) => {
       'streamdeck_akatsuki': { title: 'Pack Akatsuki: Stream Deck Edition', price: 19.90 },
       'pack_fortnite_stream': { title: 'Pack Fortnite: Stream Edition', price: 59.90 },
       'pack_one_piece_stream': { title: 'Pack One Piece: Stream Edition', price: 19.90 },
+      'donation_goal_fortnite': { title: 'Meta de Doação: Fortnite Edition', price: 49.90 },
       'pacote_iniciante': { title: 'Pacote Iniciante Fox', price: 197.00 },
       'pacote_god': { title: 'Pacote GOD Fox', price: 497.00 },
       'pacote_premium': { title: 'Pacote Premium Fox', price: 897.00 },
