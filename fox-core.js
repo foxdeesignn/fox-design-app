@@ -361,12 +361,44 @@ window.fetchUserOrders = async function() {
 
 window.startCheckout = async function(pacoteId) {
     console.log("JARVIS: Iniciando checkout para:", pacoteId);
-    if (!window.supabaseClient) return;
-    const { data: { user } } = await window.supabaseClient.auth.getUser();
-    if (!user) { window.openAuthModal(); return; }
-    const { data } = await window.supabaseClient.functions.invoke('create-preference', { body: { product_id: pacoteId, user_email: user.email } });
-    if (data?.init_point) window.open(data.init_point, '_blank');
-    else console.warn("JARVIS: Falha ao gerar link de pagamento.");
+    if (!window.supabaseClient) {
+        console.error("JARVIS: Supabase Client não encontrado!");
+        alert("Erro técnico: Sistema de checkout não inicializado.");
+        return;
+    }
+
+    try {
+        const { data: { user } } = await window.supabaseClient.auth.getUser();
+        if (!user) {
+            console.log("JARVIS: Usuário não logado. Abrindo modal de auth.");
+            window.openAuthModal();
+            return;
+        }
+
+        console.log("JARVIS: Usuário autenticado:", user.email, ". Chamando Edge Function...");
+        const { data, error } = await window.supabaseClient.functions.invoke('create-preference', { 
+            body: { product_id: pacoteId, user_email: user.email } 
+        });
+
+        if (error) {
+            console.error("JARVIS: Erro na Edge Function:", error);
+            alert("Erro ao processar pagamento. Tente novamente mais tarde.");
+            return;
+        }
+
+        console.log("JARVIS: Resposta da Function:", data);
+
+        if (data?.init_point) {
+            console.log("JARVIS: Abrindo link de pagamento:", data.init_point);
+            window.open(data.init_point, '_blank');
+        } else {
+            console.warn("JARVIS: Resposta da Function não contém init_point.", data);
+            alert("Não foi possível gerar o link de pagamento. Verifique o console.");
+        }
+    } catch (err) {
+        console.error("JARVIS: Erro crítico no checkout:", err);
+        alert("Erro inesperado no checkout.");
+    }
 };
 
 const openDownloadsBtn = document.getElementById('openDownloadsBtn');
