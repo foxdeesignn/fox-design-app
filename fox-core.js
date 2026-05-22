@@ -277,13 +277,15 @@ window.updateUIForAuth = (user) => {
 // --- DOWNLOADS & CHECKOUT ---
 const DOWNLOAD_LINKS = {
     'pack_one_piece_stream': 'https://github.com/foxdeesignn/fox-design-app/raw/main/downloads/Pack_One_Piece_Stream_Edition.rar',
-    'pack_fortnite_stream': 'https://github.com/foxdeesignn/fox-design-app/raw/main/downloads/Pack_Fortnite_Stream_Edition.rar'
+    'pack_fortnite_stream': 'https://github.com/foxdeesignn/fox-design-app/raw/main/downloads/Pack_Fortnite_Stream_Edition.rar',
+    'donation_goal_fortnite': 'https://github.com/foxdeesignn/fox-design-app/raw/main/downloads/Meta de doação - Fortnite.rar'
 };
 
 const PREVIEW_VIDEOS = {
     'pack_one_piece_stream': 'https://www.youtube.com/embed/HuZvjTXxu7s?autoplay=1',
     'pack_fortnite_stream': 'https://www.youtube.com/embed/rNi7CAwz_oA?autoplay=1',
     'chat_cyberpunk': 'https://www.youtube.com/embed/mPIpPg-fbvc?autoplay=1',
+    'donation_goal_fortnite': 'https://www.youtube.com/embed/aWGsooTk-S4?autoplay=1',
     'subgoal_gta_vi': 'assets/video_gta_vi.webm',
     'subgoal_fortnite': 'assets/video_fortnite.webm',
     'subgoal_arc_riders': 'assets/video_arc_riders.webm',
