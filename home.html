@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SNCZE8P1T8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-SNCZE8P1T8');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <!-- SEO & Meta Tags -->
+    <title>FOX DESIGN | Identidade Visual Premium para Criadores e Marcas</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
+    <meta name="description" content="Transforme seu perfil em uma marca memorável com design estratégico de elite. Overlays, branding e soluções visuais para streamers e influenciadores.">
+    <meta name="keywords" content="design, branding, streamers, overlays, identidade visual, fox design, jarvis ai">
+    <meta property="og:title" content="FOX DESIGN | Elite Creative Agency">
+    <meta property="og:description" content="O upgrade definitivo para o seu setup e marca digital.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/foxdeesignn/fox-design-app/main/story_jarvis_vivo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Sora:wght@300;400;600;800&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css?v=2.1">
+    
+
+</head>
+<body>
+
+    <!-- Sticky Header -->
+    <header class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">FOX<span>DESIGN</span></a>
+            <nav class="desktop-nav" id="mainNav">
+                <a href="#beneficios">Benefícios</a>
+                <a href="#servicos">Serviços</a>
+                <a href="#planos">Planos</a>
+                <a href="index.html" class="nav-loja">Loja</a>
+                <a href="#por-que-nos">Diferenciais</a>
+                <div class="nav-auth-group">
+                    <button class="btn-login" id="loginBtn" onclick="handleLoginClick(event)">
+                        <i data-lucide="user"></i>
+                        <span>Entrar</span>
+                    </button>
+                    <a href="#contato" class="nav-cta">Iniciar Projeto</a>
+                </div>
+            </nav>
+            <a href="index.html" class="header-loja-btn">
+                <i data-lucide="shopping-bag"></i>
+                <span>Loja</span>
+            </a>
+            <button class="mobile-menu-toggle" id="menuToggle">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+        <div class="nav-overlay" id="navOverlay"></div>
+    </header>
+
+    <!-- 1. Hero Section -->
+    <section class="hero">
+        <div class="hero-video-bg">
+            <video autoplay loop muted playsinline id="heroVideo" data-src="elgato.mp4">
+            </video>
+        </div>
+        <div class="hero-content">
+            <span class="badge">A Nova Era do Design Digital</span>
+            <h1>Sua live com <span>identidade de elite</span>: stream packs únicos para destacar o seu canal.</h1>
+            <p>Na Fox, cada stream pack é desenvolvido sob medida para transformar sua identidade visual em uma presença forte, profissional e única.</p>
+            <div class="hero-btns">
+                <a href="#contato" class="btn btn-primary">Quero meu projeto personalizado</a>
+                <a href="https://wa.me/5516997149568" class="btn btn-secondary">Falar com a Fox Design</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Serviços -->
+    <section id="servicos" class="services">
+        <div class="services-container">
+            <h2 class="section-title">Nossos <span>Serviços de Configuração</span></h2>
+            <p class="section-subtitle">Soluções completas e profissionais para elevar o nível técnico da sua live.</p>
+            
+            <div class="services-grid-full">
+                <!-- Áudio & Som -->
+                <h3 class="services-category-title">Áudio & Som</h3>
+                <div class="service-card-mini"><i data-lucide="mic"></i> <span>Configuração de áudio do microfone</span></div>
+                <div class="service-card-mini"><i data-lucide="volume-2"></i> <span>Configuração de áudio no OBS</span></div>
+                <div class="service-card-mini"><i data-lucide="speakers"></i> <span>Configuração de caixas JBL</span></div>
+                <div class="service-card-mini"><i data-lucide="music"></i> <span>Configuração de mesa de som</span></div>
+                <div class="service-card-mini"><i data-lucide="mic-2"></i> <span>Configuração de microfone</span></div>
+                <div class="service-card-mini"><i data-lucide="headphones"></i> <span>Configuração de saídas de áudio</span></div>
+                <div class="service-card-mini"><i data-lucide="zap"></i> <span>Melhoria de microfone</span></div>
+                <div class="service-card-mini"><i data-lucide="download"></i> <span>Instalação do plugin de áudio</span></div>
+                <div class="service-card-mini"><i data-lucide="settings-2"></i> <span>Configuração do plugin de áudio</span></div>
+
+                <!-- Configurações OBS -->
+                <h3 class="services-category-title">Configurações OBS</h3>
+                <div class="service-card-mini"><i data-lucide="layout"></i> <span>Configuração de cena</span></div>
+                <div class="service-card-mini"><i data-lucide="video"></i> <span>Configuração interna do OBS</span></div>
+                <div class="service-card-mini"><i data-lucide="monitor"></i> <span>Configuração para live</span></div>
+                <div class="service-card-mini"><i data-lucide="save"></i> <span>Backup das configurações do OBS</span></div>
+                <div class="service-card-mini"><i data-lucide="refresh-cw"></i> <span>Restauração das configurações do OBS</span></div>
+                <div class="service-card-mini"><i data-lucide="smartphone"></i> <span>Configuração Vertical</span></div>
+                <div class="service-card-mini"><i data-lucide="clapperboard"></i> <span>Configuração para gravação</span></div>
+                <div class="service-card-mini"><i data-lucide="film"></i> <span>Configuração para gravação vertical (9:16)</span></div>
+                <div class="service-card-mini"><i data-lucide="user"></i> <span>Configuração Perfil</span></div>
+
+                <!-- Vídeo & Webcam -->
+                <h3 class="services-category-title">Vídeo & Webcam</h3>
+                <div class="service-card-mini"><i data-lucide="camera"></i> <span>Configuração de webcam</span></div>
+                <div class="service-card-mini"><i data-lucide="sparkles"></i> <span>Melhoria de câmera</span></div>
+                <div class="service-card-mini"><i data-lucide="smartphone"></i> <span>Câmera virtual ou celular como webcam</span></div>
+                <div class="service-card-mini"><i data-lucide="cpu"></i> <span>Configuração de placa de captura</span></div>
+                <div class="service-card-mini"><i data-lucide="layers"></i> <span>Configuração de Advanced Mask</span></div>
+                <div class="service-card-mini"><i data-lucide="palette"></i> <span>Configuração de Stroke Glow Shadow</span></div>
+                <div class="service-card-mini"><i data-lucide="filter"></i> <span>Configuração de Shader Filter</span></div>
+
+                <!-- Plugins & Interatividade -->
+                <h3 class="services-category-title">Plugins & Interatividade</h3>
+                <div class="service-card-mini"><i data-lucide="bell"></i> <span>Configuração de alertas</span></div>
+                <div class="service-card-mini"><i data-lucide="message-square"></i> <span>Configuração de chat</span></div>
+                <div class="service-card-mini"><i data-lucide="terminal"></i> <span>Configuração de comandos</span></div>
+                <div class="service-card-mini"><i data-lucide="bot"></i> <span>Configuração do bot StreamElements</span></div>
+                <div class="service-card-mini"><i data-lucide="dollar-sign"></i> <span>Configuração do Live Pix</span></div>
+                <div class="service-card-mini"><i data-lucide="share-2"></i> <span>Configuração do plugin Multi Stream</span></div>
+                <div class="service-card-mini"><i data-lucide="copy"></i> <span>Configuração de Source Clone</span></div>
+                <div class="service-card-mini"><i data-lucide="move"></i> <span>Configuração de Move Transition</span></div>
+                <div class="service-card-mini"><i data-lucide="clock"></i> <span>Configuração de temporizadores</span></div>
+                <div class="service-card-mini"><i data-lucide="play"></i> <span>Configuração do soundalerts</span></div>
+
+                <!-- Otimização & Sistemas -->
+                <h3 class="services-category-title">Otimização & Sistemas</h3>
+                <div class="service-card-mini"><i data-lucide="wind"></i> <span>Otimizar Windows para desempenho</span></div>
+                <div class="service-card-mini"><i data-lucide="activity"></i> <span>Otimizar placa de vídeo para desempenho</span></div>
+                <div class="service-card-mini"><i data-lucide="hard-drive"></i> <span>Formatar Windows (10/11)</span></div>
+                <div class="service-card-mini"><i data-lucide="check-square"></i> <span>Ativar Windows (10/11)</span></div>
+                <div class="service-card-mini"><i data-lucide="gamepad-2"></i> <span>Configuração Jogo</span></div>
+                <div class="service-card-mini"><i data-lucide="globe"></i> <span>Configuração de cada plataforma escolhida</span></div>
+
+                <!-- Hardware & Customização -->
+                <h3 class="services-category-title">Hardware & Customização</h3>
+                <div class="service-card-mini"><i data-lucide="grid"></i> <span>Streamdeck (Até 12 botões)</span></div>
+                <div class="service-card-mini"><i data-lucide="layout-grid"></i> <span>Streamdeck (Acima de 12 botões)</span></div>
+                <div class="service-card-mini"><i data-lucide="smile"></i> <span>Streamdeck - Design animado</span></div>
+                <div class="service-card-mini"><i data-lucide="image"></i> <span>Streamdeck - Design estático</span></div>
+                <div class="service-card-mini"><i data-lucide="shopping-cart"></i> <span>Criação de lojinha virtual</span></div>
+                <div class="service-card-mini"><i data-lucide="youtube"></i> <span>Membro do Youtube</span></div>
+                <div class="service-card-mini"><i data-lucide="award"></i> <span>Distintivo (Badge)</span></div>
+                <div class="service-card-mini"><i data-lucide="zap"></i> <span>Alerta animado</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3.5 Nossos Pacotes (Checkout Mercado Pago) -->
+    <section id="planos" class="pricing">
+        <div class="container">
+            <h2 class="section-title">Nossos <span>Pacotes</span></h2>
+            <p class="section-subtitle">Escolha o nível de upgrade que sua live merece. Fale com nosso time para orçamentos personalizados.</p>
+            
+            <div class="pricing-grid">
+                <!-- Pacote Iniciante -->
+                <div class="pricing-card" data-glow>
+                    <div data-glow></div>
+                    <div class="pricing-header">
+                        <h3>Pacote Iniciante</h3>
+                    </div>
+                    <p class="package-desc">Esse pacote é perfeito para você que está dando os primeiros passos no universo das streams e quer começar com qualidade sem precisar investir muito.</p>
+                    
+                    <h4 class="feature-category">STREAM DESIGN</h4>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check-circle"></i> Início de live (Animado)</li>
+                        <li><i data-lucide="check-circle"></i> Fim de live (Animado)</li>
+                        <li><i data-lucide="check-circle"></i> Facecam (Animada)</li>
+                    </ul>
+
+                    <h4 class="feature-category">WIDGETS</h4>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check-circle"></i> Alerta de seguidor (Animado)</li>
+                    </ul>
+                    <button onclick="startCheckout('pacote_iniciante')" class="btn btn-secondary" style="margin-top: auto;">Consultar Orçamento</button>
+                </div>
+
+                <!-- Pacote God -->
+                <div class="pricing-card featured" data-glow>
+                    <div data-glow></div>
+                    <div class="pricing-badge">+ VENDIDO</div>
+                    <div class="pricing-header">
+                        <h3>Pacote GOD</h3>
+                    </div>
+                    <p class="package-desc">Esse é o pacote favorito dos Streamers. Contendo um conteúdo completo para você deixar a sua stream 100% personalizada.</p>
+                    
+                    <h4 class="feature-category">STREAM DESIGN</h4>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check-circle"></i> Início de live (Animado)</li>
+                        <li><i data-lucide="check-circle"></i> Fim de live (Animado)</li>
+                        <li><i data-lucide="check-circle"></i> Transição de cena (Animada)</li>
+                        <li><i data-lucide="check-circle"></i> Facecam (Animada)</li>
+                        <li><i data-lucide="check-circle"></i> Tela de chat (Animada)</li>
+                    </ul>
+
+                    <h4 class="feature-category">ARTES</h4>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check-circle"></i> 3 Distintivos de sub</li>
+                        <li><i data-lucide="check-circle"></i> Capa de tela offline</li>
+                        <li><i data-lucide="check-circle"></i> 3 Painéis</li>
+                    </ul>
+
+                    <h4 class="feature-category">WIDGETS</h4>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check-circle"></i> 3 Alertas (follow, sub, donate)</li>
+                        <li><i data-lucide="check-circle"></i> Chat box personalizado</li>
+                    </ul>
+                    <button onclick="startCheckout('pacote_god')" class="btn btn-primary" style="margin-top: auto;">Consultar Orçamento</button>
+                </div>
+
+                <!-- Pacote Premium -->
+                <div class="pricing-card" data-glow>
+                    <div data-glow></div>
+                    <div class="pricing-header">
+                        <h3>Pacote Premium</h3>
+                    </div>
+                    <p class="package-desc">Esse pacote é perfeito para você que procura se destacar na sua live stream! Começando com esse pacote, você tem um destaque muito grande contra a concorrência.</p>
+                    
+                    <h4 class="feature-category">BRANDING</h4>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check-circle"></i> Logo</li>
+                    </ul>
+
+                    <h4 class="feature-category">STREAM DESIGN</h4>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check-circle"></i> Início de live (Animado)</li>
+                        <li><i data-lucide="check-circle"></i> Fim de live (Animado)</li>
+                        <li><i data-lucide="check-circle"></i> Transição de cena (Animada)</li>
+                        <li><i data-lucide="check-circle"></i> Facecam (Animada)</li>
+                        <li><i data-lucide="check-circle"></i> Tela de chat (Animada)</li>
+                        <li><i data-lucide="check-circle"></i> Tela de volto já (Animada)</li>
+                    </ul>
+
+                    <h4 class="feature-category">ARTES</h4>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check-circle"></i> 6 Distintivos de sub</li>
+                        <li><i data-lucide="check-circle"></i> Capa de tela offline</li>
+                        <li><i data-lucide="check-circle"></i> 6 Painéis</li>
+                        <li><i data-lucide="check-circle"></i> 1 Emote</li>
+                    </ul>
+
+                    <h4 class="feature-category">WIDGETS</h4>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check-circle"></i> 4 Alertas (follow, sub, bits e donate)</li>
+                        <li><i data-lucide="check-circle"></i> Chat box personalizado</li>
+                    </ul>
+                    <button onclick="startCheckout('pacote_premium')" class="btn btn-secondary" style="margin-top: auto;">Consultar Orçamento</button>
+                </div>
+
+                <!-- Pacote Ultimate -->
+                <div class="pricing-card" data-glow>
+                    <div data-glow></div>
+                    <div class="pricing-header">
+                        <h3>Pacote Ultimate</h3>
+                    </div>
+                    <p class="package-desc">Esse é o pacote perfeito para streamers profissionais ou para quem já quer começar com o mais alto nível do nosso pacote.</p>
+                    
+                    <h4 class="feature-category">BRANDING</h4>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check-circle"></i> Logo</li>
+                    </ul>
+
+                    <h4 class="feature-category">STREAM DESIGN</h4>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check-circle"></i> Início de live (Animado)</li>
+                        <li><i data-lucide="check-circle"></i> Fim de live (Animado)</li>
+                        <li><i data-lucide="check-circle"></i> Transição de cena (Animada)</li>
+                        <li><i data-lucide="check-circle"></i> Facecam (Animada)</li>
+                        <li><i data-lucide="check-circle"></i> Tela de chat (Animada)</li>
+                        <li><i data-lucide="check-circle"></i> Tela de volto já (Animada)</li>
+                        <li><i data-lucide="check-circle"></i> Meta de subs (Animada)</li>
+                    </ul>
+
+                    <h4 class="feature-category">ARTES</h4>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check-circle"></i> 7 Distintivos de sub</li>
+                        <li><i data-lucide="check-circle"></i> Capa de tela offline</li>
+                        <li><i data-lucide="check-circle"></i> 7 Painéis</li>
+                        <li><i data-lucide="check-circle"></i> 3 Emotes</li>
+                    </ul>
+
+                    <h4 class="feature-category">WIDGETS</h4>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check-circle"></i> 5 Alertas (follow, sub, bits, donate e raid)</li>
+                        <li><i data-lucide="check-circle"></i> Chat box personalizado</li>
+                    </ul>
+                    <button onclick="startCheckout('pacote_ultimate')" class="btn btn-secondary" style="margin-top: auto;">Consultar Orçamento</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Por que a Fox? -->
+    <section id="por-que-nos" class="why-us">
+        <div class="container grid-split">
+            <div class="why-image">
+                <img src="assets/foto-thiago.jpg" alt="Thiago Sobral - Founder da Fox Design" class="founder-photo">
+                <div class="glow-box"></div>
+            </div>
+            <div class="why-content">
+                <h2 class="section-title">Por que escolher a <span>Fox Design?</span></h2>
+                <ul class="differentiators">
+                    <li><strong>Personalização Real:</strong> Nada de templates prontos. Tudo do zero.</li>
+                    <li><strong>Olhar Estratégico:</strong> Design focado em psicologia das cores e UX.</li>
+                    <li><strong>Acabamento de Elite:</strong> Detalhes que fazem a diferença no resultado final.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Prova Social -->
+    <section class="testimonials">
+        <div class="container text-center">
+            <h2 class="section-title">Resultados de <span>Impacto</span></h2>
+            <div class="testimonials-slider">
+                <div class="testimonial-card">
+                    <p>"A Fox Design mudou o patamar da minha stream. O engajamento dobrou com o novo visual."</p>
+                    <div class="user-info">
+                        <strong>@StreamerPro</strong>
+                        <span>Top 1% Twitch</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Atendimento impecável e criatividade acima da média. Entregaram antes do prazo."</p>
+                    <div class="user-info">
+                        <strong>@MarcaElite</strong>
+                        <span>CEO Empresa Alpha</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Captação de Leads -->
+    <section id="contato" class="lead-capture">
+        <div class="container grid-split">
+            <div class="lead-text">
+                <div class="lead-video-wrapper">
+                    <video autoplay loop muted playsinline class="lead-video" id="leadVideo" data-src="arma3d.mp4">
+                    </video>
+                </div>
+                <h2>Pronto para o seu <span>Upgrade?</span></h2>
+                <p>Preencha o formulário e nossa equipe entrará em contato para uma consultoria gratuita.</p>
+                <div class="lead-features">
+                    <div class="f-item"><i data-lucide="check"></i> Orçamento em até 24h</div>
+                    <div class="f-item"><i data-lucide="check"></i> Consultoria de Branding Inclusa</div>
+                </div>
+            </div>
+            <div class="lead-form-box">
+                <form action="https://formspree.io/f/xnjgzzpr" method="POST" id="foxForm">
+                    <!-- Configurações Formspree -->
+                    <input type="hidden" name="_subject" value="NOVO LEAD: Fox Design Landing Page">
+                    <input type="hidden" name="_next" value="https://foxdeesignn.github.io/fox-design-app/">
+                    <input type="text" name="_gotcha" style="display:none"> <!-- Honeypot para evitar spam -->
+                    
+                    <div class="input-group">
+                        <label>Nome Completo</label>
+                        <input type="text" name="Nome" placeholder="Seu nome" required>
+                    </div>
+                    <div class="input-group">
+                        <label>WhatsApp</label>
+                        <input type="tel" name="WhatsApp" placeholder="(00) 00000-0000" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Instagram / @Usuário</label>
+                        <input type="text" name="Instagram" placeholder="@seuuser" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Tipo de Projeto</label>
+                        <select name="Projeto">
+                            <option value="Identidade Visual">Identidade Visual</option>
+                            <option value="Pack para Streamer">Pack para Streamer</option>
+                            <option value="Serviços de configuração">Serviços de configuração</option>
+                            <option value="Social Media">Social Media</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Receber atendimento personalizado</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. FAQ -->
+    <section class="faq">
+        <div class="container small">
+            <h2 class="section-title text-center">Perguntas <span>Frequentes</span></h2>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">Como funciona o atendimento? <i data-lucide="chevron-down"></i></div>
+                    <div class="accordion-body">Nosso processo começa com um briefing detalhado para entender sua essência e objetivos.</div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">O projeto é realmente personalizado? <i data-lucide="chevron-down"></i></div>
+                    <div class="accordion-body">Sim, não utilizamos templates. Cada pixel é criado exclusivamente para sua marca.</div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Em quanto tempo fica pronto? <i data-lucide="chevron-down"></i></div>
+                    <div class="accordion-body">Depende da complexidade, mas a média para identidades visuais é de 7 a 15 dias úteis.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. CTA Final -->
+    <section class="final-cta">
+        <div class="container text-center">
+            <h2>Seu visual comunica o valor da sua marca <span>antes mesmo da primeira palavra.</span></h2>
+            <a href="#contato" class="btn btn-primary btn-large">Iniciar meu projeto agora</a>
+        </div>
+    </section>
+
+    <!-- 9. Footer -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-center">
+                <a href="#" class="logo footer-logo">FOX<span>DESIGN</span></a>
+                <p class="footer-tagline">Você imagina, a gente cria.</p>
+            </div>
+            <div class="footer-social">
+                <h4>Siga a Fox</h4>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/foxdesignn/" target="_blank" title="Instagram"><img src="ig.png" alt="Instagram"></a>
+                    <a href="https://www.tiktok.com/@foxdesignn" target="_blank" title="TikTok"><img src="tk.png" alt="TikTok"></a>
+                    <a href="https://www.youtube.com/@dicasfoxdesignn" target="_blank" title="YouTube"><img src="yt.png" alt="YouTube"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 FOX DESIGN v2.0</p>
+        </div>
+    </footer>
+
+    <!-- Login Modal Overlay -->
+    <div id="authModal" class="modal-overlay">
+        <div class="modal-content glass-effect">
+            <button class="modal-close" id="closeAuthModal">&times;</button>
+            <div class="auth-box">
+                <div class="auth-header">
+                    <h2 id="authTitle">Acesse sua Área <span>Fox Store</span></h2>
+                    <p id="authSubtitle">Entre para gerenciar seus ativos e pedidos.</p>
+                </div>
+                
+                <form id="authForm" class="auth-form">
+                    <div class="input-group">
+                        <label>E-mail</label>
+                        <input type="email" id="authEmail" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="input-group" id="passwordGroup">
+                        <label>Senha</label>
+                        <input type="password" id="authPassword" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" id="authSubmitBtn" class="btn btn-primary btn-full">Entrar</button>
+                </form>
+
+                <div class="auth-divider">
+                    <span>ou</span>
+                </div>
+
+                <button id="googleLoginBtn" class="btn btn-google btn-full">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                    Continuar com Google
+                </button>
+
+                <div class="auth-footer">
+                    <p id="authSwitchText">Não tem uma conta? <a href="javascript:void(0)" id="switchToSignUp">Criar conta</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Client Area Off-canvas Panel -->
+    <aside id="clientPanel" class="offcanvas-panel glass-effect">
+        <div class="panel-header">
+            <h3>Meu Perfil <span>Fox</span></h3>
+            <button class="panel-close" id="closeClientPanel">&times;</button>
+        </div>
+
+        <div class="panel-content">
+            <div class="profile-upload-section">
+                <div class="avatar-wrapper" id="avatarClick">
+                    <img id="panelAvatar" src="https://www.gravatar.com/avatar/?d=mp" alt="Avatar">
+                    <div class="avatar-overlay">
+                        <i data-lucide="camera"></i>
+                    </div>
+                </div>
+                <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+                <p class="upload-hint">Clique para mudar sua foto</p>
+            </div>
+
+            <div id="welcomeSection" style="display: none; text-align: center; margin-bottom: 30px;">
+                <h4 style="color: #fff; font-family: 'Orbitron'; font-size: 1.1rem; margin-bottom: 5px;">Bem-vindo, <span id="userNameDisplay">Gamer</span>!</h4>
+                <p style="color: var(--text-secondary); font-size: 0.85rem;">Sua conta de elite está ativa.</p>
+            </div>
+
+            <form id="profileForm" class="auth-form">
+                <div class="input-group">
+                    <label>Nome Completo</label>
+                    <input type="text" id="profileName" placeholder="Seu nome">
+                </div>
+                <div class="input-group">
+                    <label>WhatsApp / Telefone</label>
+                    <input type="tel" id="profilePhone" placeholder="(00) 00000-0000">
+                </div>
+                <div class="input-group">
+                    <label>Instagram (@usuario)</label>
+                    <input type="text" id="profileInstagram" placeholder="@seuuser">
+                </div>
+                <button type="submit" id="saveProfileBtn" class="btn btn-primary btn-full">Salvar Alterações</button>
+            </form>
+
+            <div class="panel-section" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--glass-border);">
+                <button id="openDownloadsBtn" class="btn btn-secondary btn-full">
+                    <i data-lucide="download-cloud"></i> Meus Produtos / Downloads
+                </button>
+            </div>
+
+            <div class="panel-footer">
+                <button id="logoutBtn" class="btn btn-secondary btn-full">
+                    <i data-lucide="log-out"></i> Sair da Conta
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Downloads / Member Area Modal -->
+    <div id="downloadsModal" class="modal-overlay">
+        <div class="modal-content glass-effect" style="max-width: 600px;">
+            <button class="modal-close" id="closeDownloadsModal">&times;</button>
+            <div class="auth-box">
+                <div class="auth-header">
+                    <h2>Área de <span>Downloads Fox</span></h2>
+                    <p>Aqui você encontra o histórico dos seus ativos de elite.</p>
+                </div>
+                
+                <div id="ordersList" class="orders-container">
+                    <!-- Preenchido via JS -->
+                    <div class="loading-spinner">Buscando seus ativos...</div>
+                </div>
+
+                <div class="auth-footer" style="margin-top: 20px;">
+                    <p>Precisa de ajuda? <a href="mailto:suportefoxdesignn@gmail.com">suportefoxdesignn@gmail.com</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/5516997149568" class="whatsapp-float">
+        <i data-lucide="message-circle"></i>
+    </a>
+
+    <!-- Lucide Icons (CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Scripts -->
+    <script src="fox-core.js?v=4.5" onerror="alert('Erro ao carregar fox-core.js! Verifique sua conexão ou cache.')"></script>
+    <script>
+        // Inicialização garantida
+        window.addEventListener('DOMContentLoaded', () => {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>
