@@ -203,6 +203,20 @@
             transform: scale(1.02);
         }
 
+        @keyframes pulseStore {
+            0% { box-shadow: 0 0 0 0 rgba(246, 14, 90, 0.6); transform: scale(1); }
+            50% { box-shadow: 0 0 0 15px rgba(246, 14, 90, 0); transform: scale(1.02); }
+            100% { box-shadow: 0 0 0 0 rgba(246, 14, 90, 0); transform: scale(1); }
+        }
+        .link-card.pulse-btn {
+            animation: pulseStore 2s infinite;
+        }
+        .link-card.pulse-btn:hover {
+            animation: none;
+            transform: scale(1.02);
+            background: #d40c4e;
+        }
+
         .footer {
             margin-top: auto;
             padding-top: 40px;
@@ -263,10 +277,10 @@
         </a>
 
         <!-- Loja Oficial -->
-        <a href="https://agenciafoxdesign.com.br/loja.html" class="link-card">
+        <a href="https://agenciafoxdesign.com.br/loja.html" class="link-card featured pulse-btn">
             <i data-lucide="shopping-bag"></i>
             <span class="link-text">LOJA OFICIAL</span>
-            <i data-lucide="chevron-right"></i>
+            <i data-lucide="external-link" style="opacity: 0.5; width: 14px;"></i>
         </a>
 
         <!-- YouTube -->
