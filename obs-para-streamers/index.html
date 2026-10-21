@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OBS Para Streamers | Fox Design</title>
+  <meta name="description" content="Tenha um OBS Studio completo, otimizado e pronto para usar, com layouts profissionais nos formatos horizontal e vertical para YouTube, Twitch, TikTok e Reels.">
+  <meta property="og:title" content="OBS Para Streamers | O Método Plug & Play da Fox Design">
+  <meta property="og:description" content="Suas transmissões e gravações de forma simplificada. OBS pronto para usar + curso passo a passo por apenas R$ 79,90.">
+  <meta property="og:image" content="assets/images/og-banner.jpg">
+  <meta property="og:url" content="https://foxdesign.herospark.co/obs-para-streamers">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="assets/images/og-banner.jpg">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  <link rel="apple-touch-icon" href="assets/images/favicon.png">
+
+  <!-- Google Fonts: Montserrat (Headings) & Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              crimson: '#dc1342',
+              crimsonDark: '#b00e33',
+              crimsonGlow: 'rgba(220, 19, 66, 0.45)',
+              obsidian: '#070709',
+              surface: '#0f1016',
+              surfaceCard: '#14161f',
+              surfaceBorder: '#232636',
+              textMuted: '#94a3b8'
+            }
+          },
+          fontFamily: {
+            montserrat: ['Montserrat', 'sans-serif'],
+            inter: ['Inter', 'sans-serif']
+          },
+          boxShadow: {
+            'glow-red': '0 0 35px -5px rgba(220, 19, 66, 0.55)',
+            'glow-red-lg': '0 0 60px -10px rgba(220, 19, 66, 0.65)',
+            'glow-green': '0 0 35px -5px rgba(16, 185, 129, 0.55)',
+            'glow-green-lg': '0 0 60px -10px rgba(16, 185, 129, 0.75)',
+            'card-dark': '0 20px 40px -15px rgba(0, 0, 0, 0.7)'
+          },
+          animation: {
+            'pulse-fast': 'pulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 4s ease-in-out infinite'
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      background-color: #000000;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    
+    .font-heading {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .hero-glow-bg {
+      background: radial-gradient(circle at 50% 12%, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.03) 40%, rgba(0, 0, 0, 0) 75%);
+    }
+
+    .section-glow-bg {
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.06) 0%, rgba(0, 0, 0, 0) 70%);
+    }
+
+    .glass-panel {
+      background: rgba(14, 14, 17, 0.8);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .glass-panel-hover:hover {
+      border-color: rgba(255, 255, 255, 0.28);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px -10px rgba(255, 255, 255, 0.1);
+    }
+  </style>
+</head>
+
+<body class="selection:bg-brand-crimson selection:text-white antialiased">
+
+  <!-- ========================================================
+       TOP TICKER / COUNTDOWN BAR
+  ======================================================== -->
+  <aside aria-label="Aviso de oferta especial" class="bg-neutral-950/95 border-b border-white/10 text-white text-xs sm:text-sm font-semibold py-2.5 px-4 sticky top-0 z-50 shadow-md backdrop-blur-md">
+    <div class="max-w-7xl mx-auto flex items-center justify-center gap-2 sm:gap-4 flex-wrap text-center">
+      <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-black/30 text-white font-bold tracking-wider uppercase text-[11px]">
+        <i data-lucide="flame" class="w-3.5 h-3.5 text-white animate-bounce"></i> OFERTA DE LANÇAMENTO
+      </span>
+      <span>
+        De <s class="opacity-75">R$ 199,90</s> por apenas <strong class="text-yellow-300 underline decoration-black/40 font-black text-sm sm:text-base">R$ 79,90</strong> com OBS Pronto Incluso!
+      </span>
+      <a href="#oferta" class="hidden md:inline-flex items-center gap-1 bg-emerald-600 hover:bg-emerald-500 text-white transition-colors px-3 py-1 rounded text-xs font-bold uppercase tracking-wider shadow">
+        Garantir Vaga <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ========================================================
+       NAVBAR
+  ======================================================== -->
+  <header class="border-b border-brand-surfaceBorder/60 bg-brand-obsidian/90 backdrop-blur-md sticky top-[37px] z-40 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo Fox Design -->
+      <a href="#" class="flex items-center gap-3.5 group">
+        <img src="assets/images/fox-logo.png" alt="Fox Design" class="h-12 w-12 sm:h-14 sm:w-14 object-contain filter drop-shadow group-hover:scale-105 transition-transform">
+        <div class="flex flex-col">
+          <span class="font-heading font-black text-xl sm:text-2xl tracking-tight text-white flex items-center gap-1.5">
+            FOX <span class="text-brand-crimson">DESIGN</span>
+          </span>
+          <span class="text-[11px] uppercase tracking-widest text-brand-crimson font-bold">OBS para Streamers</span>
+        </div>
+      </a>
+
+      <!-- Quick Nav Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-300">
+        <a href="#diferencial" class="hover:text-brand-crimson transition-colors">O Método</a>
+        <a href="#modulos" class="hover:text-brand-crimson transition-colors">Conteúdo das Aulas</a>
+        <a href="#bonus" class="hover:text-brand-crimson transition-colors">Pack de Cenas</a>
+        <a href="#faq" class="hover:text-brand-crimson transition-colors">Dúvidas</a>
+      </nav>
+
+      <!-- CTA Nav -->
+      <a href="https://pay.herospark.com/obs-para-streamers-543739" target="_blank" rel="noopener noreferrer"
+         class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm tracking-wide uppercase shadow-glow-green transition-all duration-300 hover:scale-[1.03] active:scale-[0.98]">
+        <img src="assets/images/btn-icon.png" alt="Acessar" class="w-5 h-5 sm:w-[21px] sm:h-[21px] object-contain">
+        <span>Acessar Agora</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========================================================
+         HERO SECTION
+    ======================================================== -->
+    <section class="relative pt-12 pb-20 md:pt-20 md:pb-28 hero-glow-bg overflow-hidden">
+      <!-- Decorative background grid -->
+      <div class="absolute inset-0 bg-[linear-gradient(to_right,#14161f0f_1px,transparent_1px),linear-gradient(to_bottom,#14161f0f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
+
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center">
+        
+        <!-- Live Status Pill -->
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-neutral-900/90 border border-white/15 shadow-inner mb-6">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+          <span class="w-2 h-2 rounded-full bg-emerald-400 -ml-4"></span>
+          <span class="text-xs font-bold tracking-wider uppercase text-neutral-200">
+            OBS PRONTO + CURSO PASSO A PASSO
+          </span>
+        </div>
+
+        <!-- Headline -->
+        <h1 class="font-heading font-black text-3xl sm:text-5xl md:text-6xl tracking-tight leading-[1.15] text-white max-w-4xl mx-auto mb-6">
+          Pare de perder horas configurando o OBS. <br class="hidden sm:inline">
+          <span class="bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-400 bg-clip-text text-transparent drop-shadow-sm">
+            Comece a criar como um profissional.
+          </span>
+        </h1>
+
+        <!-- Subheadline -->
+        <p class="text-base sm:text-lg md:text-xl text-neutral-300 font-normal leading-relaxed max-w-3xl mx-auto mb-8">
+          Tenha um <strong class="text-white font-bold">OBS Studio completo, otimizado e pronto para usar</strong>, com layouts profissionais para lives e gravações nos formatos <strong class="text-white">horizontal e vertical</strong> (YouTube, Twitch, TikTok e Reels), mesmo sem entender nada de parte técnica.
+        </p>
+
+        <!-- Key Highlights List in Organic Centered Pills -->
+        <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 max-w-3xl mx-auto mb-8 text-xs sm:text-sm text-neutral-200">
+          <div class="px-3.5 py-2 rounded-xl bg-neutral-900/80 border border-white/10 flex items-center gap-2 shadow-sm">
+            <i data-lucide="check" class="w-4 h-4 text-emerald-400 font-bold shrink-0"></i>
+            <span>Layouts prontos <strong>(Horizontal & Vertical)</strong></span>
+          </div>
+          <div class="px-3.5 py-2 rounded-xl bg-neutral-900/80 border border-white/10 flex items-center gap-2 shadow-sm">
+            <i data-lucide="check" class="w-4 h-4 text-emerald-400 font-bold shrink-0"></i>
+            <span>Importação rápida <strong>Plug & Play</strong></span>
+          </div>
+          <div class="px-3.5 py-2 rounded-xl bg-neutral-900/80 border border-white/10 flex items-center gap-2 shadow-sm">
+            <i data-lucide="check" class="w-4 h-4 text-emerald-400 font-bold shrink-0"></i>
+            <span>Áudio calibrado sem eco e sem chiado</span>
+          </div>
+          <div class="px-3.5 py-2 rounded-xl bg-neutral-900/80 border border-white/10 flex items-center gap-2 shadow-sm">
+            <i data-lucide="check" class="w-4 h-4 text-emerald-400 font-bold shrink-0"></i>
+            <span>Otimizado para <strong>não travar sua máquina</strong></span>
+          </div>
+        </div>
+
+        <!-- CTA Button Centered -->
+        <div class="flex items-center justify-center mb-8 w-full">
+          <a href="https://pay.herospark.com/obs-para-streamers-543739" target="_blank" rel="noopener noreferrer"
+             class="group relative inline-flex items-center justify-center gap-3 px-10 py-4 sm:py-5 rounded-xl bg-gradient-to-r from-emerald-500 via-green-600 to-emerald-500 hover:from-green-600 hover:to-emerald-500 text-white font-heading font-black text-base sm:text-lg tracking-wide uppercase shadow-glow-green hover:shadow-glow-green-lg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0">
+            <span>QUERO MEU OBS PRONTO AGORA</span>
+            <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+        </div>
+
+        <!-- Social Proof / Security Badges -->
+        <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs text-neutral-400 pb-12 border-b border-brand-surfaceBorder/60 w-full max-w-3xl">
+          <div class="flex items-center gap-1.5">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i>
+            <span>Curso 100% Gravado</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i>
+            <span>Pack de Cenas Incluso</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i>
+            <span>Pagamento Seguro</span>
+          </div>
+        </div>
+
+        <!-- Visual Mockup Showcase (Grand Centered Showcase) -->
+        <div class="w-full max-w-4xl mx-auto mt-12 relative">
+          
+          <!-- Clean White Ambient Halo -->
+          <div class="absolute -inset-4 bg-gradient-to-b from-white/15 via-white/5 to-transparent rounded-3xl blur-3xl opacity-60 pointer-events-none"></div>
+
+          <!-- Main Frame Container -->
+          <div class="relative rounded-2xl glass-panel p-3 sm:p-5 shadow-card-dark border-white/15 shadow-[0_0_50px_-10px_rgba(255,255,255,0.08)] overflow-hidden">
+            
+            <!-- Mockup Header / Stream Bar -->
+            <div class="flex items-center justify-between pb-3 mb-3 border-b border-brand-surfaceBorder text-xs text-neutral-400 px-1">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500 inline-block animate-ping"></span>
+                <span class="font-bold text-white tracking-widest uppercase text-[11px] bg-red-500/20 text-red-400 px-2.5 py-0.5 rounded border border-red-500/30">
+                  ON AIR • 1080P 60FPS
+                </span>
+              </div>
+              <div class="font-mono text-[11px] text-neutral-400 hidden sm:block">
+                BITRATE: 6000 Kbps • ENCODER: NVENC PRO
+              </div>
+            </div>
+
+            <!-- Product Cover Image (Clean display without overlapping stickers) -->
+            <div class="relative rounded-xl overflow-hidden aspect-video bg-black/90 group shadow-inner">
+              <img src="assets/images/hero-mockup.jpg?v=2" 
+                   alt="OBS Para Streamers Fox Design" 
+                   class="w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-700">
+            </div>
+
+            <!-- Feature Pillars Under Mockup -->
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-center text-xs">
+              <div class="bg-brand-surface/90 rounded-xl p-3 border border-brand-surfaceBorder">
+                <span class="text-yellow-400 font-black text-sm block">16:9 & 9:16</span>
+                <span class="text-neutral-400 text-[11px]">YouTube, Twitch & TikTok</span>
+              </div>
+              <div class="bg-brand-surface/90 rounded-xl p-3 border border-brand-surfaceBorder">
+                <span class="text-white font-black text-sm block">100% PLUG & PLAY</span>
+                <span class="text-neutral-400 text-[11px]">Só baixar e importar</span>
+              </div>
+              <div class="bg-brand-surface/90 rounded-xl p-3 border border-brand-surfaceBorder">
+                <span class="text-yellow-400 font-black text-sm block">+20 HORAS</span>
+                <span class="text-neutral-400 text-[11px]">Economizadas em testes</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SECTION: O FIM DA FRUSTRAÇÃO (DORES DO CRIADOR)
+    ======================================================== -->
+    <section class="py-20 bg-brand-surface relative border-t border-b border-brand-surfaceBorder/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-brand-crimson text-xs font-bold uppercase tracking-widest">
+            A REALIDADE DE QUEM TENTA COMEÇAR SOZINHO
+          </span>
+          <h2 class="font-heading font-black text-2xl sm:text-3xl md:text-4xl text-white mt-2 mb-4">
+            Você já passou por algum desses pesadelos no OBS?
+          </h2>
+          <p class="text-neutral-400 text-sm sm:text-base">
+            O OBS Studio é a ferramenta mais poderosa do planeta, mas sua interface bruta afasta 90% dos criadores.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Card Dor 1 -->
+          <div class="glass-panel p-6 rounded-2xl border-brand-surfaceBorder hover:border-brand-crimson/40 transition-all">
+            <div class="w-12 h-12 rounded-xl bg-red-950/60 border border-brand-crimson/30 flex items-center justify-center text-brand-crimson mb-5">
+              <i data-lucide="tv-2" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-heading font-bold text-lg text-white mb-2">Tela Preta Inesperada</h3>
+            <p class="text-sm text-neutral-400 leading-relaxed">
+              Você abre o programa e nada aparece. A captura de tela não acha seu jogo ou sua apresentação fica travada em tela preta.
+            </p>
+          </div>
+
+          <!-- Card Dor 2 -->
+          <div class="glass-panel p-6 rounded-2xl border-brand-surfaceBorder hover:border-brand-crimson/40 transition-all">
+            <div class="w-12 h-12 rounded-xl bg-red-950/60 border border-brand-crimson/30 flex items-center justify-center text-brand-crimson mb-5">
+              <i data-lucide="mic-off" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-heading font-bold text-lg text-white mb-2">Áudio Ruim e Atrasado</h3>
+            <p class="text-sm text-neutral-400 leading-relaxed">
+              Microfone estourado, eco de fone, chiado de fundo do ventilador e a sua boca falando antes do som chegar aos ouvidos.
+            </p>
+          </div>
+
+          <!-- Card Dor 3 -->
+          <div class="glass-panel p-6 rounded-2xl border-brand-surfaceBorder hover:border-brand-crimson/40 transition-all">
+            <div class="w-12 h-12 rounded-xl bg-red-950/60 border border-brand-crimson/30 flex items-center justify-center text-brand-crimson mb-5">
+              <i data-lucide="cpu" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-heading font-bold text-lg text-white mb-2">PC Travando e Queda de FPS</h3>
+            <p class="text-sm text-neutral-400 leading-relaxed">
+              Sem saber configurar o encoder correto (NVENC vs x264), seu processador bate 100% e a gravação fica em câmera lenta.
+            </p>
+          </div>
+
+          <!-- Card Dor 4 -->
+          <div class="glass-panel p-6 rounded-2xl border-brand-surfaceBorder hover:border-brand-crimson/40 transition-all">
+            <div class="w-12 h-12 rounded-xl bg-red-950/60 border border-brand-crimson/30 flex items-center justify-center text-brand-crimson mb-5">
+              <i data-lucide="clock-alert" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-heading font-bold text-lg text-white mb-2">Horas no YouTube Perdidas</h3>
+            <p class="text-sm text-neutral-400 leading-relaxed">
+              Vídeos de 40 minutos desatualizados de 2020 que te mandam instalar plugins incompatíveis que travam o seu programa.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Solution Transition Banner -->
+        <div class="mt-12 p-6 sm:p-8 rounded-2xl bg-neutral-900/80 border border-white/10 text-center max-w-4xl mx-auto shadow-[0_0_35px_-5px_rgba(255,255,255,0.06)]">
+          <p class="text-base sm:text-lg text-neutral-200">
+            <strong class="text-white font-bold">A verdade é simples:</strong> você não precisa virar um técnico de transmissão. <br class="hidden sm:inline">
+            Você só precisa de uma <span class="text-yellow-400 font-black">estrutura já configurada por especialistas</span> para abrir e produzir.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SECTION: O MÉTODO PLUG & PLAY (A SOLUÇÃO FOX)
+    ======================================================== -->
+    <section id="diferencial" class="py-20 bg-brand-obsidian relative section-glow-bg">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Left: Concept Mockup Box -->
+          <div class="lg:col-span-5 order-2 lg:order-1">
+            <div class="glass-panel rounded-2xl p-6 border-brand-crimson/40 relative overflow-hidden group">
+              <div class="absolute -top-12 -right-12 w-44 h-44 bg-brand-crimson/20 rounded-full blur-3xl pointer-events-none"></div>
+
+              <div class="flex items-center justify-between mb-6">
+                <span class="text-xs font-mono text-brand-crimson font-bold uppercase tracking-wider bg-brand-crimson/10 px-2.5 py-1 rounded border border-brand-crimson/20">
+                  FOX PLUG & PLAY ENGINE
+                </span>
+                <i data-lucide="check-check" class="w-5 h-5 text-brand-crimson"></i>
+              </div>
+
+              <!-- Workflow step-by-step -->
+              <div class="space-y-4">
+                <div class="flex items-start gap-4 p-3.5 rounded-xl bg-brand-surface border border-brand-surfaceBorder">
+                  <div class="w-8 h-8 rounded-lg bg-brand-crimson text-white font-black text-sm flex items-center justify-center shrink-0">
+                    1
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-white text-sm">Baixe a pasta Fox Studio</h4>
+                    <p class="text-xs text-neutral-400 mt-0.5">Arquivos organizados e pré-compilados pela nossa equipe de design.</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-4 p-3.5 rounded-xl bg-brand-surface border border-brand-surfaceBorder">
+                  <div class="w-8 h-8 rounded-lg bg-brand-crimson text-white font-black text-sm flex items-center justify-center shrink-0">
+                    2
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-white text-sm">Importe com 2 Cliques no OBS</h4>
+                    <p class="text-xs text-neutral-400 mt-0.5">Cenas, fontes, áudio e transições sobem automaticamente sem erro.</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-4 p-3.5 rounded-xl bg-brand-surface border border-brand-surfaceBorder">
+                  <div class="w-8 h-8 rounded-lg bg-brand-crimson text-white font-black text-sm flex items-center justify-center shrink-0">
+                    3
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-white text-sm">Clique em "Gravar" ou "Transmitir"</h4>
+                    <p class="text-xs text-neutral-400 mt-0.5">Pronto para YouTube, Twitch, TikTok ou sua plataforma de cursos.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6 pt-5 border-t border-brand-surfaceBorder flex items-center justify-between text-xs text-neutral-300">
+                <span>Tempo médio de configuração:</span>
+                <span class="font-black text-yellow-400 text-sm">Menos de 15 minutos</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Text Description -->
+          <div class="lg:col-span-7 order-1 lg:order-2 space-y-6">
+            <span class="text-brand-crimson text-xs font-bold uppercase tracking-widest">
+              O DIFERENCIAL QUE NINGUÉM OFERECE
+            </span>
+            <h2 class="font-heading font-black text-3xl sm:text-4xl text-white tracking-tight leading-tight">
+              Você não recebe apenas aulas. <br>
+              <span class="text-yellow-400">Você recebe um OBS pronto para operar.</span>
+            </h2>
+            <p class="text-neutral-300 text-base leading-relaxed">
+              Outros cursos ensinam teoria durante 10 horas antes de você conseguir abrir a primeira câmera. No método da <strong>Fox Design</strong>, nós invertemos o jogo:
+            </p>
+            <p class="text-neutral-300 text-base leading-relaxed">
+              Nós já entregamos o pacote completo com as nossas cenas profissionais, presets de áudio calibrados e layouts tanto em <strong>16:9 (Horizontal tradicional)</strong> quanto em <strong>9:16 (Vertical para TikTok, Instagram Reels e YouTube Shorts)</strong>.
+            </p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div class="p-4 rounded-xl bg-brand-surfaceCard border border-brand-surfaceBorder">
+                <i data-lucide="layers" class="w-6 h-6 text-brand-crimson mb-2"></i>
+                <h4 class="font-bold text-white text-sm mb-1">Cenas Pré-configuradas</h4>
+                <p class="text-xs text-neutral-400">Cena de introdução, tela cheia com webcam, tela com captura de slides e tela de encerramento.</p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-brand-surfaceCard border border-brand-surfaceBorder">
+                <i data-lucide="smartphone" class="w-6 h-6 text-brand-crimson mb-2"></i>
+                <h4 class="font-bold text-white text-sm mb-1">Layouts Verticais Prontos</h4>
+                <p class="text-xs text-neutral-400">Grave seus vídeos para TikTok e Shorts sem precisar cortar ou editar depois.</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SECTION: CONTEÚDO DOS MÓDULOS (GRADE PROGRAMÁTICA)
+    ======================================================== -->
+    <section id="modulos" class="py-20 bg-brand-surface relative border-t border-brand-surfaceBorder/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-brand-crimson text-xs font-bold uppercase tracking-widest">
+            TREINAMENTO PRÁTICO E DIRETO AO PONTO
+          </span>
+          <h2 class="font-heading font-black text-3xl sm:text-4xl text-white mt-2 mb-4">
+            O que você vai dominar dentro do curso
+          </h2>
+          <p class="text-neutral-400 text-sm sm:text-base">
+            Sem enrolação. 3 módulos práticos pensados para você sair do zero à sua primeira transmissão com nível de estúdio.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Card Módulo 0: Comece por Aqui -->
+          <div class="glass-panel glass-panel-hover rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 border-brand-surfaceBorder">
+            <div>
+              <div class="relative w-full aspect-[3/2] overflow-hidden bg-black/80 group">
+                <img src="assets/images/modulo-00.jpg?v=3" alt="Comece por Aqui" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-surfaceCard via-transparent to-transparent"></div>
+                <div class="absolute top-3 left-3">
+                  <span class="px-2.5 py-1 rounded bg-black/75 backdrop-blur text-white text-[10px] font-bold font-mono uppercase tracking-wider border border-white/10">
+                    BOAS-VINDAS
+                  </span>
+                </div>
+              </div>
+              <div class="p-6">
+                <div class="flex items-center justify-between mb-3">
+                  <h3 class="font-heading font-black text-xl text-white">Comece por Aqui</h3>
+                  <i data-lucide="compass" class="w-5 h-5 text-brand-crimson"></i>
+                </div>
+                <p class="text-xs text-neutral-400 mb-4">
+                  Entenda o fluxo de trabalho, os atalhos cruciais e como absorver o método com máxima agilidade.
+                </p>
+                <ul class="space-y-2 text-xs text-neutral-300">
+                  <li class="flex items-start gap-2">
+                    <i data-lucide="play" class="w-3.5 h-3.5 text-brand-crimson shrink-0 mt-0.5"></i>
+                    <span>Visão geral do ecossistema OBS Studio</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <i data-lucide="play" class="w-3.5 h-3.5 text-brand-crimson shrink-0 mt-0.5"></i>
+                    <span>Alinhamento de mentalidade e objetivos</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <i data-lucide="play" class="w-3.5 h-3.5 text-brand-crimson shrink-0 mt-0.5"></i>
+                    <span>Como acessar os arquivos de download Fox</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="px-6 pb-6 pt-2">
+              <div class="pt-4 border-t border-brand-surfaceBorder text-[11px] text-neutral-500 font-mono">
+                Status: Disponível Imediatamente
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Módulo 1 -->
+          <div class="glass-panel glass-panel-hover rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 border-brand-crimson/30">
+            <div>
+              <div class="relative w-full aspect-[3/2] overflow-hidden bg-black/80 group">
+                <img src="assets/images/modulo-01.jpg" alt="Módulo 1 - Importando e Instalando Tudo!" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-surfaceCard via-transparent to-transparent"></div>
+                <div class="absolute top-3 left-3">
+                  <span class="px-2.5 py-1 rounded bg-brand-crimson/90 backdrop-blur text-white text-[10px] font-bold font-mono uppercase tracking-wider shadow">
+                    MÓDULO 01
+                  </span>
+                </div>
+              </div>
+              <div class="p-6">
+                <div class="flex items-center justify-between mb-3">
+                  <h3 class="font-heading font-black text-xl text-white">Importando & Instalando Tudo!</h3>
+                  <i data-lucide="download-cloud" class="w-5 h-5 text-brand-crimson"></i>
+                </div>
+                <p class="text-xs text-neutral-400 mb-4">
+                  O passo a passo para baixar da fonte oficial, fazer a instalação limpa e importar a biblioteca pronta.
+                </p>
+                <ul class="space-y-2 text-xs text-neutral-300">
+                  <li class="flex items-start gap-2">
+                    <i data-lucide="play" class="w-3.5 h-3.5 text-brand-crimson shrink-0 mt-0.5"></i>
+                    <span>Download correto da versão estável do OBS</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <i data-lucide="play" class="w-3.5 h-3.5 text-brand-crimson shrink-0 mt-0.5"></i>
+                    <span>Importação da Coleção de Cenas Fox</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <i data-lucide="play" class="w-3.5 h-3.5 text-brand-crimson shrink-0 mt-0.5"></i>
+                    <span>Instalação de plugins essenciais sem conflito</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="px-6 pb-6 pt-2">
+              <div class="pt-4 border-t border-brand-surfaceBorder text-[11px] text-neutral-500 font-mono">
+                Plug & Play Prático
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Módulo 2 -->
+          <div class="glass-panel glass-panel-hover rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 border-brand-surfaceBorder">
+            <div>
+              <div class="relative w-full aspect-[3/2] overflow-hidden bg-black/80 group">
+                <img src="assets/images/modulo-02.jpg" alt="Módulo 2 - Configurações Internas Essenciais" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-surfaceCard via-transparent to-transparent"></div>
+                <div class="absolute top-3 left-3">
+                  <span class="px-2.5 py-1 rounded bg-brand-crimson/90 backdrop-blur text-white text-[10px] font-bold font-mono uppercase tracking-wider shadow">
+                    MÓDULO 02
+                  </span>
+                </div>
+              </div>
+              <div class="p-6">
+                <div class="flex items-center justify-between mb-3">
+                  <h3 class="font-heading font-black text-xl text-white">Configurações Internas Essenciais</h3>
+                  <i data-lucide="sliders" class="w-5 h-5 text-brand-crimson"></i>
+                </div>
+                <p class="text-xs text-neutral-400 mb-4">
+                  O coração técnico. Aprenda a calibrar áudio, bitrate e encoder com base no seu PC e internet.
+                </p>
+                <ul class="space-y-2 text-xs text-neutral-300">
+                  <li class="flex items-start gap-2">
+                    <i data-lucide="play" class="w-3.5 h-3.5 text-brand-crimson shrink-0 mt-0.5"></i>
+                    <span>Configuração de Saída: NVENC x264 & Bitrate</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <i data-lucide="play" class="w-3.5 h-3.5 text-brand-crimson shrink-0 mt-0.5"></i>
+                    <span>Filtros de áudio profissionais (Noise Gate & EQ)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <i data-lucide="play" class="w-3.5 h-3.5 text-brand-crimson shrink-0 mt-0.5"></i>
+                    <span>Ajuste fino de resolução e taxa de quadros (FPS)</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="px-6 pb-6 pt-2">
+              <div class="pt-4 border-t border-brand-surfaceBorder text-[11px] text-neutral-500 font-mono">
+                Anti-Travamento & Performance
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Módulo 3 -->
+          <div class="glass-panel glass-panel-hover rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 border-brand-surfaceBorder">
+            <div>
+              <div class="relative w-full aspect-[3/2] overflow-hidden bg-black/80 group">
+                <img src="assets/images/modulo-03.jpg" alt="Módulo 3 - Overlays, Alertas, Templates e Widgets!" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-surfaceCard via-transparent to-transparent"></div>
+                <div class="absolute top-3 left-3">
+                  <span class="px-2.5 py-1 rounded bg-brand-crimson/90 backdrop-blur text-white text-[10px] font-bold font-mono uppercase tracking-wider shadow">
+                    MÓDULO 03
+                  </span>
+                </div>
+              </div>
+              <div class="p-6">
+                <div class="flex items-center justify-between mb-3">
+                  <h3 class="font-heading font-black text-xl text-white">Overlays, Alertas & Widgets!</h3>
+                  <i data-lucide="layout-template" class="w-5 h-5 text-brand-crimson"></i>
+                </div>
+                <p class="text-xs text-neutral-400 mb-4">
+                  O visual que retém espectadores. Conecte alertas automáticos, caixas de chat e gráficos em tempo real.
+                </p>
+                <ul class="space-y-2 text-xs text-neutral-300">
+                  <li class="flex items-start gap-2">
+                    <i data-lucide="play" class="w-3.5 h-3.5 text-brand-crimson shrink-0 mt-0.5"></i>
+                    <span>Configuração de overlays e molduras de webcam</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <i data-lucide="play" class="w-3.5 h-3.5 text-brand-crimson shrink-0 mt-0.5"></i>
+                    <span>Alertas de seguidores, subs e doações ao vivo</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <i data-lucide="play" class="w-3.5 h-3.5 text-brand-crimson shrink-0 mt-0.5"></i>
+                    <span>Widgets de chat integrado na transmissão</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="px-6 pb-6 pt-2">
+              <div class="pt-4 border-t border-brand-surfaceBorder text-[11px] text-neutral-500 font-mono">
+                Engajamento & Estética Pro
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Banner de Chamada intermediário -->
+        <div class="mt-12 text-center">
+          <a href="#oferta" class="inline-flex items-center gap-2 text-sm font-bold text-neutral-300 hover:text-brand-crimson transition-colors">
+            <span>Ver tudo o que está incluso no pacote promocional</span>
+            <i data-lucide="arrow-down" class="w-4 h-4 text-brand-crimson"></i>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SECTION: BÔNUS EXCLUSIVOS
+    ======================================================== -->
+    <section id="bonus" class="py-20 bg-brand-obsidian relative section-glow-bg">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-brand-crimson text-xs font-bold uppercase tracking-widest">
+            MAIS DE R$ 350 EM ASSETS ENTREGUES DE GRAÇA
+          </span>
+          <h2 class="font-heading font-black text-3xl sm:text-4xl text-white mt-2 mb-4">
+            Bônus Especiais Inclusos Nesta Turma
+          </h2>
+          <p class="text-neutral-400 text-sm sm:text-base">
+            Você não paga nada a mais por esses 3 recursos desenvolvidos pelos designers da Fox.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Bônus 1 -->
+          <div class="glass-panel p-6 rounded-2xl relative border-brand-surfaceBorder flex flex-col justify-between">
+            <span class="absolute -top-3 right-6 bg-brand-crimson text-white text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full shadow">
+              VALOR: R$ 197,00 (HOJE GRÁTIS)
+            </span>
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-brand-crimson/20 border border-brand-crimson/40 flex items-center justify-center text-brand-crimson mb-4">
+                <i data-lucide="monitor" class="w-6 h-6"></i>
+              </div>
+              <h3 class="font-heading font-black text-lg text-white mb-2">Pack de Cenas Horizontais & Verticais</h3>
+              <p class="text-xs text-neutral-400 leading-relaxed mb-4">
+                O arquivo de configuração com telas de início, apresentação com slides, bate-papo e encerramento, adaptado para YouTube/Twitch e Reels/TikTok.
+              </p>
+            </div>
+            <div class="flex items-center gap-2 text-xs font-bold text-brand-crimson">
+              <i data-lucide="check" class="w-4 h-4"></i>
+              <span>Incluso no Acesso</span>
+            </div>
+          </div>
+
+          <!-- Bônus 2 -->
+          <div class="glass-panel p-6 rounded-2xl relative border-brand-surfaceBorder flex flex-col justify-between">
+            <span class="absolute -top-3 right-6 bg-brand-crimson text-white text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full shadow">
+              VALOR: R$ 97,00 (HOJE GRÁTIS)
+            </span>
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-brand-crimson/20 border border-brand-crimson/40 flex items-center justify-center text-brand-crimson mb-4">
+                <i data-lucide="volume-2" class="w-6 h-6"></i>
+              </div>
+              <h3 class="font-heading font-black text-lg text-white mb-2">Preset de Filtros de Áudio de Estúdio</h3>
+              <p class="text-xs text-neutral-400 leading-relaxed mb-4">
+                A fórmula exata de Ganho, Supressor de Ruídos RNNoise e Compressor que faz qualquer microfone comum soar encorpado como podcast de estúdio.
+              </p>
+            </div>
+            <div class="flex items-center gap-2 text-xs font-bold text-brand-crimson">
+              <i data-lucide="check" class="w-4 h-4"></i>
+              <span>Incluso no Acesso</span>
+            </div>
+          </div>
+
+          <!-- Bônus 3 -->
+          <div class="glass-panel p-6 rounded-2xl relative border-brand-surfaceBorder flex flex-col justify-between">
+            <span class="absolute -top-3 right-6 bg-brand-crimson text-white text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full shadow">
+              VALOR: R$ 67,00 (HOJE GRÁTIS)
+            </span>
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-brand-crimson/20 border border-brand-crimson/40 flex items-center justify-center text-brand-crimson mb-4">
+                <i data-lucide="clipboard-check" class="w-6 h-6"></i>
+              </div>
+              <h3 class="font-heading font-black text-lg text-white mb-2">Checklist Anti-Falhas Pré-Transmissão</h3>
+              <p class="text-xs text-neutral-400 leading-relaxed mb-4">
+                Um guia rápido em 5 passos para você bater o olho antes de entrar ao vivo e garantir que áudio, tela e chave de transmissão estão funcionando.
+              </p>
+            </div>
+            <div class="flex items-center gap-2 text-xs font-bold text-brand-crimson">
+              <i data-lucide="check" class="w-4 h-4"></i>
+              <span>Incluso no Acesso</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SECTION: PARA QUEM É ESTE TREINAMENTO?
+    ======================================================== -->
+    <section class="py-20 bg-brand-surface relative border-t border-brand-surfaceBorder/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-brand-crimson text-xs font-bold uppercase tracking-widest">
+            FOCO E DIRECIONAMENTO
+          </span>
+          <h2 class="font-heading font-black text-3xl sm:text-4xl text-white mt-2 mb-4">
+            Este curso foi feito especificamente para:
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <div class="bg-brand-surfaceCard p-6 rounded-2xl border border-brand-surfaceBorder flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-full bg-brand-crimson/10 border border-brand-crimson/30 flex items-center justify-center text-brand-crimson mb-4">
+              <i data-lucide="gamepad-2" class="w-7 h-7"></i>
+            </div>
+            <h3 class="font-bold text-white text-base mb-2">Gamers & Streamers</h3>
+            <p class="text-xs text-neutral-400 leading-relaxed">
+              Para quem quer transmitir na Twitch, Kick ou YouTube com gameplay fluida em 60fps sem lagar o jogo.
+            </p>
+          </div>
+
+          <div class="bg-brand-surfaceCard p-6 rounded-2xl border border-brand-surfaceBorder flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-full bg-brand-crimson/10 border border-brand-crimson/30 flex items-center justify-center text-brand-crimson mb-4">
+              <i data-lucide="graduation-cap" class="w-7 h-7"></i>
+            </div>
+            <h3 class="font-bold text-white text-base mb-2">Infoprodutores & Professores</h3>
+            <p class="text-xs text-neutral-400 leading-relaxed">
+              Para quem precisa gravar aulas em alta definição, alternando câmera, slides e tela com agilidade de estúdio.
+            </p>
+          </div>
+
+          <div class="bg-brand-surfaceCard p-6 rounded-2xl border border-brand-surfaceBorder flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-full bg-brand-crimson/10 border border-brand-crimson/30 flex items-center justify-center text-brand-crimson mb-4">
+              <i data-lucide="video" class="w-7 h-7"></i>
+            </div>
+            <h3 class="font-bold text-white text-base mb-2">Criadores de Shorts & TikTok</h3>
+            <p class="text-xs text-neutral-400 leading-relaxed">
+              Para quem produz conteúdo vertical (9:16) e quer gravar vídeos prontos sem ter que reenquadrar na pós-produção.
+            </p>
+          </div>
+
+          <div class="bg-brand-surfaceCard p-6 rounded-2xl border border-brand-surfaceBorder flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-full bg-brand-crimson/10 border border-brand-crimson/30 flex items-center justify-center text-brand-crimson mb-4">
+              <i data-lucide="podcast" class="w-7 h-7"></i>
+            </div>
+            <h3 class="font-bold text-white text-base mb-2">Podcasters & Entrevistadores</h3>
+            <p class="text-xs text-neutral-400 leading-relaxed">
+              Para quem faz lives com convidados e precisa gerenciar múltiplas janelas, microfones e trilhas sonoras.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SECTION: A OFERTA IRRESISTÍVEL (CHECKOUT HERO)
+    ======================================================== -->
+    <section id="oferta" class="py-24 bg-brand-obsidian relative hero-glow-bg border-t border-brand-surfaceBorder/60">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Offer Card Container -->
+        <div class="relative rounded-3xl glass-panel p-6 sm:p-10 border-white/15 shadow-[0_0_60px_-10px_rgba(255,255,255,0.08)] overflow-hidden">
+          
+          <!-- Top Badge Ribbon -->
+          <div class="text-center mb-8">
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-crimson text-white text-xs font-black tracking-widest uppercase shadow">
+              <i data-lucide="zap" class="w-3.5 h-3.5"></i> CONDIÇÃO ESPECIAL DE LANÇAMENTO
+            </span>
+            <h2 class="font-heading font-black text-3xl sm:text-4xl md:text-5xl text-white mt-4 tracking-tight">
+              Tudo o que você precisa para criar com excelência
+            </h2>
+            <p class="text-neutral-400 text-sm sm:text-base mt-2">
+              Acesso vitalício às aulas, atualizações e o pacote de cenas pronto da Fox Design.
+            </p>
+          </div>
+
+          <!-- Stack of Value -->
+          <div class="bg-brand-surface rounded-2xl p-6 border border-brand-surfaceBorder mb-8">
+            <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-neutral-400 mb-4 pb-2 border-b border-brand-surfaceBorder">
+              O QUE ESTÁ INCLUSO NO SEU ACESSO:
+            </h3>
+            <div class="space-y-3.5 text-sm">
+              <div class="flex items-center justify-between text-neutral-200">
+                <span class="flex items-center gap-2.5">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-brand-crimson shrink-0"></i>
+                  <span>Curso Completo: OBS Para Streamers (3 Módulos Práticos)</span>
+                </span>
+                <span class="font-mono text-xs text-neutral-400">R$ 147,00</span>
+              </div>
+              <div class="flex items-center justify-between text-neutral-200">
+                <span class="flex items-center gap-2.5">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-brand-crimson shrink-0"></i>
+                  <span>Coleção de Cenas Fox Design (Horizontal 16:9 + Vertical 9:16)</span>
+                </span>
+                <span class="font-mono text-xs text-neutral-400">R$ 197,00</span>
+              </div>
+              <div class="flex items-center justify-between text-neutral-200">
+                <span class="flex items-center gap-2.5">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-brand-crimson shrink-0"></i>
+                  <span>Preset de Equalização e Supressão de Áudio Studio Pro</span>
+                </span>
+                <span class="font-mono text-xs text-neutral-400">R$ 97,00</span>
+              </div>
+              <div class="flex items-center justify-between text-neutral-200">
+                <span class="flex items-center gap-2.5">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-brand-crimson shrink-0"></i>
+                  <span>Checklist Anti-Falhas de Transmissão</span>
+                </span>
+                <span class="font-mono text-xs text-neutral-400">R$ 67,00</span>
+              </div>
+            </div>
+            
+            <div class="mt-4 pt-3 border-t border-brand-surfaceBorder/80 flex justify-between items-center text-xs text-neutral-400">
+              <span>Valor total combinado:</span>
+              <span class="line-through font-mono">R$ 508,00</span>
+            </div>
+          </div>
+
+          <!-- Price Box -->
+          <div class="text-center space-y-3 mb-8">
+            <span class="text-xs uppercase tracking-widest text-neutral-400 font-bold block">
+              POR APENAS UMA FRAÇÃO DESSE VALOR:
+            </span>
+            <div class="flex items-baseline justify-center gap-2">
+              <span class="text-sm font-semibold text-neutral-400 line-through">De R$ 199,90</span>
+              <span class="text-xs font-bold uppercase tracking-wider text-yellow-400 bg-yellow-400/10 px-2 py-0.5 rounded border border-yellow-400/30">
+                60% OFF
+              </span>
+            </div>
+            <div class="flex items-center justify-center gap-1 font-heading">
+              <span class="text-2xl text-neutral-300 font-bold">R$</span>
+              <span class="text-5xl sm:text-6xl md:text-7xl font-black text-white tracking-tight">79</span>
+              <div class="flex flex-col text-left">
+                <span class="text-xl sm:text-2xl font-bold text-white">,90</span>
+                <span class="text-[11px] text-neutral-400 uppercase tracking-wider font-sans font-medium">À vista</span>
+              </div>
+            </div>
+            <p class="text-xs text-neutral-400">
+              Ou parcele no cartão de crédito em até 12x via SparkPay.
+            </p>
+          </div>
+
+          <!-- CTA Checkout Button -->
+          <div class="space-y-4">
+            <a href="https://pay.herospark.com/obs-para-streamers-543739" target="_blank" rel="noopener noreferrer"
+               class="group w-full py-5 px-8 rounded-2xl bg-gradient-to-r from-emerald-500 via-green-600 to-emerald-500 hover:from-green-600 hover:to-emerald-500 text-white font-heading font-black text-lg sm:text-xl tracking-wider uppercase shadow-glow-green hover:shadow-glow-green-lg transition-all duration-300 flex items-center justify-center gap-3 transform hover:-translate-y-0.5 active:translate-y-0 text-center">
+              <span>QUERO GARANTIR MINHA VAGA COM DESCONTO</span>
+              <i data-lucide="arrow-right" class="w-6 h-6 group-hover:translate-x-1.5 transition-transform"></i>
+            </a>
+
+            <!-- Security details -->
+            <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-8 pt-2 text-xs text-neutral-400">
+              <span class="flex items-center gap-1.5">
+                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i> Pagamento 100% Criptografado
+              </span>
+              <span class="flex items-center gap-1.5">
+                <i data-lucide="zap" class="w-4 h-4 text-amber-400"></i> Acesso Liberado na Hora
+              </span>
+              <span class="flex items-center gap-1.5">
+                <i data-lucide="rotate-ccw" class="w-4 h-4 text-brand-crimson"></i> 7 Dias de Garantia Total
+              </span>
+            </div>
+          </div>
+
+          <!-- Payment methods -->
+          <div class="mt-8 pt-6 border-t border-brand-surfaceBorder text-center">
+            <p class="text-[11px] uppercase tracking-wider text-neutral-500 mb-3 font-semibold">FORMAS DE PAGAMENTO ACEITAS</p>
+            <div class="flex items-center justify-center gap-4 text-xs text-neutral-300 font-medium">
+              <span class="flex items-center gap-1 px-3 py-1 rounded bg-brand-surface border border-brand-surfaceBorder">
+                <i data-lucide="credit-card" class="w-4 h-4 text-brand-crimson"></i> Cartão de Crédito
+              </span>
+              <span class="flex items-center gap-1 px-3 py-1 rounded bg-brand-surface border border-brand-surfaceBorder">
+                <i data-lucide="qr-code" class="w-4 h-4 text-brand-crimson"></i> Pix Imediato
+              </span>
+              <span class="flex items-center gap-1 px-3 py-1 rounded bg-brand-surface border border-brand-surfaceBorder">
+                <i data-lucide="barcode" class="w-4 h-4 text-brand-crimson"></i> Boleto
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ========================================================
+         SECTION: FAQ (PERGUNTAS FREQUENTES)
+    ======================================================== -->
+    <section id="faq" class="py-20 bg-brand-obsidian relative">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-brand-crimson text-xs font-bold uppercase tracking-widest">
+            TIRE TODAS AS SUAS DÚVIDAS
+          </span>
+          <h2 class="font-heading font-black text-3xl sm:text-4xl text-white mt-2 mb-4">
+            Perguntas Frequentes
+          </h2>
+          <p class="text-neutral-400 text-sm sm:text-base">
+            Tudo o que você precisa saber antes de destravar o seu OBS hoje.
+          </p>
+        </div>
+
+        <div class="space-y-4" id="faq-accordion">
+          
+          <!-- Item 1 -->
+          <div class="faq-item glass-panel rounded-xl border-brand-surfaceBorder overflow-hidden">
+            <button type="button" class="faq-toggle w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-white text-sm sm:text-base hover:text-brand-crimson transition-colors" aria-expanded="false">
+              <span>Meu computador não é topo de linha. O OBS vai rodar sem travar?</span>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-brand-crimson transition-transform duration-300"></i>
+            </button>
+            <div class="faq-content hidden px-5 pb-5 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-brand-surfaceBorder/60 pt-3">
+              Sim! No Módulo 2 nós ensinamos o ajuste exato de encoders e bitrate tanto para quem tem placas de vídeo dedicadas (NVIDIA/AMD) quanto para quem usa gráficos integrados Intel/Ryzen. O método é focado justamente em leveza e estabilidade.
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="faq-item glass-panel rounded-xl border-brand-surfaceBorder overflow-hidden">
+            <button type="button" class="faq-toggle w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-white text-sm sm:text-base hover:text-brand-crimson transition-colors" aria-expanded="false">
+              <span>Eu não quero fazer lives, quero apenas gravar aulas e vídeos. Esse curso serve para mim?</span>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-brand-crimson transition-transform duration-300"></i>
+            </button>
+            <div class="faq-content hidden px-5 pb-5 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-brand-surfaceBorder/60 pt-3">
+              Com certeza! O OBS Studio é a melhor ferramenta gratuita do mundo para gravação offline de cursos, tutoriais e apresentações. O curso aborda a gravação local com qualidade máxima em MP4/MKV e transições automáticas de cenas.
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="faq-item glass-panel rounded-xl border-brand-surfaceBorder overflow-hidden">
+            <button type="button" class="faq-toggle w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-white text-sm sm:text-base hover:text-brand-crimson transition-colors" aria-expanded="false">
+              <span>O OBS Studio é pago ou preciso comprar alguma licença?</span>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-brand-crimson transition-transform duration-300"></i>
+            </button>
+            <div class="faq-content hidden px-5 pb-5 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-brand-surfaceBorder/60 pt-3">
+              Não! O OBS Studio é um software 100% gratuito e de código aberto. O valor do nosso produto refere-se ao treinamento passo a passo, às cenas pré-configuradas e aos presets exclusivos desenvolvidos pela Fox Design.
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="faq-item glass-panel rounded-xl border-brand-surfaceBorder overflow-hidden">
+            <button type="button" class="faq-toggle w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-white text-sm sm:text-base hover:text-brand-crimson transition-colors" aria-expanded="false">
+              <span>Como recebo o acesso ao curso e aos arquivos?</span>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-brand-crimson transition-transform duration-300"></i>
+            </button>
+            <div class="faq-content hidden px-5 pb-5 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-brand-surfaceBorder/60 pt-3">
+              Assim que seu pagamento for aprovado pelo SparkPay (Pix e Cartão liberam em menos de 1 minuto), você recebe seus dados de acesso por e-mail para entrar imediatamente na área de membros da HeroSpark e baixar os packs.
+            </div>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="faq-item glass-panel rounded-xl border-brand-surfaceBorder overflow-hidden">
+            <button type="button" class="faq-toggle w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-white text-sm sm:text-base hover:text-brand-crimson transition-colors" aria-expanded="false">
+              <span>Por quanto tempo terei acesso às aulas?</span>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-brand-crimson transition-transform duration-300"></i>
+            </button>
+            <div class="faq-content hidden px-5 pb-5 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-brand-surfaceBorder/60 pt-3">
+              O seu acesso é vitalício! Você poderá assistir no seu próprio ritmo, rever quando quiser e baixar todas as futuras atualizações dos arquivos da Fox Design.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- WhatsApp Help Card -->
+        <div class="mt-12 p-6 rounded-2xl bg-brand-surface border border-brand-surfaceBorder flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+              <i data-lucide="message-circle" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-white text-sm">Ainda ficou com alguma dúvida específica?</h4>
+              <p class="text-xs text-neutral-400">Fale diretamente com nossa equipe da Fox Design no WhatsApp.</p>
+            </div>
+          </div>
+          <a href="https://api.whatsapp.com/send?phone=5516997149568&text=Ol%C3%A1%2C%20fiquei%20com%20d%C3%BAvidas%20sobre%20o%20seu%20produto%20OBS%20PARA%20STREAMERS" target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider transition-colors shrink-0 shadow-md">
+            <span>Conversar no WhatsApp</span>
+            <i data-lucide="external-link" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         FINAL CALL TO ACTION
+    ======================================================== -->
+    <section class="py-20 bg-gradient-to-b from-brand-surface to-brand-obsidian border-t border-brand-surfaceBorder/60 text-center relative overflow-hidden">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-6">
+        <h2 class="font-heading font-black text-3xl sm:text-4xl md:text-5xl text-white tracking-tight">
+          Sua próxima live ou aula com <br>
+          <span class="text-yellow-400">padrão profissional de estúdio.</span>
+        </h2>
+        <p class="text-neutral-300 text-base max-w-2xl mx-auto">
+          Economize semanas de testes frustrantes. Garanta o OBS já configurado da Fox Design por apenas R$ 79,90.
+        </p>
+        <div class="pt-4">
+          <a href="https://pay.herospark.com/obs-para-streamers-543739" target="_blank" rel="noopener noreferrer"
+             class="group inline-flex items-center justify-center gap-3 px-10 py-5 rounded-2xl bg-gradient-to-r from-emerald-500 via-green-600 to-emerald-500 hover:from-green-600 hover:to-emerald-500 text-white font-heading font-black text-lg sm:text-xl tracking-wider uppercase shadow-glow-green hover:shadow-glow-green-lg transition-all duration-300 transform hover:-translate-y-1">
+            <span>QUERO COMEÇAR AGORA POR R$ 79,90</span>
+            <i data-lucide="arrow-right" class="w-6 h-6 group-hover:translate-x-1.5 transition-transform"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================
+       FOOTER
+  ======================================================== -->
+  <footer class="border-t border-brand-surfaceBorder bg-black py-12 text-xs text-neutral-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      
+      <div class="flex items-center gap-3">
+        <img src="assets/images/fox-logo.png" alt="Fox Design" class="h-9 w-9 object-contain">
+        <span class="font-heading font-bold text-white text-sm">FOX DESIGN</span>
+        <span class="text-neutral-600">|</span>
+        <span>OBS para Streamers &copy; 2026</span>
+      </div>
+
+      <div class="flex items-center gap-6 text-neutral-400">
+        <a href="https://herospark.com/termo-de-compra-sparkpay" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Termos de Compra</a>
+        <a href="https://herospark.com/politicas-de-privacidade-2" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Privacidade</a>
+        <a href="https://api.whatsapp.com/send?phone=5516997149568" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-400 transition-colors flex items-center gap-1">
+          <i data-lucide="message-circle" class="w-3.5 h-3.5"></i> Suporte
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ========================================================
+       FLOATING WHATSAPP BUTTON
+  ======================================================== -->
+  <aside aria-label="Suporte rápido via WhatsApp" class="fixed bottom-6 right-6 z-50">
+    <a href="https://api.whatsapp.com/send?phone=5516997149568&text=Ol%C3%A1%2C%20fiquei%20com%20d%C3%BAvidas%20sobre%20o%20seu%20produto%20OBS%20PARA%20STREAMERS" 
+       target="_blank" rel="noopener noreferrer"
+       class="w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300"
+       title="Falar no WhatsApp" aria-label="Abrir conversa no WhatsApp">
+      <i data-lucide="message-circle" class="w-7 h-7"></i>
+    </a>
+  </aside>
+
+  <!-- ========================================================
+       SCRIPTS: LUCIDE ICONS & INTERACTIVE ACCORDION
+  ======================================================== -->
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // FAQ Accordion interaction
+    document.querySelectorAll('.faq-toggle').forEach(button => {
+      button.addEventListener('click', () => {
+        const item = button.closest('.faq-item');
+        const content = item.querySelector('.faq-content');
+        const chevron = button.querySelector('[data-lucide="chevron-down"]');
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+        // Close other items
+        document.querySelectorAll('.faq-item').forEach(otherItem => {
+          if (otherItem !== item) {
+            const otherBtn = otherItem.querySelector('.faq-toggle');
+            const otherContent = otherItem.querySelector('.faq-content');
+            const otherChevron = otherItem.querySelector('[data-lucide="chevron-down"]');
+            if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+            if (otherContent) otherContent.classList.add('hidden');
+            if (otherChevron) otherChevron.style.transform = 'rotate(0deg)';
+          }
+        });
+
+        // Toggle current item
+        if (isExpanded) {
+          button.setAttribute('aria-expanded', 'false');
+          content.classList.add('hidden');
+          if (chevron) chevron.style.transform = 'rotate(0deg)';
+        } else {
+          button.setAttribute('aria-expanded', 'true');
+          content.classList.remove('hidden');
+          if (chevron) chevron.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
