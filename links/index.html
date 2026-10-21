@@ -227,7 +227,17 @@
         .link-card.pulse-btn:hover {
             animation: none;
             transform: scale(1.02);
+        }
+        .link-card.featured.pulse-btn:hover {
             background: #d40c4e;
+        }
+        .link-card:not(.featured).pulse-btn {
+            border-color: rgba(246, 14, 90, 0.4);
+        }
+        .link-card:not(.featured).pulse-btn:hover {
+            background: rgba(246, 14, 90, 0.15);
+            border-color: var(--fox-orange);
+            box-shadow: 0 10px 30px rgba(246, 14, 90, 0.3);
         }
 
         .footer {
@@ -283,7 +293,7 @@
         </a>
 
         <!-- Curso OBS Para Streamers -->
-        <a href="https://obs.agenciafoxdesign.com.br" class="link-card" target="_blank">
+        <a href="https://obs.agenciafoxdesign.com.br" class="link-card pulse-btn" target="_blank">
             <img src="../assets/btn-icon.png" alt="OBS Para Streamers" class="link-icon-img" onerror="this.onerror=null; this.src='../obs-para-streamers/assets/images/btn-icon.png';">
             <span class="link-text">CURSO OBS PARA STREAMERS</span>
             <i data-lucide="chevron-right"></i>
