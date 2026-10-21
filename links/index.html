@@ -167,16 +167,29 @@
             box-shadow: 0 10px 30px rgba(246, 14, 90, 0.2);
         }
 
-        .link-card i {
+        .link-card i, .link-card svg, .link-card .link-icon-img {
             width: 20px;
             height: 20px;
             color: var(--fox-orange);
             transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
-        .link-card:hover i {
+        .link-card .link-icon-img {
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        .link-card:hover i, .link-card:hover svg {
             transform: scale(1.2);
             color: var(--white);
+        }
+
+        .link-card:hover .link-icon-img {
+            transform: scale(1.2);
         }
 
         .link-text {
@@ -267,6 +280,13 @@
             <i data-lucide="shopping-bag"></i>
             <span class="link-text">LOJA OFICIAL</span>
             <i data-lucide="external-link" style="opacity: 0.5; width: 14px;"></i>
+        </a>
+
+        <!-- Curso OBS Para Streamers -->
+        <a href="https://obs.agenciafoxdesign.com.br" class="link-card" target="_blank">
+            <img src="../assets/btn-icon.png" alt="OBS Para Streamers" class="link-icon-img" onerror="this.onerror=null; this.src='../obs-para-streamers/assets/images/btn-icon.png';">
+            <span class="link-text">CURSO OBS PARA STREAMERS</span>
+            <i data-lucide="chevron-right"></i>
         </a>
 
         <!-- WhatsApp (Destaque) -->
