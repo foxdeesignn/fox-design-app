@@ -3,6 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Google tag (gtag.js) GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T1L37WKNNC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-T1L37WKNNC');
+  </script>
   <title>OBS Para Streamers | Fox Design</title>
   <meta name="description" content="Tenha um OBS Studio completo, otimizado e pronto para usar, com layouts profissionais nos formatos horizontal e vertical para YouTube, Twitch, TikTok e Reels.">
   <meta property="og:title" content="OBS Para Streamers | O Método Plug & Play da Fox Design">
@@ -1137,6 +1147,24 @@
           button.setAttribute('aria-expanded', 'true');
           content.classList.remove('hidden');
           if (chevron) chevron.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+
+    // GA4 Track Purchase Button Clicks (begin_checkout)
+    document.querySelectorAll('a[href*="pay.herospark.com"]').forEach(button => {
+      button.addEventListener('click', () => {
+        if (typeof gtag === 'function') {
+          gtag('event', 'begin_checkout', {
+            item_name: 'OBS para Streamers',
+            value: 79.90,
+            currency: 'BRL',
+            items: [{
+              item_name: 'OBS para Streamers',
+              price: 79.90,
+              quantity: 1
+            }]
+          });
         }
       });
     });
