@@ -266,11 +266,27 @@
               </div>
             </div>
 
-            <!-- Product Cover Image (Clean display without overlapping stickers) -->
-            <div class="relative rounded-xl overflow-hidden aspect-video bg-black/90 group shadow-inner">
-              <img src="assets/images/hero-mockup.jpg?v=2" 
+            <!-- Product Video / Cover Showcase -->
+            <div id="video-container" onclick="playHeroVideo()" class="relative rounded-xl overflow-hidden aspect-video bg-black/90 group shadow-inner cursor-pointer" title="Clique para assistir ao vídeo">
+              <!-- Cover image -->
+              <img id="video-cover" src="assets/images/hero-mockup.jpg?v=2" 
                    alt="OBS Para Streamers Fox Design" 
                    class="w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-700">
+              
+              <!-- Dark overlay + Animated Play Trigger -->
+              <div class="absolute inset-0 bg-black/35 group-hover:bg-black/20 transition-colors flex flex-col items-center justify-center gap-3">
+                <div class="relative flex items-center justify-center">
+                  <div class="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-red-600/40 animate-ping pointer-events-none"></div>
+                  <button type="button" aria-label="Assistir apresentação do curso" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-r from-red-600 via-brand-crimson to-red-600 text-white flex items-center justify-center shadow-[0_0_35px_rgba(220,19,66,0.6)] group-hover:scale-110 active:scale-95 transition-all duration-300 border-2 border-white/40">
+                    <svg class="w-7 h-7 sm:w-9 sm:h-9 fill-current translate-x-0.5" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </button>
+                </div>
+                <span class="text-xs sm:text-sm font-bold text-white uppercase tracking-wider bg-black/70 backdrop-blur-md px-3.5 py-1 rounded-full border border-white/20 shadow-lg group-hover:border-white/40 transition-colors">
+                  Assistir Apresentação
+                </span>
+              </div>
             </div>
 
             <!-- Feature Pillars Under Mockup -->
@@ -1115,6 +1131,21 @@
        SCRIPTS: LUCIDE ICONS & INTERACTIVE ACCORDION
   ======================================================== -->
   <script>
+    // Video Player Trigger (Keep cover, play on click)
+    function playHeroVideo() {
+      const container = document.getElementById('video-container');
+      if (!container) return;
+      container.onclick = null;
+      container.classList.remove('cursor-pointer');
+      container.innerHTML = '<iframe src="https://www.youtube.com/embed/o6P42c153pM?autoplay=1&rel=0&modestbranding=1" title="Apresentação OBS para Streamers" class="w-full h-full absolute inset-0 border-0 rounded-xl" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+      if (typeof gtag === 'function') {
+        gtag('event', 'video_play', {
+          video_title: 'Apresentação OBS para Streamers',
+          video_url: 'https://youtu.be/o6P42c153pM'
+        });
+      }
+    }
+
     // Initialize Lucide icons
     lucide.createIcons();
 
