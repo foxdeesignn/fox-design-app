@@ -32,7 +32,7 @@
 1. **`fox-logo.png`** (512x512) — Logotipo oficial expandido na Navbar e Rodapé com texto "OBS para Streamers".
 2. **`favicon.png`** (64x64) — Ícone oficial na aba do navegador.
 3. **`og-banner.jpg`** (1200x630) — Preview automático em redes sociais e WhatsApp.
-4. **`hero-mockup.jpg`** (1920x1080) — Mockup principal com arte oficial do estúdio e logo 3D do OBS.
+4. **`hero-mockup.jpg`** (1920x1080) — Capa interativa oficial do estúdio e logo 3D do OBS com player de vídeo integrado (`https://youtu.be/o6P42c153pM` com lazy-load e acionamento instantâneo no clique).
 5. **`btn-icon.png`** (128x128) — Ícone proprietário da Fox Design no botão da Navbar, ampliado em 10% (escala de 21px).
 6. **`modulo-00.jpg`** (600x400) — Banner do módulo *"Comece por Aqui"*.
 7. **`modulo-01.jpg`** (600x400) — Banner do *"Módulo 01: Importando e Instalando Tudo!"*.
@@ -46,3 +46,5 @@
 * **Checkout HeroSpark:** `https://pay.herospark.com/obs-para-streamers-543739`
 * **WhatsApp de Suporte Integrado:** `(16) 99714-9568`
 * **Estrutura de Blocos:** Top Ticker Neutro ➔ Navbar com Ícone Personalizado ➔ Hero Centralizada ➔ Mockup com Halo Prateado ➔ Dores do Criador ➔ Método Plug & Play ➔ Grade dos 4 Módulos ➔ 3 Bônus ➔ Segmentação de Público ➔ Oferta R$ 79,90 ➔ FAQ Interativo com Accordion ➔ Rodapé Oficial e Widget WhatsApp Flutuante.
+
+* **Google Analytics 4 (GA4):** ID G-T1L37WKNNC ativo com rastreamento de PageViews e evento de checkout (egin_checkout no valor de R$ 79,90).
